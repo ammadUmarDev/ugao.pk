@@ -10,7 +10,6 @@ import 'package:ugao/components/rounded_button.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/rounded_password_field.dart';
 import 'package:ugao/constants.dart';
-import 'package:ugao/screens/login/Login_Provider/login_provider.dart';
 import 'package:ugao/screens/login/components/Login_Credentials.dart';
 import 'background.dart';
 
@@ -23,61 +22,58 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return ChangeNotifierProvider(
-      create: (context) => Login_Provider(),
-      child: Background(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: size.height * 0.05),
-              Text(
-                "LOGIN",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: size.height * 0.05),
-              Image.asset(
-                "assets/images/bgloginsignup.png",
-                width: double.infinity,
-                height: size.height * 0.35,
-              ),
-              SizedBox(height: size.height * 0.05),
-              RoundedInputField(
-                hintText: "Your CNIC",
-                onChanged: (value) {
-                  this.lobject.cnic = value;
-                },
-              ),
-              RoundedPasswordField(
-                onChanged: (value) {
-                  this.lobject.password = value;
-                },
-              ),
-              RoundedButton(
-                text: "LOGIN",
-                color: kPrimaryAccentColor,
-                press: () {
-                  Provider.of<General_Provider>(context, listen: false)
-                      .login(lobject, context);
+    return Background(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(height: size.height * 0.05),
+            Text(
+              "LOGIN",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: size.height * 0.05),
+            Image.asset(
+              "assets/images/bgloginsignup.png",
+              width: double.infinity,
+              height: size.height * 0.35,
+            ),
+            SizedBox(height: size.height * 0.05),
+            RoundedInputField(
+              hintText: "Your CNIC",
+              onChanged: (value) {
+                this.lobject.cnic = value;
+              },
+            ),
+            RoundedPasswordField(
+              onChanged: (value) {
+                this.lobject.password = value;
+              },
+            ),
+            RoundedButton(
+              text: "LOGIN",
+              color: kPrimaryAccentColor,
+              press: () {
+                Provider.of<General_Provider>(context, listen: false)
+                    .login(lobject, context);
 
-                  //Navigator.pushNamed(context, "homePage");
-                },
-              ),
-              SizedBox(height: size.height * 0.03),
-              AlreadyHaveAnAccountCheck(
-                press: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return SignUpScreen();
-                      },
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
+                //Navigator.pushNamed(context, "homePage");
+              },
+            ),
+            SizedBox(height: size.height * 0.03),
+            AlreadyHaveAnAccountCheck(
+              press: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return SignUpScreen();
+                    },
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

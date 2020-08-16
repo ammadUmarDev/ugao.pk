@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ugao/Providers/general_provider.dart';
-import 'package:ugao/screens/login/Login_Provider/login_provider.dart';
 import 'package:ugao/screens/login/login_screen.dart';
 import 'package:ugao/screens/signup/signup_screen.dart';
 import 'package:ugao/screens/signupfollowup/signup_screen_followup.dart';
