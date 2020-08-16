@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
+import 'package:provider/provider.dart';
+import 'package:ugao/Classes/Customer_Model.dart';
+import 'package:ugao/Classes/Farmer_Model.dart';
+import 'package:ugao/Classes/Supplier_Model.dart';
+import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/Screens/Login/login_screen.dart';
 import 'package:ugao/components/already_have_an_account_acheck.dart';
 import 'package:ugao/components/h1.dart';
@@ -11,17 +16,18 @@ import 'package:ugao/constants.dart';
 import 'components/background.dart';
 
 class SignUpScreenFollowup extends StatefulWidget {
+  //General Signup
+  final String fullName;
+  final String cnic;
+  final String password;
+  final String userType;
+
   SignUpScreenFollowup({
     this.fullName,
     this.cnic,
     this.password,
     this.userType,
   });
-  //General Signup
-  final String fullName;
-  final String cnic;
-  final String password;
-  final String userType;
 
   @override
   _SignUpScreenFollowupState createState() => _SignUpScreenFollowupState();
@@ -29,14 +35,8 @@ class SignUpScreenFollowup extends StatefulWidget {
 
 class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
   //Farmer Signup
-  String fExperience;
-  String fAddress;
-  String fService;
-  String fCategory;
-  String fCrops;
-  String fAnimals;
-  String fFreshProduce;
-  String fDairy;
+  Farmer fobject = new Farmer();
+
   List<String> fServices = <String>[
     'Pickup',
     'Delivery',
@@ -48,22 +48,13 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
   ];
 
   //Customer
-  String cAccountType;
+  Customer cobject = new Customer();
   List<String> cAccountTypes = [
     'Individual',
     'Commercial',
   ];
-  String cPhoneNumber;
-  String ccName;
-  String ccPhoneNumber;
-  String ccWebsite;
-
   //Supplier
-  String scExperience;
-  String sPhoneNumber;
-  String sAddress;
-  String sType;
-  List<String> sSelectedTypes;
+  Supplier sobject = new Supplier();
   List<String> sTypes = [
     'Fertilizer',
     'Pesticide',
@@ -78,8 +69,8 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
 
     //Farmer
     Widget FProductTypeFollowUp() {
-      if (fCategory == null) return SizedBox(height: 1);
-      if (fCategory == "Raw Product")
+      if (fobject.fCategory == null) return SizedBox(height: 1);
+      if (fobject.fCategory == "Raw Product")
         return Column(
           children: <Widget>[
             RoundedInputField(
@@ -87,7 +78,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
               icon: Icons.local_florist,
               onChanged: (value) {
                 setState(() {
-                  fCrops = value;
+                  fobject.fCrops = value;
                 });
               },
             ),
@@ -96,27 +87,27 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
               icon: Icons.local_florist,
               onChanged: (value) {
                 setState(() {
-                  fAnimals = value;
+                  fobject.fAnimals = value;
                 });
               },
             ),
           ],
         );
-      if (fCategory == "End Product")
+      if (fobject.fCategory == "End Product")
         return Column(
           children: <Widget>[
             RoundedInputField(
               hintText: "Fresh Produce (Fruits and Vegetables):",
               icon: Icons.panorama_wide_angle,
               onChanged: (value) {
-                fFreshProduce = value;
+                fobject.fFreshProduce = value;
               },
             ),
             RoundedInputField(
               hintText: "Dairy:",
               icon: Icons.panorama_wide_angle,
               onChanged: (value) {
-                fDairy = value;
+                fobject.fDairy = value;
               },
             ),
           ],
@@ -143,14 +134,14 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
             hintText: "Years of Experience",
             icon: Icons.donut_large,
             onChanged: (value) {
-              fExperience = value;
+              fobject.fExperience = value;
             },
           ),
           RoundedInputField(
             hintText: "Address/Location",
             icon: Icons.pin_drop,
             onChanged: (value) {
-              fAddress = value;
+              fobject.fAddress = value;
             },
           ),
           Container(
@@ -173,10 +164,10 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
                     "Service Type",
                     style: TextStyle(fontSize: 15.5),
                   ),
-                  value: fService,
+                  value: fobject.fService,
                   onChanged: (String value) {
                     setState(() {
-                      fService = value;
+                      fobject.fService = value;
                     });
                   },
                   items: fServices.map((String user) {
@@ -218,10 +209,10 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
                     "Produce Type",
                     style: TextStyle(fontSize: 15.5),
                   ),
-                  value: fCategory,
+                  value: fobject.fCategory,
                   onChanged: (String value) {
                     setState(() {
-                      fCategory = value;
+                      fobject.fCategory = value;
                     });
                   },
                   items: fCategories.map((String user) {
@@ -247,7 +238,15 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
           RoundedButton(
             text: "SIGNUP",
             press: () {
-              Navigator.pushNamed(context, "signupScreen2");
+              Provider.of<General_Provider>(context, listen: false).sign_Up(
+                  widget.cnic,
+                  widget.fullName,
+                  widget.password,
+                  widget.userType,
+                  this.fobject,
+                  this.sobject,
+                  this.cobject);
+              print("Hello Ibrar");
             },
           ),
           SizedBox(height: size.height * 0.02),
@@ -299,7 +298,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
               'Farm Tools and Machinery',
             ],
             onSelected: (List<String> checked) {
-              sSelectedTypes = checked;
+              sobject.sSelectedTypes = checked;
             },
           ),
           RoundedInputField(
@@ -307,7 +306,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
             icon: Icons.local_florist,
             onChanged: (value) {
               setState(() {
-                scExperience = value;
+                sobject.scExperience = value;
               });
             },
           ),
@@ -316,7 +315,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
             icon: Icons.local_florist,
             onChanged: (value) {
               setState(() {
-                sPhoneNumber = value;
+                sobject.sPhoneNumber = value;
               });
             },
           ),
@@ -325,14 +324,22 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
             icon: Icons.local_florist,
             onChanged: (value) {
               setState(() {
-                scExperience = value;
+                sobject.sAddress = value;
               });
             },
           ),
           RoundedButton(
             text: "SIGNUP",
             press: () {
-              Navigator.pushNamed(context, "signupScreen2");
+              Provider.of<General_Provider>(context, listen: false).sign_Up(
+                  widget.cnic,
+                  widget.fullName,
+                  widget.password,
+                  widget.userType,
+                  this.fobject,
+                  this.sobject,
+                  this.cobject);
+              print("Hello Ibrar");
             },
           ),
           SizedBox(height: size.height * 0.02),
@@ -356,8 +363,8 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
 
     //Customer
     Widget CCustomerTypeFollowUp() {
-      if (cAccountType == null) return SizedBox(height: 1);
-      if (cAccountType == "Individual")
+      if (cobject.cAccountType == null) return SizedBox(height: 1);
+      if (cobject.cAccountType == "Individual")
         return Column(
           children: <Widget>[
             RoundedInputField(
@@ -365,13 +372,13 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
               icon: Icons.local_florist,
               onChanged: (value) {
                 setState(() {
-                  cPhoneNumber = value;
+                  cobject.cPhoneNumber = value;
                 });
               },
             ),
           ],
         );
-      if (cAccountType == "Commercial")
+      if (cobject.cAccountType == "Commercial")
         return Column(
           children: <Widget>[
             RoundedInputField(
@@ -379,7 +386,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
               icon: Icons.panorama_wide_angle,
               onChanged: (value) {
                 setState(() {
-                  ccName = value;
+                  cobject.ccName = value;
                 });
               },
             ),
@@ -387,14 +394,14 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
               hintText: "Company Phone Number:",
               icon: Icons.panorama_wide_angle,
               onChanged: (value) {
-                ccPhoneNumber = value;
+                cobject.ccPhoneNumber = value;
               },
             ),
             RoundedInputField(
               hintText: "Company Website (optional):",
               icon: Icons.panorama_wide_angle,
               onChanged: (value) {
-                ccWebsite = value;
+                cobject.ccWebsite = value;
               },
             ),
           ],
@@ -437,10 +444,10 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
                     "Account Type",
                     style: TextStyle(fontSize: 15.5),
                   ),
-                  value: cAccountType,
+                  value: cobject.cAccountType,
                   onChanged: (String value) {
                     setState(() {
-                      cAccountType = value;
+                      cobject.cAccountType = value;
                     });
                   },
                   items: cAccountTypes.map((String user) {
@@ -466,7 +473,15 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
           RoundedButton(
             text: "SIGNUP",
             press: () {
-              Navigator.pushNamed(context, "signupScreen2");
+              Provider.of<General_Provider>(context, listen: false).sign_Up(
+                  widget.cnic,
+                  widget.fullName,
+                  widget.password,
+                  widget.userType,
+                  this.fobject,
+                  this.sobject,
+                  this.cobject);
+              print("Hello Ibrar");
             },
           ),
           SizedBox(height: size.height * 0.02),

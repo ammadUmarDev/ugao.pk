@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "526013074428",
+    "firebase_url": "https://ugao-58f32.firebaseio.com",
+    "project_id": "ugao-58f32",
+    "storage_bucket": "ugao-58f32.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526013074428:android:3dd16683357a10f2398079",
+        "android_client_info": {
+          "package_name": "com.vectech.ugao"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "526013074428-annvnp684a2p10a3joe08f9eefdnejbu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vectech.ugao",
+            "certificate_hash": "5d2e537127055c16f8f2aa847c4ce727dd234276"
+          }
+        },
+        {
+          "client_id": "526013074428-ac0p9ie5k07302tu7de0a02srev2a1vt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCt5d_QwlK-teC5lT-n6XQn7zl0weu5UeY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "526013074428-ac0p9ie5k07302tu7de0a02srev2a1vt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

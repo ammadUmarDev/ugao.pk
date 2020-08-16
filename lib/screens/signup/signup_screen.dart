@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/rounded_password_field.dart';
 import 'components/background.dart';
@@ -145,8 +146,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Widget DropdownField(
-      BuildContext, Size size, String value, List<String> valuesList) {
+      BuildContext context, Size size, String value, List<String> valuesList) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
