@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:ugao/Classes/Customer_Model.dart';
 import 'package:ugao/Classes/Farmer_Model.dart';
@@ -7,7 +6,6 @@ import 'package:ugao/Classes/Firebase_Model.dart';
 import 'package:ugao/Classes/Supplier_Model.dart';
 import 'package:ugao/Classes/User_Model.dart';
 import 'package:ugao/screens/login/components/Login_Credentials.dart';
-import 'package:ugao/screens/login/login_screen.dart';
 
 // ignore: camel_case_types
 class General_Provider extends ChangeNotifier {
@@ -78,6 +76,7 @@ class General_Provider extends ChangeNotifier {
         await this.firebase_object.login_up(lobj.cnic, lobj.password, context);
     if (check == true) {
       this.user.print_user();
+      return true;
     }
   }
 }

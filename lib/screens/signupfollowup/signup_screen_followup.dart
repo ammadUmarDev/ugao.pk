@@ -10,7 +10,6 @@ import 'package:ugao/components/already_have_an_account_acheck.dart';
 import 'package:ugao/components/h1.dart';
 import 'package:ugao/components/rounded_button.dart';
 import 'package:ugao/components/rounded_input_field.dart';
-import 'package:ugao/components/rounded_password_field.dart';
 import 'package:ugao/constants.dart';
 
 import 'components/background.dart';
@@ -237,16 +236,28 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
           FProductTypeFollowUp(),
           RoundedButton(
             text: "SIGNUP",
-            press: () {
-              Provider.of<General_Provider>(context, listen: false).sign_Up(
-                  widget.cnic,
-                  widget.fullName,
-                  widget.password,
-                  widget.userType,
-                  this.fobject,
-                  this.sobject,
-                  this.cobject);
+            press: () async {
+              var check =
+                  await Provider.of<General_Provider>(context, listen: false)
+                      .sign_Up(
+                          widget.cnic,
+                          widget.fullName,
+                          widget.password,
+                          widget.userType,
+                          this.fobject,
+                          this.sobject,
+                          this.cobject);
               print("Hello Ibrar");
+              if (check = true) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return LoginScreen();
+                    },
+                  ),
+                );
+              }
             },
           ),
           SizedBox(height: size.height * 0.02),
@@ -330,16 +341,29 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
           ),
           RoundedButton(
             text: "SIGNUP",
-            press: () {
-              Provider.of<General_Provider>(context, listen: false).sign_Up(
-                  widget.cnic,
-                  widget.fullName,
-                  widget.password,
-                  widget.userType,
-                  this.fobject,
-                  this.sobject,
-                  this.cobject);
+            press: () async {
+              var check =
+                  await Provider.of<General_Provider>(context, listen: false)
+                      .sign_Up(
+                widget.cnic,
+                widget.fullName,
+                widget.password,
+                widget.userType,
+                this.fobject,
+                this.sobject,
+                this.cobject,
+              );
               print("Hello Ibrar");
+              if (check == true) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return LoginScreen();
+                    },
+                  ),
+                );
+              }
             },
           ),
           SizedBox(height: size.height * 0.02),
@@ -472,16 +496,27 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
           CCustomerTypeFollowUp(),
           RoundedButton(
             text: "SIGNUP",
-            press: () {
-              Provider.of<General_Provider>(context, listen: false).sign_Up(
-                  widget.cnic,
-                  widget.fullName,
-                  widget.password,
-                  widget.userType,
-                  this.fobject,
-                  this.sobject,
-                  this.cobject);
-              print("Hello Ibrar");
+            press: () async {
+              var check =
+                  await Provider.of<General_Provider>(context, listen: false)
+                      .sign_Up(
+                          widget.cnic,
+                          widget.fullName,
+                          widget.password,
+                          widget.userType,
+                          this.fobject,
+                          this.sobject,
+                          this.cobject);
+              if (check == true) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return LoginScreen();
+                    },
+                  ),
+                );
+              }
             },
           ),
           SizedBox(height: size.height * 0.02),

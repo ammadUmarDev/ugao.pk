@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:ugao/components/rounded_button.dart';
 import '../../../constants.dart';
 import 'background.dart';

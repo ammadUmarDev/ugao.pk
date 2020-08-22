@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 import 'package:provider/provider.dart';
 import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/Screens/Signup/signup_screen.dart';
@@ -10,6 +8,7 @@ import 'package:ugao/components/rounded_button.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/rounded_password_field.dart';
 import 'package:ugao/constants.dart';
+import 'package:ugao/screens/dashboard/dashboard.dart';
 import 'package:ugao/screens/login/components/Login_Credentials.dart';
 import 'background.dart';
 
@@ -53,10 +52,20 @@ class Body extends StatelessWidget {
             RoundedButton(
               text: "LOGIN",
               color: kPrimaryAccentColor,
-              press: () {
-                Provider.of<General_Provider>(context, listen: false)
-                    .login(lobject, context);
-
+              press: () async {
+                var check =
+                    await Provider.of<General_Provider>(context, listen: false)
+                        .login(lobject, context);
+                if (check = true) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return DashBoard();
+                      },
+                    ),
+                  );
+                }
                 //Navigator.pushNamed(context, "homePage");
               },
             ),
