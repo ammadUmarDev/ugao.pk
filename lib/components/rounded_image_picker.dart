@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ugao/components/text_field_container.dart';
 
+//TODO: add support to select multiple images
+
 class RoundedImagePicker extends StatefulWidget {
   final String hintText;
   RoundedImagePicker({this.hintText="Pick an Image"});
