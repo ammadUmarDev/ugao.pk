@@ -1,12 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ugao/components/rounded_image_picker.dart';
 
-import '../../components/drop_down_field.dart';
-import '../../components/rounded_button.dart';
-import '../../components/rounded_input_field.dart';
-import '../../components/rounded_input_field.dart';
-import '../../components/rounded_input_field.dart';
-import '../../components/rounded_input_field.dart';
 import '../../components/rounded_input_field.dart';
 
 class AddProduct extends StatefulWidget {
@@ -15,6 +10,8 @@ class AddProduct extends StatefulWidget {
 }
 
 class _AddProductState extends State<AddProduct> {
+  RoundedImagePicker roundedImagePicker = RoundedImagePicker(hintText: "Product Image",);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +47,9 @@ class _AddProductState extends State<AddProduct> {
                     icon: Icons.keyboard, //TODO: find appropriate icon
                   ),
                   //TODO: add dropdown to select category
-                  //TODO: create image picker for product image
+                  roundedImagePicker,
+                  //TODO: add dropdown to select service type
+                  //_image == null ? Container() : Image.file(_image),
                 ],
               ),
             ],
