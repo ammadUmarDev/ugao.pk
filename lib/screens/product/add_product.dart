@@ -10,7 +10,34 @@ class AddProduct extends StatefulWidget {
 }
 
 class _AddProductState extends State<AddProduct> {
-  RoundedImagePicker roundedImagePicker = RoundedImagePicker(hintText: "Product Image",);
+  RoundedImagePicker roundedImagePicker = RoundedImagePicker(
+    hintText: "Product Image",
+  );
+  RoundedInputField productName = RoundedInputField(
+    hintText: "Product Name",
+    icon: Icons.keyboard,
+  );
+  RoundedInputField productDescription = RoundedInputField(
+    //keyboardType: TextInputType.multiline,
+    hintText: "Product Description",
+    icon: Icons.keyboard,
+  );
+  RoundedInputField productPrice = RoundedInputField(
+    keyboardType: TextInputType.number,
+    hintText: "Price",
+    icon: Icons.keyboard, //TODO: find appropriate icon
+  );
+  RoundedInputField productQuantity = RoundedInputField(
+    keyboardType: TextInputType.number,
+    hintText: "Quantity",
+    icon: Icons.keyboard,
+  );
+  RoundedInputField productWeight = RoundedInputField(
+    keyboardType: TextInputType.number,
+    //TODO: add option to select weight unit
+    hintText: "Weight",
+    icon: Icons.keyboard, //TODO: find appropriate icon
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -21,31 +48,12 @@ class _AddProductState extends State<AddProduct> {
             children: [
               ListView(
                 children: [
-                  RoundedInputField(
-                    hintText: "Product Name",
-                    icon: Icons.keyboard,
-                  ),
-                  RoundedInputField(
-                    hintText: "Product Description",
-                    icon: Icons.keyboard,
-                  ),
+                  productName,
+                  productDescription,
                   //TODO: add dropdown to select type of price here. options: ["Per Unit Price", "Bulk Price"]
-                  RoundedInputField(
-                    //TODO: limit to integer only input
-                    hintText: "Price",
-                    icon: Icons.keyboard, //TODO: find appropriate icon
-                  ),
-                  RoundedInputField(
-                    //TODO: limit to integer only input
-                    hintText: "Quantity",
-                    icon: Icons.keyboard,
-                  ),
-                  RoundedInputField(
-                    //TODO: limit to integer only input
-                    //TODO: add option to select weight unit
-                    hintText: "Weight",
-                    icon: Icons.keyboard, //TODO: find appropriate icon
-                  ),
+                  productPrice,
+                  productQuantity,
+                  productWeight,
                   //TODO: add dropdown to select category
                   roundedImagePicker,
                   //TODO: add dropdown to select service type
