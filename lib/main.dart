@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/screens/dashboard/dashboard.dart';
-import 'file:///C:/Users/Ammad/AndroidStudioProjects/ugao.pk/lib/screens/dashboard/dashboard_customer_screen.dart';
-import 'file:///C:/Users/Ammad/AndroidStudioProjects/ugao.pk/lib/screens/dashboard/dashboard_supplier_screen.dart';
+import 'package:ugao/screens/dashboard/dashboard_customer_screen.dart';
+import 'package:ugao/screens/dashboard/dashboard_supplier_screen.dart';
 import 'package:ugao/screens/login/login_screen.dart';
 import 'package:ugao/screens/signup/signup_screen.dart';
 import 'package:ugao/screens/signupfollowup/signup_screen_followup.dart';
