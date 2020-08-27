@@ -86,8 +86,10 @@ class Firebase {
     }
   }
 
-  Future<String> upload_file(File file/*, BuildContext context*/) async {
+  Future<String> upload_file(File file /*, BuildContext context*/) async {
     //Path p = new Path();
+    if (this.firebaseStorage == null)
+      this.firebaseStorage = FirebaseStorage.instance;
     StorageReference storageReference = firebaseStorage.ref().child(file.path);
     StorageUploadTask uploadTask = storageReference.putFile(file);
     await uploadTask.onComplete;
@@ -103,7 +105,12 @@ class Firebase {
     User currentUser =
         Provider.of<General_Provider>(context, listen: false).get_user();
     if (this.firestore == null) this.firestore = Firestore.instance;
-    //final imageURL=await upload_file(product.prodImage);
+    String imageURL;
+    //if (product.prodImage != null)
+    //  imageURL = await upload_file(product.prodImage);
+    //else
+    //  imageURL = null;
+    print(imageURL);
     await this
         .firestore
         .collection('Products')
