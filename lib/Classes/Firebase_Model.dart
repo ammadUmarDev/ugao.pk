@@ -120,7 +120,7 @@ class Firebase {
       'Prod_Category': product.prodCategory,
       //'Prod_Image': imageURL,
       'Service_Type': product.serviceType,
-      //'Creator': currentUser,
+      'Creator': currentUser.cnic,
       'Created_Timestamp': DateTime.now(),
     });
     return true;
