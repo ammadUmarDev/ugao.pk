@@ -9,13 +9,14 @@ import 'package:ugao/components/text_field_container.dart';
 
 class RoundedImagePicker extends StatefulWidget {
   final String hintText;
-  RoundedImagePicker({this.hintText="Pick an Image"});
+  final ValueChanged<File> onPicked;
+  RoundedImagePicker({this.hintText="Pick an Image",this.onPicked});
   @override
   _RoundedImagePickerState createState() => _RoundedImagePickerState();
 }
 
 class _RoundedImagePickerState extends State<RoundedImagePicker> {
-  File image;
+  //File image;
   final picker = ImagePicker();
   ImageSource src = ImageSource.gallery;
 
@@ -38,7 +39,7 @@ class _RoundedImagePickerState extends State<RoundedImagePicker> {
     final pickedFile = await picker.getImage(source: this.src);
 
     setState(() {
-      image = File(pickedFile.path);
+      widget.onPicked(File(pickedFile.path));
     });
   }
 

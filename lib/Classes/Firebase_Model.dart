@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -8,6 +10,7 @@ import 'package:ugao/Providers/general_provider.dart';
 
 import 'Customer_Model.dart';
 import 'Farmer_Model.dart';
+import 'Product_Model.dart';
 import 'Supplier_Model.dart';
 
 class Firebase {
@@ -35,7 +38,7 @@ class Firebase {
 
   Future<bool> sign_up(String cnic, String fullname, String pass,
       String usertype, Farmer fobj, Supplier sobj, Customer cobj) async {
-    this.firestore = Firestore.instance;
+    if (this.firestore == null) this.firestore = Firestore.instance;
     if (usertype == 'Farmer') {
       await this.firestore.collection('Users').document(cnic).setData({
         'Full_Name': fullname.toString(),
@@ -83,10 +86,50 @@ class Firebase {
     }
   }
 
+  Future<String> upload_file(File file/*, BuildContext context*/) async {
+    //Path p = new Path();
+    StorageReference storageReference = firebaseStorage.ref().child(file.path);
+    StorageUploadTask uploadTask = storageReference.putFile(file);
+    await uploadTask.onComplete;
+    print('File Uploaded');
+    storageReference.getDownloadURL().then((fileURL) {
+      //setState(() {
+      return fileURL;
+      //});
+    });
+  }
+
+  Future<bool> add_a_product(Product product, BuildContext context) async {
+    User currentUser =
+        Provider.of<General_Provider>(context, listen: false).get_user();
+    if (this.firestore == null) this.firestore = Firestore.instance;
+    //final imageURL=await upload_file(product.prodImage);
+    await this
+        .firestore
+        .collection('Products')
+        .document(currentUser.cnic.toString() +
+            DateTime.now().millisecondsSinceEpoch.toString())
+        .setData({
+      'Name': product.prodName.toString(),
+      'Desc': product.prodDesc.toString(),
+      'Price_Type': product.priceType.toString(),
+      'Price': product.price,
+      'Quantity': product.quantity,
+      'Weight': product.weight,
+      'WeightUnit': product.weightUnit,
+      'Prod_Category': product.prodCategory,
+      //'Prod_Image': imageURL,
+      'Service_Type': product.serviceType,
+      //'Creator': currentUser,
+      'Created_Timestamp': DateTime.now(),
+    });
+    return true;
+  }
+
   //Login Function
   // ignore: non_constant_identifier_names
   Future<bool> login_up(String cnic, String pass, BuildContext context) async {
-    var firestore = Firestore.instance;
+    if (this.firestore == null) firestore = Firestore.instance;
 
     String name;
     String cnicc;

@@ -13,6 +13,11 @@ class General_Provider extends ChangeNotifier {
   Firebase firebase_object = new Firebase(); //For Firebase Function
   User user = new User(); //Consists of user information
 
+  User get_user()
+  {
+    return user;
+  }
+
   General_Provider({
     // ignore: non_constant_identifier_names
     firebase_object,
