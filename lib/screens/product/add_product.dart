@@ -19,6 +19,7 @@ class _AddProductState extends State<AddProduct> {
   );
   RoundedInputField productDescription = RoundedInputField(
     //keyboardType: TextInputType.multiline,
+    //TODO: add support for multiline text input
     hintText: "Product Description",
     icon: Icons.keyboard,
   );
@@ -38,6 +39,12 @@ class _AddProductState extends State<AddProduct> {
     hintText: "Weight",
     icon: Icons.keyboard, //TODO: find appropriate icon
   );
+  List<String>pTypes=["Per Unit Price","Bulk Price"]; //TODO: fetch from firebase
+  String priceType;
+  List<String> pCategories=["Fertilizer"]; //TODO: fetch from firebase
+  String productCategory;
+  List<String> sTypes=["Pickup","Delivery"]; //TODO: fetch from firebase
+  String serviceType;
 
   @override
   Widget build(BuildContext context) {
@@ -50,13 +57,106 @@ class _AddProductState extends State<AddProduct> {
                 children: [
                   productName,
                   productDescription,
-                  //TODO: add dropdown to select type of price here. options: ["Per Unit Price", "Bulk Price"]
+                  DropdownButton<String>(
+                    isExpanded: true,
+                    isDense: false,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                    hint: Text(
+                      priceType==null?"Price Type":priceType,
+                      style: TextStyle(fontSize: 15.5),
+                    ),
+                    //value: priceType==null?"Price Type":priceType,
+                    onChanged: (String value) {
+                      setState(() {
+                        priceType = value;
+                      });
+                    },
+                    items: pTypes.map((String user) {
+                      return DropdownMenuItem<String>(
+                        value: user,
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              user,
+                              style: TextStyle(
+                                fontSize: 15.5,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  ),
                   productPrice,
                   productQuantity,
                   productWeight,
-                  //TODO: add dropdown to select category
+                  DropdownButton<String>(
+                    isExpanded: true,
+                    isDense: false,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                    hint: Text(
+                      productCategory==null?"Product Category":productCategory,
+                      style: TextStyle(fontSize: 15.5),
+                    ),
+                    //value: priceType==null?"Price Type":priceType,
+                    onChanged: (String value) {
+                      setState(() {
+                        productCategory = value;
+                      });
+                    },
+                    items: pCategories.map((String user) {
+                      return DropdownMenuItem<String>(
+                        value: user,
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              user,
+                              style: TextStyle(
+                                fontSize: 15.5,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  ),
                   roundedImagePicker,
-                  //TODO: add dropdown to select service type
+                  DropdownButton<String>(
+                    isExpanded: true,
+                    isDense: false,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                    hint: Text(
+                      serviceType==null?"Service Type":serviceType,
+                      style: TextStyle(fontSize: 15.5),
+                    ),
+                    //value: priceType==null?"Price Type":priceType,
+                    onChanged: (String value) {
+                      setState(() {
+                        serviceType = value;
+                      });
+                    },
+                    items: sTypes.map((String user) {
+                      return DropdownMenuItem<String>(
+                        value: user,
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              user,
+                              style: TextStyle(
+                                fontSize: 15.5,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  ),
                   //_image == null ? Container() : Image.file(_image),
                 ],
               ),
