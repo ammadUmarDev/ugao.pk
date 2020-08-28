@@ -20,12 +20,14 @@ class SignUpScreenFollowup extends StatefulWidget {
   final String cnic;
   final String password;
   final String userType;
+  final String phone_no;
 
   SignUpScreenFollowup({
     this.fullName,
     this.cnic,
     this.password,
     this.userType,
+    this.phone_no,
   });
 
   @override
@@ -244,6 +246,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
                           widget.fullName,
                           widget.password,
                           widget.userType,
+                          widget.phone_no,
                           this.fobject,
                           this.sobject,
                           this.cobject);
@@ -348,7 +351,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
                 widget.cnic,
                 widget.fullName,
                 widget.password,
-                widget.userType,
+                widget.userType,widget.phone_no,
                 this.fobject,
                 this.sobject,
                 this.cobject,
@@ -504,6 +507,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
                           widget.fullName,
                           widget.password,
                           widget.userType,
+                          widget.phone_no,
                           this.fobject,
                           this.sobject,
                           this.cobject);

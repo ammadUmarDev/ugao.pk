@@ -36,7 +36,7 @@ class Firebase {
     return this.firebaseStorage;
   }
 
-  Future<bool> sign_up(String cnic, String fullname, String pass,
+  Future<bool> sign_up(String cnic, String fullname, String pass, String phone_no,
       String usertype, Farmer fobj, Supplier sobj, Customer cobj) async {
     if (this.firestore == null) this.firestore = Firestore.instance;
     if (usertype == 'Farmer') {
@@ -44,6 +44,7 @@ class Firebase {
         'Full_Name': fullname.toString(),
         'CNIC': cnic.toString(),
         'Password': pass.toString(),
+        'PhoneNo':phone_no.toString(),
         'UserType': usertype.toString(),
         'fExperience': fobj.fExperience,
         'fAddress': fobj.fAddress,
@@ -62,6 +63,7 @@ class Firebase {
         'CNIC': cnic.toString(),
         'Password': pass.toString(),
         'UserType': usertype.toString(),
+        'PhoneNo':phone_no.toString(),
         'scExperience': sobj.scExperience.toString(),
         'sPhoneNumber': sobj.sPhoneNumber.toString(),
         'sType': sobj.sType.toString(),
@@ -76,6 +78,7 @@ class Firebase {
         'CNIC': cnic.toString(),
         'Password': pass.toString(),
         'UserType': usertype.toString(),
+        'PhoneNo':phone_no.toString(),
         'cAccountType': cobj.cAccountType.toString(),
         'cPhoneNumber': cobj.cPhoneNumber.toString(),
         'ccName': cobj.ccName.toString(),

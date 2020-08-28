@@ -19,6 +19,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String cnic;
   String password;
   String typeUser;
+  String phone_no;
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +57,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 onChanged: (value) {
                   setState(() {
                     cnic = value;
+                  });
+                },
+              ),
+              RoundedInputField(
+                hintText: "Phone No",
+                icon: Icons.person,
+                keyboardType: TextInputType.phone,
+                onChanged: (value) {
+                  setState(() {
+                    phone_no = value;
                   });
                 },
               ),
@@ -121,6 +132,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 cnic: cnic,
                                 password: password,
                                 userType: typeUser,
+                                phone_no: phone_no,
                               )));
                 },
               ),
