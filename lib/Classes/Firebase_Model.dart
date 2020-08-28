@@ -106,10 +106,10 @@ class Firebase {
         Provider.of<General_Provider>(context, listen: false).get_user();
     if (this.firestore == null) this.firestore = Firestore.instance;
     String imageURL;
-    //if (product.prodImage != null)
-    //  imageURL = await upload_file(product.prodImage);
-    //else
-    //  imageURL = null;
+    /*if (product.prodImage != null)
+      imageURL = await upload_file(product.prodImage);
+    else
+      imageURL = null;*/
     print(imageURL);
     await this
         .firestore
