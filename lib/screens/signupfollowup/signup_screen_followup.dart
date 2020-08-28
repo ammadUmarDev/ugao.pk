@@ -249,7 +249,8 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
                           widget.phone_no,
                           this.fobject,
                           this.sobject,
-                          this.cobject);
+                          this.cobject,
+                          context);
               print("Hello Ibrar");
               if (check = true) {
                 Navigator.push(
@@ -351,10 +352,12 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
                 widget.cnic,
                 widget.fullName,
                 widget.password,
-                widget.userType,widget.phone_no,
+                widget.userType,
+                widget.phone_no,
                 this.fobject,
                 this.sobject,
                 this.cobject,
+                context,
               );
               print("Hello Ibrar");
               if (check == true) {
@@ -510,7 +513,8 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
                           widget.phone_no,
                           this.fobject,
                           this.sobject,
-                          this.cobject);
+                          this.cobject,
+                          context);
               if (check == true) {
                 Navigator.push(
                   context,

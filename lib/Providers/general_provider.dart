@@ -62,10 +62,10 @@ class General_Provider extends ChangeNotifier {
 
   //For Sign+Up
   Future<bool> sign_Up(String cnic, String fullname, String pass,
-      String usertype, String phone_no, Farmer fobj, Supplier sobj, Customer cobj) async {
+      String usertype, String phone_no, Farmer fobj, Supplier sobj, Customer cobj, BuildContext context) async {
     var check = await this
         .firebase_object
-        .sign_up(cnic, fullname, pass, phone_no, usertype, fobj, sobj, cobj);
+        .sign_up(cnic, fullname, pass, phone_no, usertype, fobj, sobj, cobj, context);
     if (check == true) {
       print("SignUp Successfull");
       return true;

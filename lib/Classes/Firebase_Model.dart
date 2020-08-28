@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ugao/Classes/User_Model.dart';
 import 'package:ugao/Providers/general_provider.dart';
@@ -36,15 +37,24 @@ class Firebase {
     return this.firebaseStorage;
   }
 
-  Future<bool> sign_up(String cnic, String fullname, String pass, String phone_no,
-      String usertype, Farmer fobj, Supplier sobj, Customer cobj) async {
+  Future<bool> sign_up(
+      String cnic,
+      String fullname,
+      String pass,
+      String phone_no,
+      String usertype,
+      Farmer fobj,
+      Supplier sobj,
+      Customer cobj, BuildContext context) async {
     if (this.firestore == null) this.firestore = Firestore.instance;
+    if (this.firebaseAuth == null) this.firebaseAuth = FirebaseAuth.instance;
+    FirebaseUser user=null;
     if (usertype == 'Farmer') {
       await this.firestore.collection('Users').document(cnic).setData({
         'Full_Name': fullname.toString(),
         'CNIC': cnic.toString(),
         'Password': pass.toString(),
-        'PhoneNo':phone_no.toString(),
+        'PhoneNo': phone_no.toString(),
         'UserType': usertype.toString(),
         'fExperience': fobj.fExperience,
         'fAddress': fobj.fAddress,
@@ -55,7 +65,7 @@ class Firebase {
         'fFreshProduce': fobj.fFreshProduce,
         'fDairy': fobj.fDairy,
       });
-      return true;
+      //return true;
     }
     if (usertype == "Supplier") {
       await this.firestore.collection('Users').document(cnic).setData({
@@ -63,14 +73,14 @@ class Firebase {
         'CNIC': cnic.toString(),
         'Password': pass.toString(),
         'UserType': usertype.toString(),
-        'PhoneNo':phone_no.toString(),
+        'PhoneNo': phone_no.toString(),
         'scExperience': sobj.scExperience.toString(),
         'sPhoneNumber': sobj.sPhoneNumber.toString(),
         'sType': sobj.sType.toString(),
         'sSelectedTypes': sobj.sSelectedTypes,
         'sAddress': sobj.sAddress.toString(),
       });
-      return true;
+      //return true;
     }
     if (usertype == 'Customer') {
       await this.firestore.collection('Users').document(cnic).setData({
@@ -78,15 +88,85 @@ class Firebase {
         'CNIC': cnic.toString(),
         'Password': pass.toString(),
         'UserType': usertype.toString(),
-        'PhoneNo':phone_no.toString(),
+        'PhoneNo': phone_no.toString(),
         'cAccountType': cobj.cAccountType.toString(),
         'cPhoneNumber': cobj.cPhoneNumber.toString(),
         'ccName': cobj.ccName.toString(),
         'ccPhoneNumber': cobj.ccPhoneNumber.toString(),
         'ccWebsite': cobj.ccWebsite.toString()
       });
-      return true;
+      //return true;
     }
+    firebaseAuth.verifyPhoneNumber(
+      phoneNumber: phone_no,
+      timeout: Duration(seconds: 60),
+      verificationCompleted: (AuthCredential a) {
+        print("verification completed");
+      }, //verificationCompleted,
+      verificationFailed: (AuthException a) {
+        print("verification failed " + a.code.toString());
+      },
+      codeSent: (String verificationID, [int])async {
+        print("code sent");
+
+        String code=null;
+
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) {
+              return AlertDialog(
+                title: Text("Give the code?"),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    TextField(
+                      onChanged: (enteredCode){code=enteredCode;}                      ,
+                      // controller: _codeController,
+                    ),
+                  ],
+                ),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text("Confirm"),
+                    textColor: Colors.white,
+                    color: Colors.blue,
+                    onPressed: () async{
+                      code = code.trim();
+                      AuthCredential credential = PhoneAuthProvider.getCredential(verificationId: verificationID, smsCode: code);
+
+                      AuthResult result = await firebaseAuth.signInWithCredential(credential);
+
+                      user = result.user;
+
+                      if (user!=null){
+                        print("Verification successful");return true;}
+                      else
+                        return false;
+                    },
+                  )
+                ],
+              );
+            }
+        );
+
+        //TODO: reorder this such that phone no and cnic get verified on first page
+
+        /*AuthCredential credential = PhoneAuthProvider.getCredential(verificationId: verificationID, smsCode: code);
+
+        AuthResult result = await firebaseAuth.signInWithCredential(credential);
+
+        user = result.user;
+
+        if (user!=null)
+          print("Verification successful");
+        else
+          return false;*/
+      },
+      codeAutoRetrievalTimeout: (String a) {
+        print("auto retrieval timeout");
+      },
+    );
   }
 
   Future<String> upload_file(File file /*, BuildContext context*/) async {
