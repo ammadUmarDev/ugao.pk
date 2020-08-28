@@ -25,7 +25,7 @@ class General_Provider extends ChangeNotifier {
   });
   //For User Updation
   // ignore: non_constant_identifier_names
-  void user_update(String name, String cnic, String user_Type, Farmer fobj,
+  void user_update(String name, String cnic, String user_Type, String phone_no, Farmer fobj,
       Customer cobj, Supplier sobj) {
     this.user = new User();
     this.user.farmer = new Farmer();
@@ -33,6 +33,7 @@ class General_Provider extends ChangeNotifier {
     this.user.customer = new Customer();
     this.user.name = name;
     this.user.cnic = cnic;
+    this.user.phone_no=phone_no;
     this.user.user_Type = user_Type;
     if (fobj != null) {
       this.user.farmer.set_farmer(fobj);

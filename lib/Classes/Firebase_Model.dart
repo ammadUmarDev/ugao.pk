@@ -224,6 +224,7 @@ class Firebase {
     String name;
     String cnicc;
     String user_Type;
+    String phone_no;
     var snapshot = await firestore.collection('Users').document(cnic).get();
     if (snapshot.data != null) {
       if (snapshot.data["Password"].toString() != pass) {
@@ -242,9 +243,10 @@ class Firebase {
           fobj.fService = snapshot.data["fService"].toString();
           name = snapshot.data["Full_Name"].toString();
           user_Type = snapshot.data["UserType"].toString();
+          phone_no=snapshot.data['PhoneNo'].toString();
           cnicc = snapshot.data["CNIC"].toString();
           Provider.of<General_Provider>(context, listen: false)
-              .user_update(name, cnicc, user_Type, fobj, null, null);
+              .user_update(name, cnicc, user_Type, phone_no, fobj, null, null);
           return true;
         } else if (snapshot.data["UserType"].toString() == "Supplier") {
           Supplier sobj = new Supplier();
@@ -258,7 +260,7 @@ class Firebase {
           user_Type = snapshot.data["UserType"].toString();
           cnicc = snapshot.data["CNIC"].toString();
           Provider.of<General_Provider>(context, listen: false)
-              .user_update(name, cnicc, user_Type, null, null, sobj);
+              .user_update(name, cnicc, user_Type, phone_no, null, null, sobj);
           return true;
         } else if (snapshot.data["UserType"].toString() == "Customer") {
           Customer cobj = new Customer();
@@ -271,7 +273,7 @@ class Firebase {
           user_Type = snapshot.data["UserType"].toString();
           cnicc = snapshot.data["CNIC"].toString();
           Provider.of<General_Provider>(context, listen: false)
-              .user_update(name, cnicc, user_Type, null, cobj, null);
+              .user_update(name, cnicc, user_Type, phone_no, null, cobj, null);
           return true;
         }
       }
