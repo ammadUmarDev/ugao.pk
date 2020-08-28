@@ -10,6 +10,7 @@ class User {
   Farmer farmer;
   Customer customer;
   Supplier supplier;
+  String phone_no;
 
   User({
     cnic,
@@ -18,6 +19,7 @@ class User {
     farmer,
     customer,
     supplier,
+    phone_no,
   });
   void farmer_set(Farmer fobject) {
     this.farmer.set_farmer(fobject);
@@ -35,6 +37,7 @@ class User {
     print(this.user_Type);
     print(this.name);
     print(this.cnic);
+    print(phone_no);
     if (this.user_Type == "Farmer") {
       this.farmer.printf();
     }
