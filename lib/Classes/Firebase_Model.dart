@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ugao/Classes/User_Model.dart';
 import 'package:ugao/Providers/general_provider.dart';
+import 'package:ugao/screens/dashboard/dashboard.dart';
 
 import 'Customer_Model.dart';
 import 'Farmer_Model.dart';
@@ -18,6 +19,7 @@ class Firebase {
   FirebaseAuth firebaseAuth;
   Firestore firestore;
   FirebaseStorage firebaseStorage;
+  //FirebaseUser user;
 
   firebase() {
     this.firebaseAuth = FirebaseAuth.instance;
@@ -45,10 +47,10 @@ class Firebase {
       String usertype,
       Farmer fobj,
       Supplier sobj,
-      Customer cobj, BuildContext context) async {
+      Customer cobj,
+      BuildContext context) async {     //TODO: reorder this such that phone no and cnic get verified on first page
     if (this.firestore == null) this.firestore = Firestore.instance;
-    if (this.firebaseAuth == null) this.firebaseAuth = FirebaseAuth.instance;
-    FirebaseUser user=null;
+    FirebaseUser user = null;
     if (usertype == 'Farmer') {
       await this.firestore.collection('Users').document(cnic).setData({
         'Full_Name': fullname.toString(),
@@ -97,19 +99,24 @@ class Firebase {
       });
       //return true;
     }
+    return await verify_phone_no(phone_no, context);
+  }
+
+  Future<bool> verify_phone_no(String phone_no, BuildContext context) {
+    if (this.firebaseAuth == null) this.firebaseAuth = FirebaseAuth.instance;
     firebaseAuth.verifyPhoneNumber(
       phoneNumber: phone_no,
       timeout: Duration(seconds: 60),
       verificationCompleted: (AuthCredential a) {
         print("verification completed");
-      }, //verificationCompleted,
+      },
       verificationFailed: (AuthException a) {
         print("verification failed " + a.code.toString());
       },
-      codeSent: (String verificationID, [int])async {
+      codeSent: (String verificationID, [int b]) async {
         print("code sent");
 
-        String code=null;
+        String code = null;
 
         showDialog(
             context: context,
@@ -121,7 +128,9 @@ class Firebase {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     TextField(
-                      onChanged: (enteredCode){code=enteredCode;}                      ,
+                      onChanged: (enteredCode) {
+                        code = enteredCode;
+                      },
                       // controller: _codeController,
                     ),
                   ],
@@ -131,37 +140,33 @@ class Firebase {
                     child: Text("Confirm"),
                     textColor: Colors.white,
                     color: Colors.blue,
-                    onPressed: () async{
+                    onPressed: () async {
                       code = code.trim();
-                      AuthCredential credential = PhoneAuthProvider.getCredential(verificationId: verificationID, smsCode: code);
+                      AuthCredential credential =
+                          PhoneAuthProvider.getCredential(
+                              verificationId: verificationID, smsCode: code);
 
-                      AuthResult result = await firebaseAuth.signInWithCredential(credential);
+                      AuthResult result =
+                          await firebaseAuth.signInWithCredential(credential);
 
-                      user = result.user;
-
-                      if (user!=null){
-                        print("Verification successful");return true;}
-                      else
-                        return false;
+                      if (result.user != null) {
+                        print("Verification successful");
+                        Navigator.of(context).pop();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return DashBoard();
+                            },
+                          ),
+                        );
+                      }
+                      return result.user != null;
                     },
                   )
                 ],
               );
-            }
-        );
-
-        //TODO: reorder this such that phone no and cnic get verified on first page
-
-        /*AuthCredential credential = PhoneAuthProvider.getCredential(verificationId: verificationID, smsCode: code);
-
-        AuthResult result = await firebaseAuth.signInWithCredential(credential);
-
-        user = result.user;
-
-        if (user!=null)
-          print("Verification successful");
-        else
-          return false;*/
+            });
       },
       codeAutoRetrievalTimeout: (String a) {
         print("auto retrieval timeout");
@@ -189,10 +194,12 @@ class Firebase {
         Provider.of<General_Provider>(context, listen: false).get_user();
     if (this.firestore == null) this.firestore = Firestore.instance;
     String imageURL;
-    /*if (product.prodImage != null)
+    if (product.prodImage != null)
       imageURL = await upload_file(product.prodImage);
-    else
-      imageURL = null;*/
+    else {
+      imageURL = null;
+      print("image url is null");
+    }
     print(imageURL);
     await this
         .firestore
@@ -208,7 +215,7 @@ class Firebase {
       'Weight': product.weight,
       'WeightUnit': product.weightUnit,
       'Prod_Category': product.prodCategory,
-      //'Prod_Image': imageURL,
+      'Prod_Image': imageURL,
       'Service_Type': product.serviceType,
       'Creator': currentUser.cnic,
       'Created_Timestamp': DateTime.now(),
@@ -218,14 +225,16 @@ class Firebase {
 
   //Login Function
   // ignore: non_constant_identifier_names
-  Future<bool> login_up(String cnic, String pass, BuildContext context) async {
+  Future<bool> login_up(
+      String entered_cnic, String pass, BuildContext context) async {
     if (this.firestore == null) firestore = Firestore.instance;
-
     String name;
     String cnicc;
     String user_Type;
     String phone_no;
-    var snapshot = await firestore.collection('Users').document(cnic).get();
+    print("in login_up " + entered_cnic.toString());
+    var snapshot =
+        await firestore.collection('Users').document(entered_cnic).get();
     if (snapshot.data != null) {
       if (snapshot.data["Password"].toString() != pass) {
         print("Wrong password\n");
@@ -243,11 +252,11 @@ class Firebase {
           fobj.fService = snapshot.data["fService"].toString();
           name = snapshot.data["Full_Name"].toString();
           user_Type = snapshot.data["UserType"].toString();
-          phone_no=snapshot.data['PhoneNo'].toString();
+          phone_no = snapshot.data['PhoneNo'].toString();
           cnicc = snapshot.data["CNIC"].toString();
           Provider.of<General_Provider>(context, listen: false)
               .user_update(name, cnicc, user_Type, phone_no, fobj, null, null);
-          return true;
+          //return true;
         } else if (snapshot.data["UserType"].toString() == "Supplier") {
           Supplier sobj = new Supplier();
           sobj.sAddress = snapshot.data["sAddress"].toString();
@@ -256,12 +265,13 @@ class Firebase {
             sobj.sSelectedTypes.add(snapshot.data["sSelectedTypes"][i]);
           }
           sobj.scExperience = snapshot.data["scExperience"].toString();
+          phone_no = snapshot.data['PhoneNo'].toString();
           name = snapshot.data["Full_Name"].toString();
           user_Type = snapshot.data["UserType"].toString();
           cnicc = snapshot.data["CNIC"].toString();
           Provider.of<General_Provider>(context, listen: false)
               .user_update(name, cnicc, user_Type, phone_no, null, null, sobj);
-          return true;
+          //return true;
         } else if (snapshot.data["UserType"].toString() == "Customer") {
           Customer cobj = new Customer();
           cobj.cAccountType = snapshot.data["cAccountType"].toString();
@@ -271,16 +281,17 @@ class Firebase {
           cobj.ccWebsite = snapshot.data["ccWebsite"].toString();
           name = snapshot.data["Full_Name"].toString();
           user_Type = snapshot.data["UserType"].toString();
+          phone_no = snapshot.data['PhoneNo'].toString();
           cnicc = snapshot.data["CNIC"].toString();
           Provider.of<General_Provider>(context, listen: false)
               .user_update(name, cnicc, user_Type, phone_no, null, cobj, null);
-          return true;
+          //return true;
         }
+        return await verify_phone_no(phone_no, context);
       }
     } else {
       print("Not Entered\n");
     }
-
-    //return true;
+    return false;
   }
 }

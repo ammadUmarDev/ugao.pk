@@ -128,11 +128,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => SignUpScreenFollowup(
-                                fullName: fullName,
-                                cnic: cnic,
-                                password: password,
-                                userType: typeUser,
-                                phone_no: phone_no,
+                                fullName: fullName.trim(),
+                                cnic: cnic.trim(),
+                                password: password.trim(),
+                                userType: typeUser.trim(),
+                                phone_no: phone_no.trim(),
                               )));
                 },
               ),
