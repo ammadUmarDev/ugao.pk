@@ -176,17 +176,22 @@ class Firebase {
 
   Future<String> upload_file(File file /*, BuildContext context*/) async {
     //Path p = new Path();
+    if (file==null)
+      {
+        print("File being uploaded in null");
+      }
     if (this.firebaseStorage == null)
       this.firebaseStorage = FirebaseStorage.instance;
     StorageReference storageReference = firebaseStorage.ref().child(file.path);
     StorageUploadTask uploadTask = storageReference.putFile(file);
     await uploadTask.onComplete;
     print('File Uploaded');
-    storageReference.getDownloadURL().then((fileURL) {
+    String fileURL=await storageReference.getDownloadURL().then((fileUrl) {
       //setState(() {
-      return fileURL;
+      return fileUrl;
       //});
     });
+    return fileURL;
   }
 
   Future<bool> add_a_product(Product product, BuildContext context) async {
@@ -215,7 +220,7 @@ class Firebase {
       'Weight': product.weight,
       'WeightUnit': product.weightUnit,
       'Prod_Category': product.prodCategory,
-      'Prod_Image': imageURL,
+      'Prod_Image': [imageURL],
       'Service_Type': product.serviceType,
       'Creator': currentUser.cnic,
       'Created_Timestamp': DateTime.now(),
