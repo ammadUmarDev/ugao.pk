@@ -4,13 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ugao/components/text_field_container.dart';
+import 'package:ugao/constants.dart';
+
+import 'h2.dart';
 
 //TODO: add support to select multiple images
 
 class RoundedImagePicker extends StatefulWidget {
   final String hintText;
   final ValueChanged<File> onPicked;
-  RoundedImagePicker({this.hintText="Pick an Image",this.onPicked});
+  RoundedImagePicker({this.hintText = "Pick an Image", this.onPicked});
   @override
   _RoundedImagePickerState createState() => _RoundedImagePickerState();
 }
@@ -48,9 +51,9 @@ class _RoundedImagePickerState extends State<RoundedImagePicker> {
     return TextFieldContainer(
       child: FlatButton(
         onPressed: getImage,
-        child: Text(
-          widget.hintText//==null?"Pick an Image":widget.hintText,
-          //style: TextStyle(color: textColor, fontSize: h1Size),
+        child: H2(
+          textBody: widget.hintText,
+          color: kPrimaryAccentColor,
         ),
       ),
       //child: Icon(Icons.add_a_photo),

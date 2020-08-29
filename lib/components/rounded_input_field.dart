@@ -10,9 +10,9 @@ class RoundedInputField extends StatelessWidget {
   const RoundedInputField({
     Key key,
     this.hintText,
-    this.icon = Icons.person,
-    this.keyboardType = TextInputType.text,
+    this.icon,
     this.onChanged,
+    this.keyboardType,
   }) : super(key: key);
 
   @override

@@ -20,7 +20,7 @@ class H2 extends StatelessWidget {
         fontFamily: "Cantarell",
         fontSize: h2Size,
         color: color,
-        fontWeight: FontWeight.w900,
+        fontWeight: FontWeight.w600,
       ),
       textAlign: align,
     );

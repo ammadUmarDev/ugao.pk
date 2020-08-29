@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:ugao/constants.dart';
 
 class H1TextStyle extends TextStyle {
+  H1TextStyle({this.color});
   final fontFamily = "Cantarell";
   final fontSize = h1Size;
   final Color color;
-  final fontWeight = FontWeight.w900;
-  H1TextStyle({this.color = const Color(0xFF35495e)});
+  final fontWeight = FontWeight.w600;
 }
 
 class H1 extends StatelessWidget {
   H1({
     this.textBody,
-    this.color = kPrimaryAccentColor,
+    this.color,
   });
   final String textBody;
   final Color color;
@@ -21,7 +21,7 @@ class H1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       textBody,
-      style: H1TextStyle(),
+      style: H1TextStyle(color: color),
     );
   }
 }
