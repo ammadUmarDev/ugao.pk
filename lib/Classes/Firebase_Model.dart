@@ -19,7 +19,7 @@ class Firebase {
   FirebaseAuth firebaseAuth;
   Firestore firestore;
   FirebaseStorage firebaseStorage;
-  //FirebaseUser user;
+  FirebaseUser user;
 
   firebase() {
     this.firebaseAuth = FirebaseAuth.instance;
@@ -48,62 +48,84 @@ class Firebase {
       Farmer fobj,
       Supplier sobj,
       Customer cobj,
-      BuildContext context) async {     //TODO: reorder this such that phone no and cnic get verified on first page
+      BuildContext context) async {
+    //TODO: reorder this such that phone no and cnic get verified on first page
     if (this.firestore == null) this.firestore = Firestore.instance;
-    FirebaseUser user = null;
-    if (usertype == 'Farmer') {
-      await this.firestore.collection('Users').document(cnic).setData({
-        'Full_Name': fullname.toString(),
-        'CNIC': cnic.toString(),
-        'Password': pass.toString(),
-        'PhoneNo': phone_no.toString(),
-        'UserType': usertype.toString(),
-        'fExperience': fobj.fExperience,
-        'fAddress': fobj.fAddress,
-        'fService': fobj.fService,
-        'fCategory': fobj.fCategory,
-        'fCrops': fobj.fCrops,
-        'fAnimals': fobj.fAnimals,
-        'fFreshProduce': fobj.fFreshProduce,
-        'fDairy': fobj.fDairy,
-      });
-      //return true;
+    FirebaseUser user;
+    if (verify_phone_no(phone_no, context) == true) {
+      print("verify phone is true");
+      print(usertype);
+      print(fullname);
+      print(cnic);
+      print(phone_no);
+      if (usertype == "Farmer") {
+        fobj.printf();
+      }
+      if (usertype == "Customer") {
+        cobj.printc();
+      }
+      if (usertype == "Supplier") {
+        sobj.prints();
+      }
+      if (usertype == 'Farmer') {
+        await this.firestore.collection('Users').document(cnic).setData({
+          'Full_Name': fullname.toString(),
+          'CNIC': cnic.toString(),
+          'Password': pass.toString(),
+          'PhoneNo': phone_no.toString(),
+          'UserType': usertype.toString(),
+          'fExperience': fobj.fExperience,
+          'fAddress': fobj.fAddress,
+          'fService': fobj.fService,
+          'fCategory': fobj.fCategory,
+          'fCrops': fobj.fCrops,
+          'fAnimals': fobj.fAnimals,
+          'fFreshProduce': fobj.fFreshProduce,
+          'fDairy': fobj.fDairy,
+        });
+        //return true;
+      }
+      if (usertype == "Supplier") {
+        await this.firestore.collection('Users').document(cnic).setData({
+          'Full_Name': fullname.toString(),
+          'CNIC': cnic.toString(),
+          'Password': pass.toString(),
+          'UserType': usertype.toString(),
+          'PhoneNo': phone_no.toString(),
+          'scExperience': sobj.scExperience.toString(),
+          'sPhoneNumber': sobj.sPhoneNumber.toString(),
+          'sType': sobj.sType.toString(),
+          'sSelectedTypes': sobj.sSelectedTypes,
+          'sAddress': sobj.sAddress.toString(),
+        });
+        //return true;
+      }
+      if (usertype == 'Customer') {
+        await this.firestore.collection('Users').document(cnic).setData({
+          'Full_Name': fullname.toString(),
+          'CNIC': cnic.toString(),
+          'Password': pass.toString(),
+          'UserType': usertype.toString(),
+          'PhoneNo': phone_no.toString(),
+          'cAccountType': cobj.cAccountType.toString(),
+          'cPhoneNumber': cobj.cPhoneNumber.toString(),
+          'ccName': cobj.ccName.toString(),
+          'ccPhoneNumber': cobj.ccPhoneNumber.toString(),
+          'ccWebsite': cobj.ccWebsite.toString()
+        });
+        //return true;
+      }
+      return true;
+    } else {
+      print("result is false");
+      return false;
     }
-    if (usertype == "Supplier") {
-      await this.firestore.collection('Users').document(cnic).setData({
-        'Full_Name': fullname.toString(),
-        'CNIC': cnic.toString(),
-        'Password': pass.toString(),
-        'UserType': usertype.toString(),
-        'PhoneNo': phone_no.toString(),
-        'scExperience': sobj.scExperience.toString(),
-        'sPhoneNumber': sobj.sPhoneNumber.toString(),
-        'sType': sobj.sType.toString(),
-        'sSelectedTypes': sobj.sSelectedTypes,
-        'sAddress': sobj.sAddress.toString(),
-      });
-      //return true;
-    }
-    if (usertype == 'Customer') {
-      await this.firestore.collection('Users').document(cnic).setData({
-        'Full_Name': fullname.toString(),
-        'CNIC': cnic.toString(),
-        'Password': pass.toString(),
-        'UserType': usertype.toString(),
-        'PhoneNo': phone_no.toString(),
-        'cAccountType': cobj.cAccountType.toString(),
-        'cPhoneNumber': cobj.cPhoneNumber.toString(),
-        'ccName': cobj.ccName.toString(),
-        'ccPhoneNumber': cobj.ccPhoneNumber.toString(),
-        'ccWebsite': cobj.ccWebsite.toString()
-      });
-      //return true;
-    }
-    return await verify_phone_no(phone_no, context);
   }
 
-  Future<bool> verify_phone_no(String phone_no, BuildContext context) {
+  bool verify_phone_no(String phone_no, BuildContext context) {
     if (this.firebaseAuth == null) this.firebaseAuth = FirebaseAuth.instance;
+    Future<bool> rn;
+    print("create bool in verify_phone_no");
     firebaseAuth.verifyPhoneNumber(
       phoneNumber: phone_no,
       timeout: Duration(seconds: 60),
@@ -116,7 +138,9 @@ class Firebase {
       codeSent: (String verificationID, [int b]) async {
         print("code sent");
 
-        String code = null;
+        String code;
+
+        print("before calling showDialog");
 
         showDialog(
             context: context,
@@ -141,15 +165,25 @@ class Firebase {
                     textColor: Colors.white,
                     color: Colors.blue,
                     onPressed: () async {
+                      print("called onPressed of Flat Button");
                       code = code.trim();
                       AuthCredential credential =
                           PhoneAuthProvider.getCredential(
                               verificationId: verificationID, smsCode: code);
 
+                      print("before async call in onPressed of Flat Button");
+
                       AuthResult result =
                           await firebaseAuth.signInWithCredential(credential);
 
-                      if (result.user != null) {
+                      print("after async call in onPressed of Flat Button");
+
+                      user=result.user;
+                      rn=(result.user!=null) as Future<bool>;
+
+                      print(rn.toString()+" value of rn after async call");
+
+                      /*if (result.user != null) {
                         print("Verification successful");
                         Navigator.of(context).pop();
                         Navigator.push(
@@ -160,33 +194,38 @@ class Firebase {
                             },
                           ),
                         );
-                      }
-                      return result.user != null;
+                      }*/
+
+                      print("finished onPressed of Flat Button");
+
+                      //return result.user != null;
                     },
                   )
                 ],
               );
+
             });
       },
       codeAutoRetrievalTimeout: (String a) {
         print("auto retrieval timeout");
       },
     );
+    //print("return bool in verify_phone_no "+rn.toString());
+    //return rn;
   }
 
   Future<String> upload_file(File file /*, BuildContext context*/) async {
     //Path p = new Path();
-    if (file==null)
-      {
-        print("File being uploaded in null");
-      }
+    if (file == null) {
+      print("File being uploaded in null");
+    }
     if (this.firebaseStorage == null)
       this.firebaseStorage = FirebaseStorage.instance;
     StorageReference storageReference = firebaseStorage.ref().child(file.path);
     StorageUploadTask uploadTask = storageReference.putFile(file);
     await uploadTask.onComplete;
     print('File Uploaded');
-    String fileURL=await storageReference.getDownloadURL().then((fileUrl) {
+    String fileURL = await storageReference.getDownloadURL().then((fileUrl) {
       //setState(() {
       return fileUrl;
       //});

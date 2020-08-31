@@ -7,6 +7,8 @@ import 'package:ugao/components/already_have_an_account_acheck.dart';
 import 'package:ugao/components/rounded_button.dart';
 import 'package:ugao/constants.dart';
 import 'package:ugao/screens/signupfollowup/signup_screen_followup.dart';
+import 'package:ugao/Classes/firebase_functions.dart';
+import 'package:ugao/components/alert_dialog.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -47,7 +49,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 icon: Icons.person,
                 onChanged: (value) {
                   setState(() {
-                    fullName = value;
+                    fullName = value.trim();
                   });
                 },
               ),
@@ -56,7 +58,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 icon: Icons.credit_card,
                 onChanged: (value) {
                   setState(() {
-                    cnic = value;
+                    cnic = value.trim();
                   });
                 },
               ),
@@ -66,14 +68,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 keyboardType: TextInputType.phone,
                 onChanged: (value) {
                   setState(() {
-                    phone_no = value;
+                    phone_no = value.trim();
                   });
                 },
               ),
               RoundedPasswordField(
                 onChanged: (value) {
                   setState(() {
-                    password = value;
+                    password = value.trim();
                   });
                 },
               ),
@@ -123,17 +125,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
               RoundedButton(
                 text: "NEXT",
                 press: () {
-                  Navigator.pushNamed(context, "signupPageFollowup");
-                  Navigator.push(
+                  //Navigator.pushNamed(context, "signupPageFollowup");
+                  if ((checkUniquenessOfCNIC(cnic) &&
+                          checkUniquenessOfPhone(
+                              phone_no)) //TODO: put at the specific fields
+                      ==
+                      true) {
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SignUpScreenFollowup(
-                                fullName: fullName.trim(),
-                                cnic: cnic.trim(),
-                                password: password.trim(),
-                                userType: typeUser.trim(),
-                                phone_no: phone_no.trim(),
-                              )));
+                        builder: (context) => SignUpScreenFollowup(
+                          fullName: fullName.trim(),
+                          cnic: cnic.trim(),
+                          password: password.trim(),
+                          userType: typeUser.trim(),
+                          phone_no: phone_no.trim(),
+                        ),
+                      ),
+                    );
+                  } else {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) {
+                        return RoundedAlertDialog(
+                          title: "CNIC or Phone No is not unique",
+                          buttonName: "OK",
+                          onButtonPressed: () {
+                            Navigator.pop(context);
+                          },
+                        );
+                      },
+                    );
+                  }
                 },
               ),
               SizedBox(height: size.height * 0.02),

@@ -13,6 +13,10 @@ import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/constants.dart';
 
 import 'components/background.dart';
+import 'package:ugao/Classes/User_Model.dart';
+import 'package:ugao/Classes/firebase_functions.dart';
+import 'package:ugao/components/alert_dialog.dart';
+import 'package:ugao/screens/dashboard/dashboard.dart';
 
 class SignUpScreenFollowup extends StatefulWidget {
   //General Signup
@@ -68,6 +72,51 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
+    Widget signupButton = RoundedButton(
+      text: "SIGNUP",
+      press: () async {
+        //TODO: add phoneAuth verificatiom
+        User user = User(
+          cnic: widget.cnic,
+          pass: widget.password,
+          fullName: widget.fullName,
+          usertype: widget.userType,
+          phone_no: widget.phone_no,
+          farmer: this.fobject,
+          customer: this.cobject,
+          supplier: this.sobject,
+        );
+        var check = await signup(user);
+        if (check == true) {
+          Provider.of<General_Provider>(context, listen: false).set_user(user);
+          user.print_user();
+          Provider.of<General_Provider>(context, listen: false).get_user().print_user();
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return DashBoard();
+              },
+            ),
+          );
+        } else {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) {
+              return RoundedAlertDialog(
+                title: "Check your internet connection",
+                buttonName: "OK",
+                onButtonPressed: () {
+                  Navigator.pop(context);
+                },
+              );
+            },
+          );
+        }
+      },
+    );
+
     //Farmer
     Widget FProductTypeFollowUp() {
       if (fobject.fCategory == null) return SizedBox(height: 1);
@@ -79,7 +128,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
               icon: Icons.local_florist,
               onChanged: (value) {
                 setState(() {
-                  fobject.fCrops = value;
+                  fobject.fCrops = value.trim();
                 });
               },
             ),
@@ -88,7 +137,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
               icon: Icons.local_florist,
               onChanged: (value) {
                 setState(() {
-                  fobject.fAnimals = value;
+                  fobject.fAnimals = value.trim();
                 });
               },
             ),
@@ -101,7 +150,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
               hintText: "Fresh Produce (Fruits and Vegetables):",
               icon: Icons.panorama_wide_angle,
               onChanged: (value) {
-                fobject.fFreshProduce = value;
+                fobject.fFreshProduce = value.trim();
               },
             ),
             RoundedInputField(
@@ -135,14 +184,14 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
             hintText: "Years of Experience",
             icon: Icons.donut_large,
             onChanged: (value) {
-              fobject.fExperience = value;
+              fobject.fExperience = value.trim();
             },
           ),
           RoundedInputField(
             hintText: "Address/Location",
             icon: Icons.pin_drop,
             onChanged: (value) {
-              fobject.fAddress = value;
+              fobject.fAddress = value.trim();
             },
           ),
           Container(
@@ -168,7 +217,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
                   value: fobject.fService,
                   onChanged: (String value) {
                     setState(() {
-                      fobject.fService = value;
+                      fobject.fService = value.trim();
                     });
                   },
                   items: fServices.map((String user) {
@@ -213,7 +262,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
                   value: fobject.fCategory,
                   onChanged: (String value) {
                     setState(() {
-                      fobject.fCategory = value;
+                      fobject.fCategory = value.trim();
                     });
                   },
                   items: fCategories.map((String user) {
@@ -236,34 +285,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
             ),
           ),
           FProductTypeFollowUp(),
-          RoundedButton(
-            text: "SIGNUP",
-            press: () async {
-              var check =
-                  await Provider.of<General_Provider>(context, listen: false)
-                      .sign_Up(
-                          widget.cnic,
-                          widget.fullName,
-                          widget.password,
-                          widget.userType,
-                          widget.phone_no,
-                          this.fobject,
-                          this.sobject,
-                          this.cobject,
-                          context);
-              print("Hello Ibrar");
-              if (check = true) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return LoginScreen();
-                    },
-                  ),
-                );
-              }
-            },
-          ),
+          signupButton,
           SizedBox(height: size.height * 0.02),
           AlreadyHaveAnAccountCheck(
             login: false,
@@ -321,7 +343,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
             icon: Icons.local_florist,
             onChanged: (value) {
               setState(() {
-                sobject.scExperience = value;
+                sobject.scExperience = value.trim();
               });
             },
           ),
@@ -330,7 +352,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
             icon: Icons.local_florist,
             onChanged: (value) {
               setState(() {
-                sobject.sPhoneNumber = value;
+                sobject.sPhoneNumber = value.trim();
               });
             },
           ),
@@ -339,39 +361,11 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
             icon: Icons.local_florist,
             onChanged: (value) {
               setState(() {
-                sobject.sAddress = value;
+                sobject.sAddress = value.trim();
               });
             },
           ),
-          RoundedButton(
-            text: "SIGNUP",
-            press: () async {
-              var check =
-                  await Provider.of<General_Provider>(context, listen: false)
-                      .sign_Up(
-                widget.cnic,
-                widget.fullName,
-                widget.password,
-                widget.userType,
-                widget.phone_no,
-                this.fobject,
-                this.sobject,
-                this.cobject,
-                context,
-              );
-              print("Hello Ibrar");
-              if (check == true) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return LoginScreen();
-                    },
-                  ),
-                );
-              }
-            },
-          ),
+          signupButton,
           SizedBox(height: size.height * 0.02),
           AlreadyHaveAnAccountCheck(
             login: false,
@@ -402,7 +396,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
               icon: Icons.local_florist,
               onChanged: (value) {
                 setState(() {
-                  cobject.cPhoneNumber = value;
+                  cobject.cPhoneNumber = value.trim();
                 });
               },
             ),
@@ -424,7 +418,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
               hintText: "Company Phone Number:",
               icon: Icons.panorama_wide_angle,
               onChanged: (value) {
-                cobject.ccPhoneNumber = value;
+                cobject.ccPhoneNumber = value.trim();
               },
             ),
             RoundedInputField(
@@ -500,33 +494,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
             ),
           ),
           CCustomerTypeFollowUp(),
-          RoundedButton(
-            text: "SIGNUP",
-            press: () async {
-              var check =
-                  await Provider.of<General_Provider>(context, listen: false)
-                      .sign_Up(
-                          widget.cnic,
-                          widget.fullName,
-                          widget.password,
-                          widget.userType,
-                          widget.phone_no,
-                          this.fobject,
-                          this.sobject,
-                          this.cobject,
-                          context);
-              if (check == true) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return LoginScreen();
-                    },
-                  ),
-                );
-              }
-            },
-          ),
+          signupButton,
           SizedBox(height: size.height * 0.02),
           AlreadyHaveAnAccountCheck(
             login: false,
