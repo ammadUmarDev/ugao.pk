@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ugao/Classes/Firebase_Model.dart';
+import 'package:provider/provider.dart';
 import 'package:ugao/Classes/Product_Model.dart';
+import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/components/appbar.dart';
 import 'package:ugao/components/rounded_alert_dialog.dart';
 import 'package:ugao/components/rounded_button.dart';
@@ -10,7 +11,7 @@ import 'package:ugao/components/rounded_image_picker.dart';
 import 'package:ugao/constants.dart';
 
 import '../../components/rounded_input_field.dart';
-import 'package:ugao/components/rounded_alert_dialog.dart';
+import 'package:ugao/Classes/firebase_functions.dart';
 
 class AddProduct extends StatefulWidget {
   @override
@@ -167,13 +168,12 @@ class _AddProductState extends State<AddProduct> {
                     textColor: Colors.white,
                     color: kPrimaryAccentColor,
                     press: () async {
-                      var firebase_object = new Firebase();
                       String nullField = product.get_null_field();
                       print("nullField");
                       print(nullField);
                       if (nullField == null) {
-                        bool check = await firebase_object.add_a_product(
-                            this.product, context);
+                        bool check = await add_a_product(
+                            this.product, Provider.of<General_Provider>(context, listen: false).get_user());
                         if (check == true) {
                           this.product.printf();
                           return true;
@@ -187,7 +187,7 @@ class _AddProductState extends State<AddProduct> {
                         showDialog(
                           context: context,
                           builder: (context) => RoundedAlertDialog(
-                          title: "content",
+                          title: content,
                           buttonName: "OK",
                           onButtonPressed: () {
                             Navigator.pop(context);

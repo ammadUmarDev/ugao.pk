@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:ugao/Classes/User_Model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:io';
@@ -26,6 +27,55 @@ Future<bool> internetCheck() async {
     print('not connected');
     return false;
   }
+  return true;
+}
+
+Future<String> upload_file(File file /*, BuildContext context*/) async {
+  //Path p = new Path();
+  if (file == null) {
+    print("File being uploaded in null");
+  }
+  FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+  StorageReference storageReference = firebaseStorage.ref().child(file.path);
+  StorageUploadTask uploadTask = storageReference.putFile(file);
+  await uploadTask.onComplete;
+  print('File Uploaded');
+  String fileURL = await storageReference.getDownloadURL().then((fileUrl) {
+    //setState(() {
+    return fileUrl;
+    //});
+  });
+  return fileURL;
+}
+
+Future<bool> add_a_product(Product product, User currentUser) async {
+  Firestore firestore = Firestore.instance;
+  String imageURL;
+  if (product.prodImage != null)
+    imageURL = await upload_file(product.prodImage);
+  else {
+    imageURL = null;
+    print("image url is null");
+  }
+  print(imageURL);
+  await firestore
+      .collection('Products')
+      .document(currentUser.cnic.toString() +
+      DateTime.now().millisecondsSinceEpoch.toString())
+      .setData({
+    'Name': product.prodName.toString(),
+    'Desc': product.prodDesc.toString(),
+    'Price_Type': product.priceType.toString(),
+    'Price': product.price,
+    'Quantity': product.quantity,
+    'Weight': product.weight,
+    'WeightUnit': product.weightUnit,
+    'Prod_Category': product.prodCategory,
+    'Prod_Image': [imageURL],
+    'Service_Type': product.serviceType,
+    'Creator': currentUser.cnic,
+    'Created_Timestamp': DateTime.now(),
+  });
   return true;
 }
 

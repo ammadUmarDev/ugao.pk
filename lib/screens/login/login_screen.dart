@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ugao/Providers/general_provider.dart';
-import 'package:ugao/components/Login_Credentials.dart';
 import 'package:ugao/components/already_have_an_account_acheck.dart';
 import 'package:ugao/components/rounded_button.dart';
 import 'package:ugao/components/rounded_input_field.dart';
