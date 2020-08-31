@@ -9,7 +9,7 @@ bool checkUniquenessOfCNIC(String cnic) {
   return true;
 }
 
-bool checkUniquenessOfPhone(String cnic) {
+bool checkUniquenessOfPhone(String phone_no) {
   //TODO: fetch CNICs and PhoneNo from firebase and verify that the passed arguments are unique
   return true;
 }

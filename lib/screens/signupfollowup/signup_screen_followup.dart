@@ -17,6 +17,7 @@ import 'package:ugao/Classes/User_Model.dart';
 import 'package:ugao/Classes/firebase_functions.dart';
 import 'package:ugao/components/alert_dialog.dart';
 import 'package:ugao/screens/dashboard/dashboard.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUpScreenFollowup extends StatefulWidget {
   //General Signup
@@ -75,7 +76,6 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
     Widget signupButton = RoundedButton(
       text: "SIGNUP",
       press: () async {
-        //TODO: add phoneAuth verificatiom
         User user = User(
           cnic: widget.cnic,
           pass: widget.password,
@@ -88,16 +88,102 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
         );
         var check = await signup(user);
         if (check == true) {
-          Provider.of<General_Provider>(context, listen: false).set_user(user);
-          user.print_user();
-          Provider.of<General_Provider>(context, listen: false).get_user().print_user();
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return DashBoard();
-              },
-            ),
+          //TODO first verify phone no
+          FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+          firebaseAuth.verifyPhoneNumber(
+            phoneNumber: widget.phone_no,
+            timeout: Duration(seconds: 60),
+            verificationCompleted: (AuthCredential a) {
+              print("verification completed");
+            },
+            verificationFailed: (AuthException a) {
+              print("verification failed " + a.code.toString());
+            },
+            codeSent: (String verificationID, [int b]) async {
+              print("code sent");
+
+              String code;
+
+              print("before calling showDialog");
+
+              showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text("Give the code?"),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          TextField(
+                            onChanged: (enteredCode) {
+                              code = enteredCode;
+                            },
+                            // controller: _codeController,
+                          ),
+                        ],
+                      ),
+                      actions: <Widget>[
+                        FlatButton(
+                          child: Text("Confirm"),
+                          textColor: Colors.white,
+                          color: Colors.blue,
+                          onPressed: () async {
+                            print("called onPressed of Flat Button");
+                            code = code.trim();
+                            AuthCredential credential =
+                                PhoneAuthProvider.getCredential(
+                                    verificationId: verificationID,
+                                    smsCode: code);
+
+                            print(
+                                "before async call in onPressed of Flat Button");
+
+                            AuthResult result = await firebaseAuth
+                                .signInWithCredential(credential);
+
+                            print(
+                                "after async call in onPressed of Flat Button");
+
+                            if (result.user != null) {
+                              print("Verification successful");
+                              Navigator.of(context).pop();
+                              Provider.of<General_Provider>(context,
+                                      listen: false)
+                                  .set_user(user);
+                              Provider.of<General_Provider>(context,
+                                      listen: false)
+                                  .set_firebase_user(result.user);
+                              user.print_user();
+                              Provider.of<General_Provider>(context,
+                                      listen: false)
+                                  .get_user()
+                                  .print_user();
+                              print(Provider.of<General_Provider>(context,
+                                      listen: false)
+                                  .get_firebase_user());
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return DashBoard();
+                                  },
+                                ),
+                              );
+                            }
+
+                            print("finished onPressed of Flat Button");
+
+                            //return result.user != null;
+                          },
+                        )
+                      ],
+                    );
+                  });
+            },
+            codeAutoRetrievalTimeout: (String a) {
+              print("auto retrieval timeout");
+            },
           );
         } else {
           showDialog(

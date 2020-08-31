@@ -31,6 +31,16 @@ class General_Provider extends ChangeNotifier {
     this.user=u;
   }
 
+  FirebaseUser get_firebase_user()
+  {
+    return firebaseUser;
+  }
+
+  void set_firebase_user(FirebaseUser u)
+  {
+    this.firebaseUser=u;
+  }
+
   General_Provider({
     // ignore: non_constant_identifier_names
     firebase_object,
