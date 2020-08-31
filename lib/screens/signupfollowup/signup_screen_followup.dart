@@ -15,7 +15,7 @@ import 'package:ugao/constants.dart';
 import 'components/background.dart';
 import 'package:ugao/Classes/User_Model.dart';
 import 'package:ugao/Classes/firebase_functions.dart';
-import 'package:ugao/components/alert_dialog.dart';
+import 'package:ugao/components/rounded_alert_dialog.dart';
 import 'package:ugao/screens/dashboard/dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

@@ -1,8 +1,10 @@
 import 'package:ugao/Classes/User_Model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:io';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'Customer_Model.dart';
+import 'Farmer_Model.dart';
+import 'Product_Model.dart';
+import 'Supplier_Model.dart';
 
 bool checkUniquenessOfCNIC(String cnic) {
   //TODO: fetch CNICs from firebase and verify that the passed arguments are unique
@@ -25,6 +27,68 @@ Future<bool> internetCheck() async {
     return false;
   }
   return true;
+}
+
+/*retrieves firebase User document*/
+Future<User> getUser(String entered_cnic) async {
+  Firestore firestore = Firestore.instance;
+  print("in login_up " + entered_cnic.toString());
+  var snapshot =
+      await firestore.collection('Users').document(entered_cnic).get();
+  if (snapshot.data != null) {
+    if (snapshot.data["UserType"].toString() == "Farmer") {
+      Farmer fobj = new Farmer();
+      fobj.fAddress = snapshot.data["fAddress"].toString();
+      fobj.fAnimals = snapshot.data["fAnimals"].toString();
+      fobj.fCategory = snapshot.data["fCategory"].toString();
+      fobj.fCrops = snapshot.data["fCrops"].toString();
+      fobj.fDairy = snapshot.data["fDairy"].toString();
+      fobj.fExperience = snapshot.data["fExperience"].toString();
+      fobj.fFreshProduce = snapshot.data["fFreshProduce"].toString();
+      fobj.fService = snapshot.data["fService"].toString();
+      return User(
+        cnic: snapshot.data["CNIC"].toString(),
+        pass: snapshot.data["Password"].toString(),
+        fullName: snapshot.data["Full_Name"].toString(),
+        usertype: snapshot.data["UserType"].toString(),
+        phone_no: snapshot.data['PhoneNo'].toString(),
+        farmer: fobj,
+      );
+    } else if (snapshot.data["UserType"].toString() == "Supplier") {
+      Supplier sobj = new Supplier();
+      sobj.sAddress = snapshot.data["sAddress"].toString();
+      sobj.sPhoneNumber = snapshot.data["sPhoneNumber"].toString();
+      for (int i = 0; i < snapshot.data["sSelectedTypes"].length; i++) {
+        sobj.sSelectedTypes.add(snapshot.data["sSelectedTypes"][i]);
+      }
+      sobj.scExperience = snapshot.data["scExperience"].toString();
+      return User(
+        cnic: snapshot.data["CNIC"].toString(),
+        pass: snapshot.data["Password"].toString(),
+        fullName: snapshot.data["Full_Name"].toString(),
+        usertype: snapshot.data["UserType"].toString(),
+        phone_no: snapshot.data['PhoneNo'].toString(),
+        supplier: sobj,
+      );
+    } else if (snapshot.data["UserType"].toString() == "Customer") {
+      Customer cobj = new Customer();
+      cobj.cAccountType = snapshot.data["cAccountType"].toString();
+      cobj.cPhoneNumber = snapshot.data["cPhoneNumber"].toString();
+      cobj.ccName = snapshot.data["ccName"].toString();
+      cobj.ccPhoneNumber = snapshot.data["ccPhoneNumber"].toString();
+      cobj.ccWebsite = snapshot.data["ccWebsite"].toString();
+      return User(
+        cnic: snapshot.data["CNIC"].toString(),
+        pass: snapshot.data["Password"].toString(),
+        fullName: snapshot.data["Full_Name"].toString(),
+        usertype: snapshot.data["UserType"].toString(),
+        phone_no: snapshot.data['PhoneNo'].toString(),
+        customer: cobj,
+      );
+    }
+    return null;
+  }
+  return null;
 }
 
 Future<bool> signup(User user) async {

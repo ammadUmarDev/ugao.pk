@@ -11,7 +11,11 @@ import 'package:ugao/screens/dashboard/dashboard.dart';
 import 'package:ugao/screens/signup/signup_screen.dart';
 
 import '../../constants.dart';
+import 'package:ugao/Classes/firebase_functions.dart';
 import 'components/background.dart';
+import 'package:ugao/Classes/User_Model.dart';
+import 'package:ugao/components/rounded_alert_dialog.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -19,8 +23,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
-  Login_Credentials lobject = new Login_Credentials();
+  String cnic;
+  String password;
 
   @override
   Widget build(BuildContext context) {
@@ -47,16 +51,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 hintText: "Your CNIC",
                 onChanged: (newVal) {
                   setState(() {
-                    if (newVal != null)
-                      this.lobject.cnic=newVal;
+                    if (newVal != null) this.cnic = newVal.trim();
                   });
                 },
               ),
               RoundedPasswordField(
                 onChanged: (newVal) {
                   setState(() {
-                    if (newVal != null)
-                      this.lobject.password=newVal;
+                    if (newVal != null) this.password = newVal.trim();
                   });
                 },
               ),
@@ -64,21 +66,120 @@ class _LoginScreenState extends State<LoginScreen> {
                 text: "LOGIN",
                 color: kPrimaryAccentColor,
                 press: () async {
-                  print("body "+this.lobject.cnic.toString());
-                  var check =
-                  await Provider.of<General_Provider>(context, listen: false)
-                      .login(this.lobject, context);
-                  if (check == true) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return DashBoard();
+                  User userDocument = await getUser(cnic);
+                  if (userDocument != null) {
+                    if (userDocument.pass == password) {
+                      FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+                      firebaseAuth.verifyPhoneNumber(
+                        phoneNumber: userDocument.phone_no,
+                        timeout: Duration(seconds: 60),
+                        verificationCompleted: (AuthCredential a) {
+                          print("verification completed");
                         },
-                      ),
+                        verificationFailed: (AuthException a) {
+                          print("verification failed " + a.code.toString());
+                        },
+                        codeSent: (String verificationID, [int b]) async {
+                          String code;
+                          showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text("Give the code?"),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      TextField(
+                                        onChanged: (enteredCode) {
+                                          code = enteredCode;
+                                        },
+                                        // controller: _codeController,
+                                      ),
+                                    ],
+                                  ),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      child: Text("Confirm"),
+                                      textColor: Colors.white,
+                                      color: Colors.blue,
+                                      onPressed: () async {
+                                        code = code.trim();
+                                        AuthCredential credential =
+                                            PhoneAuthProvider.getCredential(
+                                                verificationId: verificationID,
+                                                smsCode: code);
+
+                                        AuthResult result = await firebaseAuth
+                                            .signInWithCredential(credential);
+
+                                        if (result.user != null) {
+                                          print("Verification successful");
+                                          Navigator.of(context).pop();
+                                          Provider.of<General_Provider>(context,
+                                                  listen: false)
+                                              .set_user(userDocument);
+                                          Provider.of<General_Provider>(context,
+                                                  listen: false)
+                                              .set_firebase_user(result.user);
+                                          userDocument.print_user();
+                                          Provider.of<General_Provider>(context,
+                                                  listen: false)
+                                              .get_user()
+                                              .print_user();
+                                          print(Provider.of<General_Provider>(
+                                                  context,
+                                                  listen: false)
+                                              .get_firebase_user());
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) {
+                                                return DashBoard();
+                                              },
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    )
+                                  ],
+                                );
+                              });
+                        },
+                        codeAutoRetrievalTimeout: (String a) {
+                          print("auto retrieval timeout");
+                        },
+                      );
+                    } else {
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) {
+                          return RoundedAlertDialog(
+                            title: "Incorrect password entered",
+                            buttonName: "OK",
+                            onButtonPressed: () {
+                              Navigator.pop(context);
+                            },
+                          );
+                        },
+                      );
+                    }
+                  } else {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) {
+                        return RoundedAlertDialog(
+                          title: "Invalid CNIC entered",
+                          buttonName: "OK",
+                          onButtonPressed: () {
+                            Navigator.pop(context);
+                          },
+                        );
+                      },
                     );
                   }
-                  //Navigator.pushNamed(context, "homePage");
                 },
               ),
               SizedBox(height: size.height * 0.03),

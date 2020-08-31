@@ -10,6 +10,7 @@ import 'package:ugao/components/Login_Credentials.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:math';
 
 // ignore: camel_case_types
 class General_Provider extends ChangeNotifier {
@@ -29,6 +30,10 @@ class General_Provider extends ChangeNotifier {
   void set_user(User u)
   {
     this.user=u;
+    const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    Random _rnd = Random();
+    this.user.pass=String.fromCharCodes(Iterable.generate(
+        5, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
   }
 
   FirebaseUser get_firebase_user()

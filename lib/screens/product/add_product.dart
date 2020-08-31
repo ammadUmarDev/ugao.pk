@@ -10,6 +10,7 @@ import 'package:ugao/components/rounded_image_picker.dart';
 import 'package:ugao/constants.dart';
 
 import '../../components/rounded_input_field.dart';
+import 'package:ugao/components/rounded_alert_dialog.dart';
 
 class AddProduct extends StatefulWidget {
   @override
@@ -186,8 +187,12 @@ class _AddProductState extends State<AddProduct> {
                         showDialog(
                           context: context,
                           builder: (context) => RoundedAlertDialog(
-                            content: content,
-                          ),
+                          title: "content",
+                          buttonName: "OK",
+                          onButtonPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
                         );
                         return false; //TODO: add warning message that a field has not been set
                       }
