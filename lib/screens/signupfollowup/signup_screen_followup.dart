@@ -88,7 +88,6 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
         );
         var check = await signup(user);
         if (check == true) {
-          //TODO first verify phone no
           FirebaseAuth firebaseAuth = FirebaseAuth.instance;
           firebaseAuth.verifyPhoneNumber(
             phoneNumber: widget.phone_no,
@@ -100,12 +99,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
               print("verification failed " + a.code.toString());
             },
             codeSent: (String verificationID, [int b]) async {
-              print("code sent");
-
               String code;
-
-              print("before calling showDialog");
-
               showDialog(
                   context: context,
                   barrierDismissible: false,
@@ -129,21 +123,14 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
                           textColor: Colors.white,
                           color: Colors.blue,
                           onPressed: () async {
-                            print("called onPressed of Flat Button");
                             code = code.trim();
                             AuthCredential credential =
                                 PhoneAuthProvider.getCredential(
                                     verificationId: verificationID,
                                     smsCode: code);
 
-                            print(
-                                "before async call in onPressed of Flat Button");
-
                             AuthResult result = await firebaseAuth
                                 .signInWithCredential(credential);
-
-                            print(
-                                "after async call in onPressed of Flat Button");
 
                             if (result.user != null) {
                               print("Verification successful");
@@ -171,10 +158,6 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
                                 ),
                               );
                             }
-
-                            print("finished onPressed of Flat Button");
-
-                            //return result.user != null;
                           },
                         )
                       ],
