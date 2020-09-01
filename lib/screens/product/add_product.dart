@@ -48,8 +48,10 @@ class _AddProductState extends State<AddProduct> {
                     hintText: "Product Name",
                     icon: Icons.local_florist,
                     onChanged: (newVal) {
+                      newVal = newVal.trim();
+                      if (newVal.isEmpty) newVal = null;
                       setState(() {
-                        if (newVal != null) product.prodName = newVal;
+                        product.prodName = newVal;
                       });
                     },
                   ),
@@ -59,8 +61,10 @@ class _AddProductState extends State<AddProduct> {
                     hintText: "Product Description",
                     icon: Icons.calendar_view_day,
                     onChanged: (newVal) {
+                      newVal = newVal.trim();
+                      if (newVal.isEmpty) newVal = null;
                       setState(() {
-                        if (newVal != null) product.prodDesc = newVal;
+                        product.prodDesc = newVal;
                       });
                     },
                   ),
@@ -82,11 +86,14 @@ class _AddProductState extends State<AddProduct> {
                     hintText: "Price",
                     icon: Icons.monetization_on, //TODO: find appropriate icon
                     onChanged: (newVal) {
+                      newVal = newVal.trim();
+                      if (newVal.isEmpty) newVal = null;
                       setState(() {
-                        if (newVal != null)
-                          product.price = int.parse(
-                              newVal //TODO: add onError for robustness
-                              );
+                        product.price = (newVal == null)
+                            ? null
+                            : int.parse(
+                                newVal //TODO: add onError for robustness
+                                );
                       });
                     },
                   ),
@@ -95,11 +102,14 @@ class _AddProductState extends State<AddProduct> {
                     hintText: "Quantity",
                     icon: Icons.shopping_cart,
                     onChanged: (newVal) {
+                      newVal = newVal.trim();
+                      if (newVal.isEmpty) newVal = null;
                       setState(() {
-                        if (newVal != null)
-                          product.quantity = int.parse(
-                              newVal //TODO: add onError for robustness
-                              );
+                        product.quantity = (newVal == null)
+                            ? null
+                            : int.parse(
+                                newVal //TODO: add onError for robustness
+                                );
                       });
                     },
                   ),
@@ -122,11 +132,14 @@ class _AddProductState extends State<AddProduct> {
                     hintText: "Weight",
                     icon: Icons.call_to_action, //TODO: find appropriate icon
                     onChanged: (newVal) {
+                      newVal = newVal.trim();
+                      if (newVal.isEmpty) newVal = null;
                       setState(() {
-                        if (newVal != null)
-                          product.weight = int.parse(
-                              newVal //TODO: add onError for robustness
-                              );
+                        product.weight = (newVal == null)
+                            ? null
+                            : int.parse(
+                                newVal //TODO: add onError for robustness
+                                );
                       });
                     },
                   ),
@@ -175,7 +188,10 @@ class _AddProductState extends State<AddProduct> {
                       print(nullField);
                       if (nullField == null) {
                         bool check = await add_a_product(
-                            this.product, Provider.of<General_Provider>(context, listen: false).get_user());
+                            this.product,
+                            Provider.of<General_Provider>(context,
+                                    listen: false)
+                                .get_user());
                         if (check == true) {
                           this.product.printf();
                           showDialog(
@@ -206,12 +222,12 @@ class _AddProductState extends State<AddProduct> {
                         showDialog(
                           context: context,
                           builder: (context) => RoundedAlertDialog(
-                          title: content,
-                          buttonName: "OK",
-                          onButtonPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
+                            title: content,
+                            buttonName: "OK",
+                            onButtonPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
                         );
                         return false; //TODO: add warning message that a field has not been set
                       }
