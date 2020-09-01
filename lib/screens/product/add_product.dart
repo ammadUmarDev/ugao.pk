@@ -13,6 +13,8 @@ import 'package:ugao/constants.dart';
 import '../../components/rounded_input_field.dart';
 import 'package:ugao/Classes/firebase_functions.dart';
 
+import 'my_products_seller.dart';
+
 class AddProduct extends StatefulWidget {
   @override
   _AddProductState createState() => _AddProductState();
@@ -176,7 +178,24 @@ class _AddProductState extends State<AddProduct> {
                             this.product, Provider.of<General_Provider>(context, listen: false).get_user());
                         if (check == true) {
                           this.product.printf();
-                          return true;
+                          showDialog(
+                            context: context,
+                            builder: (context) => RoundedAlertDialog(
+                              title: "Product added successfully",
+                              buttonName: "OK",
+                              onButtonPressed: () {
+                                Navigator.pop(context);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return MyProductsSeller();
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
+                          );
                         }
                       } else {
                         final String content =
