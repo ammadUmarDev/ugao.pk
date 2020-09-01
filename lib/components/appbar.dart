@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ugao/components/h1.dart';
+import 'package:ugao/screens/cart/cart_screen.dart';
+import 'package:ugao/screens/dashboard/dashboard.dart';
 import '../constants.dart';
 
 class AppBarPageName extends StatelessWidget implements PreferredSizeWidget {
@@ -20,6 +22,66 @@ class AppBarPageName extends StatelessWidget implements PreferredSizeWidget {
         color: kPrimaryAccentColor,
       ),
       elevation: 0,
+      actions: [
+        ClipOval(
+          child: Material(
+            color: Colors.white, // button color
+            child: InkWell(
+              splashColor: kPrimaryLightColor, // inkwell color
+              child: SizedBox(
+                width: 56,
+                height: 56,
+                child: Icon(
+                  Icons.home,
+                  color: kPrimaryAccentColor,
+                ),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return DashBoard();
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        ClipOval(
+          child: Material(
+            color: Colors.white, // button color
+            child: InkWell(
+              splashColor: kPrimaryLightColor, // inkwell color
+              child: SizedBox(
+                width: 56,
+                height: 56,
+                child: Icon(
+                  Icons.shopping_cart,
+                  color: kPrimaryAccentColor,
+                ),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return CartScreen();
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 10,
+        ),
+      ],
     );
   }
 }
