@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ugao/components/rounded_button.dart';
-import 'package:ugao/profile/profile_screen.dart';
 import 'package:ugao/screens/Cart/cart_screen.dart';
 import 'package:ugao/screens/category/category_list_screen.dart';
+import 'package:ugao/screens/product/catagory_products_screen.dart';
+import 'package:ugao/screens/profile/profile_screen.dart';
 import 'package:ugao/screens/tutorial/tutorial_screen.dart';
 
 import '../../constants.dart';
@@ -34,6 +35,21 @@ class _DashboardCustomerScreenState extends State<DashboardCustomerScreen> {
                         MaterialPageRoute(
                           builder: (context) {
                             return CategoryListScreen();
+                          },
+                        ),
+                      );
+                    }),
+                RoundedButton(
+                    text: "Fertilizer Products",
+                    color: kPrimaryAccentColor,
+                    press: () async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ProductsScreen(
+                              catagoryName: "Fertilizer",
+                            );
                           },
                         ),
                       );

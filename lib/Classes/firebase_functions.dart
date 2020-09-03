@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:io';
 import 'Customer_Model.dart';
 import 'Farmer_Model.dart';
-import 'Product_Model.dart';
+import 'Product_Model_Upload.dart';
 import 'Supplier_Model.dart';
 
 bool checkUniquenessOfCNIC(String cnic) {
@@ -61,7 +61,7 @@ Future<bool> add_a_product(Product product, User currentUser) async {
   await firestore
       .collection('Products')
       .document(currentUser.cnic.toString() +
-      DateTime.now().millisecondsSinceEpoch.toString())
+          DateTime.now().millisecondsSinceEpoch.toString())
       .setData({
     'Name': product.prodName.toString(),
     'Desc': product.prodDesc.toString(),

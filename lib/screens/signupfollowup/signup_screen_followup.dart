@@ -12,7 +12,7 @@ import 'package:ugao/components/rounded_button.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/constants.dart';
 
-import 'components/background.dart';
+import 'background.dart';
 import 'package:ugao/Classes/User_Model.dart';
 import 'package:ugao/Classes/firebase_functions.dart';
 import 'package:ugao/components/rounded_alert_dialog.dart';
