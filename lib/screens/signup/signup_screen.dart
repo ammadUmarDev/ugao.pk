@@ -129,18 +129,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               phone_no)) //TODO: put at the specific fields
                       ==
                       true) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SignUpScreenFollowup(
-                          fullName: fullName.trim(),
-                          cnic: cnic.trim(),
-                          password: password.trim(),
-                          userType: typeUser.trim(),
-                          phone_no: phone_no.trim(),
+                    if (fullName == null ||
+                        cnic == null ||
+                        password == null ||
+                        typeUser == null ||
+                        phone_no == null) {
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) {
+                          return RoundedAlertDialog(
+                            title: "Please fill all fields",
+                            onButtonPressed: () {
+                              Navigator.pop(context);
+                            },
+                          );
+                        },
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SignUpScreenFollowup(
+                            fullName: fullName.trim(),
+                            cnic: cnic.trim(),
+                            password: password.trim(),
+                            userType: typeUser.trim(),
+                            phone_no: phone_no.trim(),
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                    }
                   } else {
                     showDialog(
                       context: context,
