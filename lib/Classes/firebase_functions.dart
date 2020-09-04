@@ -107,7 +107,7 @@ Future<User> getUser(String entered_cnic) async {
     } else if (snapshot.data["UserType"].toString() == "Supplier") {
       Supplier sobj = new Supplier();
       sobj.sAddress = snapshot.data["sAddress"].toString();
-      sobj.sPhoneNumber = snapshot.data["sPhoneNumber"].toString();
+      //sobj.sPhoneNumber = snapshot.data["sPhoneNumber"].toString();
       for (int i = 0; i < snapshot.data["sSelectedTypes"].length; i++) {
         sobj.sSelectedTypes.add(snapshot.data["sSelectedTypes"][i]);
       }
@@ -173,7 +173,7 @@ Future<bool> signup(User user) async {
         'PhoneNo': user.phone_no.toString(),
         'UserType': user.usertype.toString(),
         'scExperience': user.supplier.scExperience.toString(),
-        'sPhoneNumber': user.supplier.sPhoneNumber.toString(),
+        //'sPhoneNumber': user.supplier.sPhoneNumber.toString(),
         'sType': user.supplier.sType.toString(),
         'sSelectedTypes': user.supplier.sSelectedTypes,
         'sAddress': user.supplier.sAddress.toString(),
