@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ugao/components/rounded_cnic_field.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/rounded_password_field.dart';
 import 'package:ugao/components/rounded_phone_input_field.dart';
@@ -54,12 +55,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   });
                 },
               ),
-              RoundedInputField(
-                hintText: "CNIC",
-                icon: Icons.credit_card,
+              RoundedCNICField(
                 onChanged: (value) {
                   setState(() {
                     cnic = value.trim();
+                    print(cnic);
                   });
                 },
               ),
@@ -67,7 +67,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 onChanged: (value) {
                   setState(() {
                     phone_no = value.completeNumber;
-                    print(phone_no);
                   });
                 },
               ),

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/components/already_have_an_account_acheck.dart';
 import 'package:ugao/components/rounded_button.dart';
+import 'package:ugao/components/rounded_cnic_field.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/rounded_password_field.dart';
 import 'package:ugao/screens/dashboard/dashboard.dart';
@@ -46,11 +47,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: size.height * 0.35,
               ),
               SizedBox(height: size.height * 0.05),
-              RoundedInputField(
-                hintText: "Your CNIC",
-                onChanged: (newVal) {
+              RoundedCNICField(
+                onChanged: (value) {
                   setState(() {
-                    if (newVal != null) this.cnic = newVal.trim();
+                    cnic = value.trim();
+                    print(cnic);
                   });
                 },
               ),
