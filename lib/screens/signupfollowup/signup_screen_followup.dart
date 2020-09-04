@@ -12,6 +12,8 @@ import 'package:ugao/components/rounded_button.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/rounded_phone_input_field.dart';
 import 'package:ugao/constants.dart';
+import 'package:ugao/screens/dashboard/dashboard_customer_screen.dart';
+import 'package:ugao/screens/dashboard/dashboard_supplier_screen.dart';
 
 import 'components/background.dart';
 import 'package:ugao/Classes/User_Model.dart';
@@ -150,14 +152,34 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
                               print(Provider.of<General_Provider>(context,
                                       listen: false)
                                   .get_firebase_user());
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return DashBoard();
-                                  },
-                                ),
-                              );
+                              if (user.usertype == "Farmer") {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return DashBoard();
+                                    },
+                                  ),
+                                );
+                              } else if (user.usertype == "Customer") {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return DashboardCustomerScreen();
+                                    },
+                                  ),
+                                );
+                              } else if (user.usertype == "Supplier") {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return DashboardSupplierScreen();
+                                    },
+                                  ),
+                                );
+                              }
                             }
                           },
                         )

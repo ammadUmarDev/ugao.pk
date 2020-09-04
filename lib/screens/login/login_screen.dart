@@ -8,6 +8,8 @@ import 'package:ugao/components/rounded_cnic_field.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/rounded_password_field.dart';
 import 'package:ugao/screens/dashboard/dashboard.dart';
+import 'package:ugao/screens/dashboard/dashboard_customer_screen.dart';
+import 'package:ugao/screens/dashboard/dashboard_supplier_screen.dart';
 import 'package:ugao/screens/signup/signup_screen.dart';
 
 import '../../constants.dart';
@@ -122,23 +124,34 @@ class _LoginScreenState extends State<LoginScreen> {
                                           Provider.of<General_Provider>(context,
                                                   listen: false)
                                               .set_firebase_user(result.user);
-                                          userDocument.print_user();
-                                          Provider.of<General_Provider>(context,
-                                                  listen: false)
-                                              .get_user()
-                                              .print_user();
-                                          print(Provider.of<General_Provider>(
-                                                  context,
-                                                  listen: false)
-                                              .get_firebase_user());
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) {
-                                                return DashBoard();
-                                              },
-                                            ),
-                                          );
+                                          if (userDocument.usertype == "Farmer") {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) {
+                                                  return DashBoard();
+                                                },
+                                              ),
+                                            );
+                                          }else if (userDocument.usertype == "Customer") {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) {
+                                                  return DashboardCustomerScreen();
+                                                },
+                                              ),
+                                            );
+                                          }else if (userDocument.usertype == "Supplier") {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) {
+                                                  return DashboardSupplierScreen();
+                                                },
+                                              ),
+                                            );
+                                          }
                                         }
                                       },
                                     )
