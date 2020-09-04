@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/rounded_password_field.dart';
+import 'package:ugao/components/rounded_phone_input_field.dart';
 import 'components/background.dart';
 import 'package:ugao/Screens/Login/login_screen.dart';
 import 'package:ugao/components/already_have_an_account_acheck.dart';
@@ -62,13 +63,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   });
                 },
               ),
-              RoundedInputField(
-                hintText: "Phone No",
-                icon: Icons.person,
-                keyboardType: TextInputType.phone,
+              RoundedIntlPhoneField(
                 onChanged: (value) {
                   setState(() {
-                    phone_no = value.trim();
+                    phone_no = value.completeNumber;
+                    print(phone_no);
                   });
                 },
               ),
