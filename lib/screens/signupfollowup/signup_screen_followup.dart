@@ -10,6 +10,7 @@ import 'package:ugao/components/already_have_an_account_acheck.dart';
 import 'package:ugao/components/h1.dart';
 import 'package:ugao/components/rounded_button.dart';
 import 'package:ugao/components/rounded_input_field.dart';
+import 'package:ugao/components/rounded_phone_input_field.dart';
 import 'package:ugao/constants.dart';
 
 import 'components/background.dart';
@@ -461,9 +462,8 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
                 });
               },
             ),
-            RoundedInputField(
+            RoundedIntlPhoneField(
               hintText: "Company Phone Number:",
-              icon: Icons.panorama_wide_angle,
               onChanged: (value) {
                 cobject.ccPhoneNumber = value.trim();
               },
@@ -477,22 +477,19 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
             ),
           ],
         );
-      /*if (cobject.cAccountType == null) */return SizedBox(height: 1);
-      /*if (cobject.cAccountType == "Individual")
+      if (cobject.cAccountType == "Individual") {
         return Column(
-          children: <Widget>[
-            RoundedInputField(
-              hintText: "Phone Number:",
-              icon: Icons.local_florist,
-              onChanged: (value) {
-                setState(() {
-                  cobject.cPhoneNumber = value.trim();
-                });
-              },
+          children: [
+            SizedBox(height: 1),
+            Text(
+              "NO MORE QUESTIONS, THANKYOU!",
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ],
-        );*/
-          }
+        );
+      }
+      return SizedBox(height: 1);
+    }
 
     Widget CustomerSignUp() {
       return Column(

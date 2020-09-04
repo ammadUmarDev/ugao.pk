@@ -6,8 +6,9 @@ import '../constants.dart';
 
 class RoundedIntlPhoneField extends StatelessWidget {
   final onChanged;
+  final hintText;
 
-  RoundedIntlPhoneField({@required this.onChanged});
+  RoundedIntlPhoneField({@required this.onChanged, this.hintText="Phone No"});
 
   //TODO: change color of "+92"
 
@@ -19,7 +20,7 @@ class RoundedIntlPhoneField extends StatelessWidget {
         showDropdownIcon: false,
         initialCountryCode: "PK",
           decoration:InputDecoration(
-            hintText: "Phone No",
+            hintText: hintText,
             border: InputBorder.none,
             fillColor: kPrimaryAccentColor,
           )
