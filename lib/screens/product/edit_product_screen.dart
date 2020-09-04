@@ -8,7 +8,7 @@ import 'package:ugao/Classes/User_Model.dart';
 import 'package:ugao/Providers/product_provider.dart';
 import 'package:ugao/components/appbar.dart';
 import 'package:ugao/components/body_text.dart';
-import 'package:ugao/components/buttonErims.dart';
+import 'package:ugao/components/button_loading.dart';
 import 'package:ugao/components/h1.dart';
 import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/h3.dart';
