@@ -252,6 +252,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
           RoundedInputField(
             hintText: "Years of Experience",
             icon: Icons.donut_large,
+            keyboardType: TextInputType.number,
             onChanged: (value) {
               fobject.fExperience = value.trim();
             },
@@ -410,18 +411,10 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
           RoundedInputField(
             hintText: "Years of Experience:",
             icon: Icons.local_florist,
+            keyboardType: TextInputType.number,
             onChanged: (value) {
               setState(() {
                 sobject.scExperience = value.trim();
-              });
-            },
-          ),
-          RoundedInputField(
-            hintText: "Phone Number:",
-            icon: Icons.local_florist,
-            onChanged: (value) {
-              setState(() {
-                sobject.sPhoneNumber = value.trim();
               });
             },
           ),
@@ -456,21 +449,6 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
 
     //Customer
     Widget CCustomerTypeFollowUp() {
-      if (cobject.cAccountType == null) return SizedBox(height: 1);
-      if (cobject.cAccountType == "Individual")
-        return Column(
-          children: <Widget>[
-            RoundedInputField(
-              hintText: "Phone Number:",
-              icon: Icons.local_florist,
-              onChanged: (value) {
-                setState(() {
-                  cobject.cPhoneNumber = value.trim();
-                });
-              },
-            ),
-          ],
-        );
       if (cobject.cAccountType == "Commercial")
         return Column(
           children: <Widget>[
@@ -499,7 +477,22 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
             ),
           ],
         );
-    }
+      /*if (cobject.cAccountType == null) */return SizedBox(height: 1);
+      /*if (cobject.cAccountType == "Individual")
+        return Column(
+          children: <Widget>[
+            RoundedInputField(
+              hintText: "Phone Number:",
+              icon: Icons.local_florist,
+              onChanged: (value) {
+                setState(() {
+                  cobject.cPhoneNumber = value.trim();
+                });
+              },
+            ),
+          ],
+        );*/
+          }
 
     Widget CustomerSignUp() {
       return Column(

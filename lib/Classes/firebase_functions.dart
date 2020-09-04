@@ -123,7 +123,7 @@ Future<User> getUser(String entered_cnic) async {
     } else if (snapshot.data["UserType"].toString() == "Customer") {
       Customer cobj = new Customer();
       cobj.cAccountType = snapshot.data["cAccountType"].toString();
-      cobj.cPhoneNumber = snapshot.data["cPhoneNumber"].toString();
+      //cobj.cPhoneNumber = snapshot.data["cPhoneNumber"].toString();
       cobj.ccName = snapshot.data["ccName"].toString();
       cobj.ccPhoneNumber = snapshot.data["ccPhoneNumber"].toString();
       cobj.ccWebsite = snapshot.data["ccWebsite"].toString();
@@ -188,7 +188,7 @@ Future<bool> signup(User user) async {
         'PhoneNo': user.phone_no.toString(),
         'UserType': user.usertype.toString(),
         'cAccountType': user.customer.cAccountType.toString(),
-        'cPhoneNumber': user.customer.cPhoneNumber.toString(),
+        //'cPhoneNumber': user.customer.cPhoneNumber.toString(),
         'ccName': user.customer.ccName.toString(),
         'ccPhoneNumber': user.customer.ccPhoneNumber.toString(),
         'ccWebsite': user.customer.ccWebsite.toString()
