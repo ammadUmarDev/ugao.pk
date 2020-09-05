@@ -107,7 +107,7 @@ Future<User> getUser(String entered_cnic) async {
     } else if (snapshot.data["UserType"].toString() == "Supplier") {
       Supplier sobj = new Supplier();
       sobj.sAddress = snapshot.data["sAddress"].toString();
-      sobj.sPhoneNumber = snapshot.data["sPhoneNumber"].toString();
+      //sobj.sPhoneNumber = snapshot.data["sPhoneNumber"].toString();
       for (int i = 0; i < snapshot.data["sSelectedTypes"].length; i++) {
         sobj.sSelectedTypes.add(snapshot.data["sSelectedTypes"][i]);
       }
@@ -123,7 +123,7 @@ Future<User> getUser(String entered_cnic) async {
     } else if (snapshot.data["UserType"].toString() == "Customer") {
       Customer cobj = new Customer();
       cobj.cAccountType = snapshot.data["cAccountType"].toString();
-      cobj.cPhoneNumber = snapshot.data["cPhoneNumber"].toString();
+      //cobj.cPhoneNumber = snapshot.data["cPhoneNumber"].toString();
       cobj.ccName = snapshot.data["ccName"].toString();
       cobj.ccPhoneNumber = snapshot.data["ccPhoneNumber"].toString();
       cobj.ccWebsite = snapshot.data["ccWebsite"].toString();
@@ -173,7 +173,7 @@ Future<bool> signup(User user) async {
         'PhoneNo': user.phone_no.toString(),
         'UserType': user.usertype.toString(),
         'scExperience': user.supplier.scExperience.toString(),
-        'sPhoneNumber': user.supplier.sPhoneNumber.toString(),
+        //'sPhoneNumber': user.supplier.sPhoneNumber.toString(),
         'sType': user.supplier.sType.toString(),
         'sSelectedTypes': user.supplier.sSelectedTypes,
         'sAddress': user.supplier.sAddress.toString(),
@@ -188,7 +188,7 @@ Future<bool> signup(User user) async {
         'PhoneNo': user.phone_no.toString(),
         'UserType': user.usertype.toString(),
         'cAccountType': user.customer.cAccountType.toString(),
-        'cPhoneNumber': user.customer.cPhoneNumber.toString(),
+        //'cPhoneNumber': user.customer.cPhoneNumber.toString(),
         'ccName': user.customer.ccName.toString(),
         'ccPhoneNumber': user.customer.ccPhoneNumber.toString(),
         'ccWebsite': user.customer.ccWebsite.toString()

@@ -7,7 +7,7 @@ class RoundedAlertDialog extends StatelessWidget {
   final String title;
   final String buttonName;
 
-  RoundedAlertDialog({this.title,this.onChanged, this.buttonName, this.onButtonPressed}){}
+  RoundedAlertDialog({@required this.title,this.onChanged, this.buttonName="OK", @required this.onButtonPressed}){}
 
   @override
   Widget build(BuildContext context) {
