@@ -140,7 +140,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   } else {
                     //Navigator.pushNamed(context, "signupPageFollowup");
                     if ((await checkUniquenessOfCNIC(cnic) &&
-                            checkUniquenessOfPhone(
+                            await checkUniquenessOfPhone(
                                 phone_no)) //TODO: put at the specific fields
                         ==
                         true) {

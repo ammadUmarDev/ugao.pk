@@ -8,16 +8,20 @@ import 'Product_Model_Upload.dart';
 import 'Supplier_Model.dart';
 
 Future<bool> checkUniquenessOfCNIC(String cnic) async {
-  //TODO: fetch CNICs from firebase and verify that the passed arguments are unique
-
   Firestore firestore = Firestore.instance;
   var snapshot =
       await firestore.collection('Users').document(cnic).get();
   return snapshot==null;
 }
 
-bool checkUniquenessOfPhone(String phone_no) {
-  //TODO: fetch CNICs and PhoneNo from firebase and verify that the passed arguments are unique
+Future<bool> checkUniquenessOfPhone(String phone_no) async{
+  Firestore firestore = Firestore.instance;
+  var snapshot = await firestore.collection('Users').getDocuments();
+  if (snapshot.documents.length > 0) {
+    for (var document in snapshot.documents) {
+      if( document['PhoneNo']==phone_no)return false;
+    }
+  }
   return true;
 }
 
