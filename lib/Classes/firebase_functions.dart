@@ -11,7 +11,7 @@ Future<bool> checkUniquenessOfCNIC(String cnic) async {
   Firestore firestore = Firestore.instance;
   var snapshot =
       await firestore.collection('Users').document(cnic).get();
-  return snapshot==null;
+  return snapshot.data==null;
 }
 
 Future<bool> checkUniquenessOfPhone(String phone_no) async{
