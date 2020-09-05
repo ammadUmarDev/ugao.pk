@@ -123,7 +123,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               RoundedButton(
                 text: "NEXT",
                 press: () async {
-                  if (phone_no.length != 15) {
+                  if (phone_no.length != 13) {
                     showDialog(
                       context: context,
                       barrierDismissible: false,
