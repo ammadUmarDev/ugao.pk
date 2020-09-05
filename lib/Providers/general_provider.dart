@@ -24,7 +24,7 @@ class General_Provider extends ChangeNotifier {
     Random _rnd = Random();
     this.user.pass = String.fromCharCodes(Iterable.generate(
         5, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
-  }
+  }   
 
   FirebaseUser get_firebase_user() {
     if (firebaseUser == null) {

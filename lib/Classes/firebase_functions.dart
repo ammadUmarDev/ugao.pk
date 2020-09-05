@@ -30,6 +30,89 @@ Future<bool> internetCheck() async {
   return true;
 }
 
+//Change UserType
+Future<bool> update_User_Type(User user, var obj) async {
+  var firestore = Firestore.instance;
+  if (obj is Farmer) {
+    print("It is a farmer");
+    await firestore.collection('Users').document(user.cnic).delete();
+    await firestore.collection('Users').document(user.cnic).setData({
+      'Full_Name': user.fullName.toString(),
+      'CNIC': user.cnic.toString(),
+      'Password': user.pass.toString(),
+      'PhoneNo': user.phone_no.toString(),
+      'UserType': "Famrer".toString(),
+      'fExperience': obj.fExperience,
+      'fAddress': obj.fAddress,
+      'fService': obj.fService,
+      'fCategory': obj.fCategory,
+      'fCrops': obj.fCrops,
+      'fAnimals': obj.fAnimals,
+      'fFreshProduce': obj.fFreshProduce,
+      'fDairy': obj.fDairy,
+    });
+  }
+  if (obj is Supplier) {
+    print("It is a supplier");
+    await firestore.collection('Users').document(user.cnic).delete();
+    await firestore.collection('Users').document(user.cnic).setData({
+      'Full_Name': user.fullName.toString(),
+      'CNIC': user.cnic.toString(),
+      'Password': user.pass.toString(),
+      'PhoneNo': user.phone_no.toString(),
+      'UserType': "Supplier".toString(),
+      'scExperience': obj.scExperience.toString(),
+      'sPhoneNumber': obj.sPhoneNumber.toString(),
+      'sType': obj.sType.toString(),
+      'sSelectedTypes': obj.sSelectedTypes,
+      'sAddress': obj.sAddress.toString(),
+    });
+  }
+  if (obj is Customer) {
+    print("It is a customer");
+    await firestore.collection('Users').document(user.cnic).delete();
+    await firestore.collection('Users').document(user.cnic).setData({
+      'Full_Name': user.fullName.toString(),
+      'CNIC': user.cnic.toString(),
+      'Password': user.pass.toString(),
+      'PhoneNo': user.phone_no.toString(),
+      'UserType': "Customer".toString(),
+      'cAccountType': obj.cAccountType.toString(),
+      'cPhoneNumber': obj.cPhoneNumber.toString(),
+      'ccName': obj.ccName.toString(),
+      'ccPhoneNumber': obj.ccPhoneNumber.toString(),
+      'ccWebsite': obj.ccWebsite.toString()
+    });
+  }
+}
+
+//PhoneNo Change
+Future<bool> change_Phone_No(User u, String new_Phone_No) async {
+  var fire = Firestore.instance;
+  var snapshot = fire.collection('Users').document(u.cnic);
+  if (snapshot != null) {
+    await snapshot.updateData({"PhoneNo": new_Phone_No.toString()});
+    return true;
+  } else {
+    return false;
+  }
+}
+
+//Password Change
+Future<bool> changePassword(
+    User u, String new_Pass, String entered_pass) async {
+  if (u.pass == entered_pass) {
+    // ignore: await_only_futures
+    var fire = await Firestore.instance;
+    fire.collection("Users").document(u.cnic).updateData({
+      "Password": new_Pass.toString(),
+    });
+    return true;
+  } else {
+    return false;
+  }
+}
+
 Future<String> upload_file(File file /*, BuildContext context*/) async {
   //Path p = new Path();
   if (file == null) {
@@ -41,9 +124,7 @@ Future<String> upload_file(File file /*, BuildContext context*/) async {
   await uploadTask.onComplete;
   print('File Uploaded');
   String fileURL = await storageReference.getDownloadURL().then((fileUrl) {
-    //setState(() {
     return fileUrl;
-    //});
   });
   return fileURL;
 }
@@ -61,7 +142,7 @@ Future<bool> add_a_product(Product product, User currentUser) async {
   await firestore
       .collection('Products')
       .document(currentUser.cnic.toString() +
-      DateTime.now().millisecondsSinceEpoch.toString())
+          DateTime.now().millisecondsSinceEpoch.toString())
       .setData({
     'Name': product.prodName.toString(),
     'Desc': product.prodDesc.toString(),

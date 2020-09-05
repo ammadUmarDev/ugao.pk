@@ -3,6 +3,7 @@ import 'package:ugao/components/rounded_button.dart';
 import 'package:ugao/profile/profile_screen.dart';
 import 'package:ugao/screens/Cart/cart_screen.dart';
 import 'package:ugao/screens/category/category_list_screen.dart';
+import 'package:ugao/screens/profile/profile_screen.dart';
 import 'package:ugao/screens/tutorial/tutorial_screen.dart';
 
 import '../../constants.dart';
@@ -75,7 +76,7 @@ class _DashboardCustomerScreenState extends State<DashboardCustomerScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return ProfilePage();
+                            return Profile_Page_State();
                           },
                         ),
                       );

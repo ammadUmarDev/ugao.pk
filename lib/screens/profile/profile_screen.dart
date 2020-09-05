@@ -1,13 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:ugao/Classes/Customer_Model.dart';
+import 'package:ugao/Classes/Farmer_Model.dart';
+import 'package:ugao/Classes/Supplier_Model.dart';
+import 'package:ugao/Classes/User_Model.dart';
+import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/constants.dart';
 import 'package:ugao/settings/change_password_screen.dart';
 import 'package:ugao/settings/settings_screen.dart';
 
 import 'faq_page.dart';
 
-class ProfilePage extends StatelessWidget {
+class Profile_Page_State extends StatefulWidget {
+  ProfilePage createState() => ProfilePage();
+}
+
+class ProfilePage extends State<Profile_Page_State> {
+  User user;
+  String description = "Null";
   @override
   Widget build(BuildContext context) {
+    user = Provider.of<General_Provider>(context, listen: false).get_user();
+    if (user.usertype == "Farmer") {
+      this.description = "CNIC:" +
+          this.user.cnic +
+          "\nPhone_NO: " +
+          user.phone_no +
+          "\nUserType:" +
+          this.user.usertype +
+          "\nAddress:" +
+          this.user.farmer.fAddress;
+    }
+    if (user.usertype == "Supplier") {
+      this.description = "CNIC:" +
+          this.user.cnic +
+          "\nPhone_NO: " +
+          user.phone_no +
+          "\nUserType:" +
+          this.user.usertype +
+          "\nAddress:" +
+          this.user.supplier.sAddress;
+    }
+    if (user.usertype == "Customer") {
+      this.description = "CNIC:" +
+          this.user.cnic +
+          "\nPhone_NO: " +
+          user.phone_no +
+          "\nUserType:" +
+          this.user.usertype +
+          "\nWebsite:" +
+          this.user.customer.ccWebsite;
+    }
     return Scaffold(
       backgroundColor: Color(0xffF9F9F9),
       body: SafeArea(
@@ -25,7 +68,7 @@ class ProfilePage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'Profile Name',
+                    user.fullName,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -50,7 +93,7 @@ class ProfilePage extends StatelessWidget {
                   child: Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[Text("Profile details here")],
+                      children: <Widget>[Text(this.description)],
                     ),
                   ),
                 ),
