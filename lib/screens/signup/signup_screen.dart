@@ -122,7 +122,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               RoundedButton(
                 text: "NEXT",
-                press: () async{
+                press: () async {
                   if (cnic.length != 15) {
                     showDialog(
                       context: context,
@@ -161,21 +161,41 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             );
                           },
                         );
-                      } else {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SignUpScreenFollowup(
-                              fullName: fullName.trim(),
-                              cnic: cnic.trim(),
-                              password: password.trim(),
-                              userType: typeUser.trim(),
-                              phone_no: phone_no.trim(),
-                            ),
-                          ),
-                        );
                       }
-                    } else {
+                      else {
+                        if (password.length <= 6) {
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (context) {
+                              return RoundedAlertDialog(
+                                title:
+                                    "Password length must be greater than 6 digits",
+                                buttonName: "OK",
+                                onButtonPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              );
+                            },
+                          );
+                        }
+                        else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignUpScreenFollowup(
+                                fullName: fullName.trim(),
+                                cnic: cnic.trim(),
+                                password: password.trim(),
+                                userType: typeUser.trim(),
+                                phone_no: phone_no.trim(),
+                              ),
+                            ),
+                          );
+                        }
+                      }
+                    }
+                    else {
                       showDialog(
                         context: context,
                         barrierDismissible: false,
