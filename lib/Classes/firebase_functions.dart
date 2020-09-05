@@ -7,9 +7,13 @@ import 'Farmer_Model.dart';
 import 'Product_Model_Upload.dart';
 import 'Supplier_Model.dart';
 
-bool checkUniquenessOfCNIC(String cnic) {
+Future<bool> checkUniquenessOfCNIC(String cnic) async {
   //TODO: fetch CNICs from firebase and verify that the passed arguments are unique
-  return true;
+
+  Firestore firestore = Firestore.instance;
+  var snapshot =
+      await firestore.collection('Users').document(cnic).get();
+  return snapshot==null;
 }
 
 bool checkUniquenessOfPhone(String phone_no) {

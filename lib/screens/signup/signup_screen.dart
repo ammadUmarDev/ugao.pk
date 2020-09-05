@@ -122,7 +122,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               RoundedButton(
                 text: "NEXT",
-                press: () {
+                press: () async{
                   if (cnic.length != 15) {
                     showDialog(
                       context: context,
@@ -139,7 +139,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     );
                   } else {
                     //Navigator.pushNamed(context, "signupPageFollowup");
-                    if ((checkUniquenessOfCNIC(cnic) &&
+                    if ((await checkUniquenessOfCNIC(cnic) &&
                             checkUniquenessOfPhone(
                                 phone_no)) //TODO: put at the specific fields
                         ==
