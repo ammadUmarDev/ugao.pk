@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ugao/Classes/Product_Model.dart';
+import 'package:ugao/Classes/Product_Model_Upload.dart';
 import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/components/appbar.dart';
 import 'package:ugao/components/rounded_alert_dialog.dart';
@@ -13,7 +13,7 @@ import 'package:ugao/constants.dart';
 import '../../components/rounded_input_field.dart';
 import 'package:ugao/Classes/firebase_functions.dart';
 
-import 'my_products_seller.dart';
+import 'my_products_screen.dart';
 
 class AddProduct extends StatefulWidget {
   @override

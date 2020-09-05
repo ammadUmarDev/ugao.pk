@@ -1,28 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ugao/constants.dart';
 
-import '../constants.dart';
+class H2TextStyle extends TextStyle {
+  H2TextStyle({this.color});
+  final fontFamily = "Cantarell";
+  final fontSize = h2Size;
+  final Color color;
+  final fontWeight = FontWeight.w600;
+}
 
 class H2 extends StatelessWidget {
   H2({
     this.textBody,
-    this.color = kPrimaryAccentColor,
-    this.align = TextAlign.left,
+    this.color,
   });
   final String textBody;
   final Color color;
-  final align;
   @override
   Widget build(BuildContext context) {
     return Text(
       textBody,
-      style: TextStyle(
-        fontFamily: "Cantarell",
-        fontSize: h2Size,
-        color: color,
-        fontWeight: FontWeight.w600,
-      ),
-      textAlign: align,
+      style: H2TextStyle(color: color),
     );
   }
 }

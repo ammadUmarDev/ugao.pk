@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ugao/Classes/Category_Model.dart';
-import 'components/staggered_category_card.dart';
+import 'staggered_category_card.dart';
 
 class CategoryListScreen extends StatefulWidget {
   @override

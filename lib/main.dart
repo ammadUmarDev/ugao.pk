@@ -8,6 +8,7 @@ import 'package:ugao/screens/signup/signup_screen.dart';
 import 'package:ugao/screens/signupfollowup/signup_screen_followup.dart';
 import 'package:ugao/screens/welcome/welcome_screen.dart';
 import 'package:provider/provider.dart';
+import 'Providers/product_provider.dart';
 import 'constants.dart';
 
 void main() => runApp(MyApp());
@@ -15,8 +16,11 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => General_Provider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => General_Provider()),
+        ChangeNotifierProvider(create: (context) => Product_Provider()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Ugao',

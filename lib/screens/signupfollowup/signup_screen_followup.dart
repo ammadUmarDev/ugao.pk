@@ -15,7 +15,7 @@ import 'package:ugao/constants.dart';
 import 'package:ugao/screens/dashboard/dashboard_customer_screen.dart';
 import 'package:ugao/screens/dashboard/dashboard_supplier_screen.dart';
 
-import 'components/background.dart';
+import 'background.dart';
 import 'package:ugao/Classes/User_Model.dart';
 import 'package:ugao/Classes/firebase_functions.dart';
 import 'package:ugao/components/rounded_alert_dialog.dart';
