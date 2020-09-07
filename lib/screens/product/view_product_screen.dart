@@ -54,119 +54,132 @@ class _ViewProductState extends State<ViewProduct> {
           child: Center(
             child: ListView(
               children: <Widget>[
-                Column(
-                  children: [
-                    Image.network(
-                      widget.productObj.prodImage,
-                      height: 180,
-                      width: 180,
-                    ),
-                    Container(
-                      height: 200,
-                      width: double.infinity,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 24.0),
-                            child: H1(textBody: widget.productObj.prodName),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 24.0),
-                            child: H3(
-                                textBody: "Catagory: " +
-                                    widget.productObj.prodCategory),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 24.0),
-                            child: H3(
-                                textBody: widget.productObj.priceType +
-                                    ": PKR " +
-                                    widget.productObj.price.toString() +
-                                    " "),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          InkWell(
-                            onTap: () async {
-                              Alert(
-                                  context: context,
-                                  title: "Quantity",
-                                  style: AlertStyle(
-                                    titleStyle:
-                                        H2TextStyle(color: kPrimaryAccentColor),
-                                  ),
-                                  content: Column(
-                                    children: <Widget>[
-                                      SizedBox(
-                                        height: 10,
+                SizedBox(
+                  height: 205,
+                  child: Stack(
+                    children: <Widget>[
+                      Positioned(
+                        top: 10,
+                        left: 0.0,
+                        child: Image.network(
+                          widget.productObj.prodImage,
+                          height: 150,
+                          width: 150,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      Positioned(
+                        right: 0.0,
+                        child: Container(
+                          height: 200,
+                          width: 350,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 24.0),
+                                child: H1(textBody: widget.productObj.prodName),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 24.0),
+                                child: H3(
+                                    textBody: "Catagory: " +
+                                        widget.productObj.prodCategory),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 24.0),
+                                child: H3(
+                                    textBody: widget.productObj.priceType +
+                                        ": PKR " +
+                                        widget.productObj.price.toString() +
+                                        " "),
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  Alert(
+                                      context: context,
+                                      title: "Quantity",
+                                      style: AlertStyle(
+                                        titleStyle: H2TextStyle(
+                                            color: kPrimaryAccentColor),
                                       ),
-                                      H3(
-                                          textBody:
-                                              "TODO: Add quantity adder/subtracter"),
-                                      SizedBox(
-                                        height: 15,
+                                      content: Column(
+                                        children: <Widget>[
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          H3(
+                                              textBody:
+                                                  "TODO: Add quantity adder/subtracter"),
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                          ButtonLoading(
+                                            onTap: (startLoading, stopLoading,
+                                                btnState) async {
+                                              if (btnState ==
+                                                  ButtonState.Idle) {
+                                                startLoading();
+                                                Navigator.pop(context);
+                                                stopLoading();
+                                              } else {
+                                                stopLoading();
+                                              }
+                                            },
+                                            labelText: 'Continue :)',
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                        ],
                                       ),
-                                      ButtonLoading(
-                                        onTap: (startLoading, stopLoading,
-                                            btnState) async {
-                                          if (btnState == ButtonState.Idle) {
-                                            startLoading();
-                                            Navigator.pop(context);
-                                            stopLoading();
-                                          } else {
-                                            stopLoading();
-                                          }
-                                        },
-                                        labelText: 'Continue :)',
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                    ],
-                                  ),
-                                  buttons: [
-                                    DialogButton(
+                                      buttons: [
+                                        DialogButton(
+                                          color: Colors.white,
+                                          height: 0,
+                                        ),
+                                      ]).show();
+                                },
+                                child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width / 2.5,
+                                  decoration: BoxDecoration(
+                                      color: Colors.black,
+                                      gradient: mainButton,
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(30.0),
+                                          bottomLeft: Radius.circular(30.0))),
+                                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                                  child: Center(
+                                    child: H2(
+                                      textBody: 'Add to Cart',
                                       color: Colors.white,
-                                      height: 0,
                                     ),
-                                  ]).show();
-                            },
-                            child: Container(
-                              width: MediaQuery.of(context).size.width / 2.5,
-                              decoration: BoxDecoration(
-                                  color: Colors.black,
-                                  gradient: mainButton,
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(30.0),
-                                      bottomLeft: Radius.circular(30.0))),
-                              padding: EdgeInsets.symmetric(vertical: 16.0),
-                              child: Center(
-                                child: H2(
-                                  textBody: 'Add to Cart',
-                                  color: Colors.white,
+                                  ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                  ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 Divider(
                   color: kPrimaryAccentColor,

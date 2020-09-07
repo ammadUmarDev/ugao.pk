@@ -35,45 +35,16 @@ class _ProductsScreenState extends State<ProductsScreen> {
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Center(
-                child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 50.0),
-                ),
-                H3(
-                  textBody: "Error in fetching products: ${snapshot.error}.",
-                )
-              ],
-            ));
+            return H3(
+                textBody: 'Error in fetching products: ${snapshot.error}');
           }
 
           switch (snapshot.connectionState) {
             case ConnectionState.none:
-              return Center(
-                  child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 50.0),
-                  ),
-                  H3(
-                    textBody: "Not connected to the Stream or null.",
-                  )
-                ],
-              ));
+              return H3(textBody: 'Not connected to the Stream or null');
 
             case ConnectionState.waiting:
-              return Center(
-                  child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 50.0),
-                  ),
-                  H3(
-                    textBody: "Awaiting for interaction.",
-                  )
-                ],
-              ));
+              return H3(textBody: 'Awaiting for interaction');
 
             case ConnectionState.active:
               print("Stream has started but not finished");
@@ -135,31 +106,11 @@ class _ProductsScreenState extends State<ProductsScreen> {
               ));
 
             case ConnectionState.done:
-              return Center(
-                  child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 50.0),
-                  ),
-                  H3(
-                    textBody: "All products fetched.",
-                  )
-                ],
-              ));
+              return H3(textBody: 'All products fetched');
           }
 
           return Container(
-            child: Center(
-                child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 50.0),
-                ),
-                H3(
-                  textBody: "No products found.",
-                )
-              ],
-            )),
+            child: H3(textBody: "No products found."),
           );
         });
     return Scaffold(

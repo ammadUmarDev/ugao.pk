@@ -56,15 +56,17 @@ class _EditProductState extends State<EditProduct> {
             child: ListView(
               children: <Widget>[
                 SizedBox(
-                  height: 200,
+                  height: 205,
                   child: Stack(
                     children: <Widget>[
                       Positioned(
+                        top: 10,
                         left: 0.0,
                         child: Image.network(
                           widget.productObj.prodImage,
-                          height: 200,
-                          width: 200,
+                          height: 150,
+                          width: 150,
+                          fit: BoxFit.contain,
                         ),
                       ),
                       Positioned(
