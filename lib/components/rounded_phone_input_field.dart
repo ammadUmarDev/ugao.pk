@@ -8,22 +8,23 @@ class RoundedIntlPhoneField extends StatelessWidget {
   final onChanged;
   final hintText;
 
-  RoundedIntlPhoneField({@required this.onChanged, this.hintText="Phone No"});
+  RoundedIntlPhoneField({@required this.onChanged, this.hintText = "Phone No"});
 
   //TODO: change color of "+92"
 
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-      child: IntlPhoneField(
-        onChanged: onChanged,
-        showDropdownIcon: false,
-        initialCountryCode: "PK",
-          decoration:InputDecoration(
-            hintText: hintText,
-            border: InputBorder.none,
-            fillColor: kPrimaryAccentColor,
-          )
+      child: Center(
+        child: IntlPhoneField(
+            onChanged: onChanged,
+            showDropdownIcon: false,
+            initialCountryCode: "PK",
+            decoration: InputDecoration(
+              hintText: hintText,
+              border: InputBorder.none,
+              fillColor: kPrimaryAccentColor,
+            )),
       ),
     );
   }

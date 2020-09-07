@@ -41,41 +41,43 @@ class GridTileProduct extends StatelessWidget {
           );
         }
       },
-      child: Container(
-        padding: EdgeInsets.only(top: 5),
-        child: Card(
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(8.0),
+      child: Flexible(
+        child: Container(
+          padding: EdgeInsets.only(top: 5),
+          child: Card(
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(8.0),
+                ),
               ),
-            ),
-            elevation: 0,
-            child: Center(
-              child: Column(
-                children: <Widget>[
-                  Image.network(
-                    product.prodImage,
-                    width: 130,
-                    height: 130,
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  H3(
-                    textBody: product.prodName.length <= 40
-                        ? product.prodName
-                        : product.prodName.substring(0, 40),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  BodyText(
-                    textBody: "PKR " + product.price.toString(),
-                  )
-                ],
-              ),
-            )),
+              elevation: 0,
+              child: Center(
+                child: Column(
+                  children: <Widget>[
+                    Image.network(
+                      product.prodImage,
+                      width: 130,
+                      height: 130,
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    H3(
+                      textBody: product.prodName.length <= 40
+                          ? product.prodName
+                          : product.prodName.substring(0, 40),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    BodyText(
+                      textBody: "PKR " + product.price.toString(),
+                    )
+                  ],
+                ),
+              )),
+        ),
       ),
     );
   }

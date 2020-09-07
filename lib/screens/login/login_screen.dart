@@ -67,6 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
               RoundedButton(
                 text: "LOGIN",
                 color: kPrimaryAccentColor,
+                textColor: Colors.white,
                 press: () async {
                   if (cnic.length != 15) {
                     showDialog(

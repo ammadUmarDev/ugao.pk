@@ -78,6 +78,8 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
 
     Widget signupButton = RoundedButton(
       text: "SIGNUP",
+      color: kPrimaryAccentColor,
+      textColor: Colors.white,
       press: () async {
         User user = User(
           cnic: widget.cnic,
