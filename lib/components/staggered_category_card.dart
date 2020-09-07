@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ugao/components/h1.dart';
 import 'package:ugao/constants.dart';
 
-import 'catagory_products_screen.dart';
+import '../screens/product/catagory_products_screen.dart';
 
 class StaggeredCardCard extends StatefulWidget {
   final Color begin;
