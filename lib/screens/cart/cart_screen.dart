@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 //my own imports
 import 'package:ugao/screens/dashboard/dashboard.dart';
 import 'package:ugao/screens/cart/cart_products.dart';
+import 'package:ugao/components/appbar.dart';
+import 'package:ugao/screens/checkout/checkout_screen.dart';
 
 class CartScreen extends StatefulWidget {
   @override
@@ -13,23 +15,18 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
-          elevation: 0.1,
-          backgroundColor: Colors.green[300],
-          title: Text('Cart'),
-          actions: <Widget>[
-            new IconButton(
-                icon: Icon(Icons.home, color: Colors.white),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => DashBoard()));
-                })
-          ]),
+      appBar: AppBarPageName(
+        pageName: 'Cart',
+      ),
+
+      // =============== Products in Cart =================
+
       body: new Cart_products(),
       bottomNavigationBar: new Container(
         color: Colors.white,
         child: Row(
           children: <Widget>[
+            // ========== TOTAL OF ORDER - ADD FUNCTION TO TOTAL ================
             Expanded(
                 child: ListTile(
               title: new Text(
@@ -38,9 +35,15 @@ class _CartScreenState extends State<CartScreen> {
               ),
               subtitle: new Text("\Rs."),
             )),
+
             Expanded(
                 child: new MaterialButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CheckoutScreen()),
+                );
+              },
               child: new Text(
                 "Check out",
                 style: TextStyle(color: Colors.white),
