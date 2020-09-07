@@ -16,12 +16,14 @@ class _Cart_productsState extends State<Cart_products> {
       "picture": "assets/images/bgwelcome.png",
       "price": 3000,
       "quantity": 1,
+      "service": "Pickup",
     },
     {
       "name": "Rice",
       "picture": "assets/images/clothes.jpeg",
       "price": 200,
       "quantity": 2,
+      "service": "Delivery",
     },
   ];
 
@@ -38,6 +40,7 @@ class _Cart_productsState extends State<Cart_products> {
             cart_prod_picture: Products_on_the_cart[index]["picture"],
             cart_prod_price: Products_on_the_cart[index]["price"],
             cart_prod_qty: Products_on_the_cart[index]["quantity"],
+            cart_prod_service: Products_on_the_cart[index]["service"],
           );
         });
   }
@@ -47,13 +50,16 @@ class Single_cart_product extends StatelessWidget {
   final cart_prod_name;
   final cart_prod_picture;
   final cart_prod_price;
+  final cart_prod_service;
   var cart_prod_qty;
 
-  Single_cart_product(
-      {this.cart_prod_name,
-      this.cart_prod_picture,
-      this.cart_prod_price,
-      this.cart_prod_qty});
+  Single_cart_product({
+    this.cart_prod_name,
+    this.cart_prod_picture,
+    this.cart_prod_price,
+    this.cart_prod_qty,
+    this.cart_prod_service,
+  });
 
   void incQuantity() {
     this.cart_prod_qty = this.cart_prod_qty + 1;
@@ -80,6 +86,18 @@ class Single_cart_product extends StatelessWidget {
             subtitle: new Column(
               children: <Widget>[
                 //Row inside Column
+                new Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 8.0),
+                      child: new Text(cart_prod_service),
+                    ),
+                    /*Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: new Text(cart_prod_qty.toString()),
+                    ),*/
+                  ],
+                ),
                 new Row(
                   children: <Widget>[
                     //qty of product
@@ -114,6 +132,7 @@ class Single_cart_product extends StatelessWidget {
               fit: BoxFit.fill,
               child: Column(
                 children: <Widget>[
+                  // ======== inc Quantity dec Quantity ============
                   new IconButton(
                       icon: Icon(Icons.arrow_drop_up),
                       onPressed: () {

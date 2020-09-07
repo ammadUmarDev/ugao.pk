@@ -5,6 +5,7 @@ import 'package:ugao/screens/dashboard/dashboard.dart';
 import 'package:ugao/screens/cart/cart_products.dart';
 import 'package:ugao/components/appbar.dart';
 import 'package:ugao/screens/checkout/checkout_screen.dart';
+import '../../constants.dart';
 
 class CartScreen extends StatefulWidget {
   @override
@@ -38,18 +39,18 @@ class _CartScreenState extends State<CartScreen> {
 
             Expanded(
                 child: new MaterialButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CheckoutScreen()),
-                );
-              },
-              child: new Text(
-                "Check out",
-                style: TextStyle(color: Colors.white),
-              ),
-              color: Colors.green[300],
-            ))
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CheckoutScreen()),
+                      );
+                    },
+                    child: new Text(
+                      "Check out",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    color: kPrimaryColor))
           ],
         ),
       ),

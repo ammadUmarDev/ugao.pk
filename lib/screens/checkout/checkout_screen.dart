@@ -33,7 +33,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               children: <Widget>[
                 Expanded(
                   child: RoundedContainer(
-                    color: kPrimaryColor,
+                    margin: EdgeInsets.symmetric(horizontal: 80),
+                    color: kPrimaryLightColor,
                     child: Column(
                       children: <Widget>[
                         Text(
@@ -43,28 +44,27 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             fontSize: 20.0,
                           ),
                         ),
-                        const SizedBox(
+                        /*const SizedBox(
                           height: 10.0,
                         ),
                         Text("User's default address here",
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 16.0,
-                            ))
+                            ))*/
                       ],
                     ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 80.0),
+            const SizedBox(height: 30.0),
             Row(
               children: <Widget>[
                 Expanded(
                   child: RoundedContainer(
-                    margin:
-                        EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
-                    color: kPrimaryColor,
+                    margin: EdgeInsets.symmetric(horizontal: 80),
+                    color: kPrimaryLightColor,
                     child: Column(
                       children: <Widget>[
                         Text(
@@ -94,7 +94,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   "Confirm Order",
                   style: TextStyle(color: Colors.white),
                 ),
-                color: Colors.green[300],
+                color: kPrimaryColor,
               ),
             ),
           ],
