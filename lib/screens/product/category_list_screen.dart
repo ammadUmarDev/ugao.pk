@@ -58,7 +58,7 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
       key: _scaffoldKey,
       backgroundColor: Colors.white,
       appBar: AppBarPageName(
-        pageName: "Catagories",
+        pageName: "Categories",
       ),
       body: Background_CP(
         child: SafeArea(
