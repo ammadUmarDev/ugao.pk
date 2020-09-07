@@ -27,7 +27,7 @@ class _DashboardCustomerScreenState extends State<DashboardCustomerScreen> {
               children: [
                 Text("Dashboard Customer"),
                 RoundedButton(
-                    text: "Catagories",
+                    text: "Categories",
                     color: kPrimaryAccentColor,
                     press: () async {
                       Navigator.push(
