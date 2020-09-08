@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:ugao/Classes/Product_Model_Fetch.dart';
 import 'package:ugao/Classes/User_Model.dart';
+import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/Providers/product_provider.dart';
 import 'package:ugao/components/appbar.dart';
 import 'package:ugao/components/body_text.dart';
@@ -12,6 +13,8 @@ import 'package:ugao/components/button_loading.dart';
 import 'package:ugao/components/h1.dart';
 import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/h3.dart';
+import 'package:ugao/components/rounded_drop_down.dart';
+import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/constants.dart';
 import 'package:ugao/screens/cart/cart_screen.dart';
 
@@ -40,9 +43,11 @@ class _ViewProductState extends State<ViewProduct> {
   List<BoxShadow> shadow = [
     BoxShadow(color: Colors.black12, offset: Offset(0, 3), blurRadius: 6)
   ];
+  List<String> sTypes = ["Pickup", "Delivery"];
 
   @override
   Widget build(BuildContext context) {
+    int cartQuantity = 0;String serviceType;
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Colors.white,
@@ -122,9 +127,33 @@ class _ViewProductState extends State<ViewProduct> {
                                           SizedBox(
                                             height: 10,
                                           ),
-                                          H3(
-                                              textBody:
-                                                  "TODO: Add quantity adder/subtracter"),
+                                          RoundedInputField(
+                                            hintText: "Quantity",
+                                            keyboardType: TextInputType.number,
+                                            onChanged: (newVal) {
+                                              cartQuantity = (newVal == null)
+                                                  ? null
+                                                  : int.parse(
+                                                      newVal //TODO: add onError for robustness
+                                                      );
+                                            },
+                                          ),
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                          RoundedDropDown(
+                                            name: "Service Type",
+                                            size: MediaQuery.of(context).size,
+                                            text: serviceType,
+                                            value: serviceType,
+                                            onChanged: (String value) {
+                                              setState(() {
+                                                serviceType = value;if (serviceType.isEmpty)serviceType=null;
+                                              });
+                                            },
+                                            items: sTypes,
+                                            icon: Icons.departure_board,
+                                          ),
                                           SizedBox(
                                             height: 15,
                                           ),
@@ -133,14 +162,20 @@ class _ViewProductState extends State<ViewProduct> {
                                                 btnState) async {
                                               if (btnState ==
                                                   ButtonState.Idle) {
+                                                //TODO: add to cart
+                                                print(cartQuantity);
+                                                print(serviceType);
                                                 startLoading();
+                                                Provider.of<General_Provider>(context,
+                                                    listen: false)
+                                                    .addToCart(widget.productObj,cartQuantity,serviceType);
                                                 Navigator.pop(context);
                                                 stopLoading();
                                               } else {
                                                 stopLoading();
                                               }
                                             },
-                                            labelText: 'Continue :)',
+                                            labelText: 'Add Product',
                                           ),
                                           SizedBox(
                                             height: 10,

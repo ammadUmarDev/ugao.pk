@@ -56,6 +56,11 @@ class General_Provider extends ChangeNotifier {
     return user;
   }
 
+  void addToCart(ProductFetch product, int quantity, String serviceType)
+  {
+    this.cart.add(CartProduct(product: product,quantity: quantity,serviceType: serviceType));
+  }
+
   void set_user(User u) {
     this.user = u;
     const _chars =
