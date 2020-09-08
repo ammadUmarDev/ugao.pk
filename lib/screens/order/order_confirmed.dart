@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 //my imports
 import 'package:ugao/components/appbar.dart';
+import '../../constants.dart';
 
 class orderConfirmed extends StatefulWidget {
   String order_address;
@@ -25,12 +26,34 @@ class _orderConfirmedState extends State<orderConfirmed> {
         appBar: AppBarPageName(
           pageName: 'Checkout',
         ),
+        backgroundColor: kPrimaryLightColor,
         body: SingleChildScrollView(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text("Address:" + this.order_address),
+            SizedBox(height: size.height * 0.1),
+            Container(
+              margin: EdgeInsets.all(20.0),
+              padding: EdgeInsets.symmetric(
+                  horizontal: size.width * 0.8, vertical: size.height * 0.6),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(
+                    color: Colors.blueGrey,
+                  )),
+              child: Text(
+                "Order #<Insert Order Number> \n CONFIRMED",
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  //fontWeight: FontWeight.bold,
+                  fontSize: 24.0,
+                ),
+              ),
+            ),
+            SizedBox(height: size.height * 0.11),
+            Row(),
           ],
         )));
   }
