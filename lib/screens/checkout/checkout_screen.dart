@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 // my own imports
 import 'package:ugao/components/appbar.dart';
-import 'package:ugao/components/rounded_bordered_container.dart';
 import 'package:ugao/components/rounded_button.dart';
 import '../../constants.dart';
 import 'package:ugao/components/rounded_input_field.dart';
@@ -104,7 +103,23 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           children: <Widget>[
             Expanded(
               child: new MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (this.new_add_check) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              orderConfirmed(order_address: this.new_address)),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              orderConfirmed(order_address: "")),
+                    );
+                  }
+                },
                 child: new Text(
                   "Confirm Order",
                   style: TextStyle(color: Colors.white),
