@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ugao/components/h1.dart';
 import 'package:ugao/constants.dart';
 
-import '../screens/product/catagory_products_screen.dart';
+import '../screens/product/category_products_screen.dart';
 
 class StaggeredCardCard extends StatefulWidget {
   final Color begin;
@@ -68,7 +68,7 @@ class _StaggeredCardCardState extends State<StaggeredCardCard> {
                     MaterialPageRoute(
                       builder:
                           (context) => /*add route to product page*/ ProductsScreen(
-                        catagoryName: widget.categoryName,
+                        categoryName: widget.categoryName,
                       ),
                     ),
                   );

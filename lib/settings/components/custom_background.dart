@@ -1,5 +1,6 @@
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:ugao/constants.dart';
 
 class AuthBackground extends CustomPainter {
   AuthBackground({
@@ -32,7 +33,7 @@ class MainBackground extends CustomPainter {
     canvas.drawRect(
         Rect.fromLTRB(0, 0, width, height), Paint()..color = Colors.white);
     canvas.drawRect(Rect.fromLTRB(width - (width / 3), 0, width, height),
-        Paint()..color = Colors.black45);
+        Paint()..color = kPrimaryLightColor);
   }
 
   @override

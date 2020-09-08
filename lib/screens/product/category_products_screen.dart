@@ -12,11 +12,11 @@ import 'package:ugao/screens/product/background_view_product.dart';
 import 'background_catagory.dart';
 
 class ProductsScreen extends StatefulWidget {
-  String catagoryName;
+  String categoryName;
 
   ProductsScreen({
     Key key,
-    this.catagoryName,
+    this.categoryName,
   }) : super(key: key);
 
   @override
@@ -31,7 +31,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
     Widget catagoryProducts = StreamBuilder<QuerySnapshot>(
         stream: Provider.of<Product_Provider>(context, listen: false)
             .get_productsRef()
-            .where('Prod_Category', isEqualTo: widget.catagoryName)
+            .where('Prod_Category', isEqualTo: widget.categoryName)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
@@ -164,7 +164,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
           );
         });
     return Scaffold(
-      appBar: AppBarPageName(pageName: widget.catagoryName),
+      appBar: AppBarPageName(pageName: widget.categoryName),
       body: Background_CP(
         child: SafeArea(
           child: ListView(
