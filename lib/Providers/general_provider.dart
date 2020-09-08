@@ -11,7 +11,7 @@ class General_Provider extends ChangeNotifier {
   User user;
   FirebaseUser firebaseUser;
   List<CartProduct> cart = [
-    CartProduct(
+    /*CartProduct(
         product: ProductFetch(
             prodName: "Green Up Lawn Fertilizer",
             prodImage:
@@ -34,7 +34,7 @@ class General_Provider extends ChangeNotifier {
                 "https://firebasestorage.googleapis.com/v0/b/ugao-58f32.appspot.com/o/data%2Fuser%2F0%2Fcom.vectech.ugao%2Fcache%2Fimage_picker2573009106067769771.jpg?alt=media&token=06f7a0c2-7cfb-4855-9b3b-3246e710331d",
             price: 4000),
         quantity: 5,
-        serviceType: "Delivery"),
+        serviceType: "Delivery"),*/
   ];
 
   CartProduct getCartProduct(int index) {
