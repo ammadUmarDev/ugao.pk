@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (userDocument != null) {
                       if (userDocument.pass == password) {
                         FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-                        /*firebaseAuth.verifyPhoneNumber(
+                        firebaseAuth.verifyPhoneNumber(
                           phoneNumber: userDocument.phone_no,
                           timeout: Duration(seconds: 60),
                           verificationCompleted: (AuthCredential a) {
@@ -183,39 +183,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           codeAutoRetrievalTimeout: (String a) {
                             print("auto retrieval timeout");
                           },
-                        );*/
-                        print("Verification successful");
-                        Navigator.of(context).pop();
-                        Provider.of<General_Provider>(context, listen: false)
-                            .set_user(userDocument);
-                        if (userDocument.usertype == "Farmer") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return DashBoard();
-                              },
-                            ),
-                          );
-                        } else if (userDocument.usertype == "Customer") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return DashboardCustomerScreen();
-                              },
-                            ),
-                          );
-                        } else if (userDocument.usertype == "Supplier") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return DashboardSupplierScreen();
-                              },
-                            ),
-                          );
-                        }
+                        );
                       } else {
                         showDialog(
                           context: context,
