@@ -274,7 +274,13 @@ class _DashboardSupplierScreenState extends State<DashboardSupplierScreen> {
                                 "View all orders recieved from customers."),
                         SizedBox(height: 10),
                       ],
-                      onTapFunction: () {},
+                      onTapFunction: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => OrdersReceivedSeller(),
+                            ));
+                      },
                     ),
                   ),
                 ),
