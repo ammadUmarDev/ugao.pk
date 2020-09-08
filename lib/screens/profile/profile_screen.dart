@@ -6,6 +6,7 @@ import 'package:ugao/Classes/Supplier_Model.dart';
 import 'package:ugao/Classes/User_Model.dart';
 import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/constants.dart';
+import 'package:ugao/screens/profile/Components/Security_Settings.dart';
 import 'package:ugao/settings/change_password_screen.dart';
 import 'package:ugao/settings/settings_screen.dart';
 
@@ -124,7 +125,7 @@ class ProfilePage extends State<Profile_Page_State> {
                   trailing:
                       Icon(Icons.chevron_right, color: kPrimaryLightColor),
                   onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (_) => ChangePasswordScreen())),
+                      builder: (_) => Security_Settings_State())),
                 ),
                 Divider(),
                 ListTile(

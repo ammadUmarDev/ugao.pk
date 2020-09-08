@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ugao/components/h1.dart';
-import '../constants.dart';
 import 'h2.dart';
 
 class RoundedButton extends StatelessWidget {

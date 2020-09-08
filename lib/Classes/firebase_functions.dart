@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:io';
 import 'Customer_Model.dart';
 import 'Farmer_Model.dart';
-import 'Product_Model.dart';
+import 'Product_Model_Upload.dart';
 import 'Supplier_Model.dart';
 
 bool checkUniquenessOfCNIC(String cnic) {
@@ -51,6 +51,7 @@ Future<bool> update_User_Type(User user, var obj) async {
       'fFreshProduce': obj.fFreshProduce,
       'fDairy': obj.fDairy,
     });
+    return true;
   }
   if (obj is Supplier) {
     print("It is a supplier");
@@ -67,6 +68,7 @@ Future<bool> update_User_Type(User user, var obj) async {
       'sSelectedTypes': obj.sSelectedTypes,
       'sAddress': obj.sAddress.toString(),
     });
+    return true;
   }
   if (obj is Customer) {
     print("It is a customer");
@@ -78,11 +80,12 @@ Future<bool> update_User_Type(User user, var obj) async {
       'PhoneNo': user.phone_no.toString(),
       'UserType': "Customer".toString(),
       'cAccountType': obj.cAccountType.toString(),
-      'cPhoneNumber': obj.cPhoneNumber.toString(),
+      'cPhoneNumber': obj.ccPhoneNumber.toString(),
       'ccName': obj.ccName.toString(),
       'ccPhoneNumber': obj.ccPhoneNumber.toString(),
       'ccWebsite': obj.ccWebsite.toString()
     });
+    return true;
   }
 }
 
@@ -103,14 +106,25 @@ Future<bool> changePassword(
     User u, String new_Pass, String entered_pass) async {
   if (u.pass == entered_pass) {
     // ignore: await_only_futures
-    var fire = await Firestore.instance;
-    fire.collection("Users").document(u.cnic).updateData({
+    print("Entered");
+    var fire = Firestore.instance;
+    await fire.collection("Users").document(u.cnic).updateData({
       "Password": new_Pass.toString(),
     });
     return true;
   } else {
     return false;
   }
+}
+
+//User Name Change
+Future<bool> change_User_Name(User u, String new_name) async {
+  var fire = Firestore.instance;
+  await fire
+      .collection("Users")
+      .document(u.cnic)
+      .updateData({"Full_Name": new_name});
+  return true;
 }
 
 Future<String> upload_file(File file /*, BuildContext context*/) async {
@@ -188,7 +202,7 @@ Future<User> getUser(String entered_cnic) async {
     } else if (snapshot.data["UserType"].toString() == "Supplier") {
       Supplier sobj = new Supplier();
       sobj.sAddress = snapshot.data["sAddress"].toString();
-      sobj.sPhoneNumber = snapshot.data["sPhoneNumber"].toString();
+      //sobj.sPhoneNumber = snapshot.data["sPhoneNumber"].toString();
       for (int i = 0; i < snapshot.data["sSelectedTypes"].length; i++) {
         sobj.sSelectedTypes.add(snapshot.data["sSelectedTypes"][i]);
       }
@@ -204,7 +218,7 @@ Future<User> getUser(String entered_cnic) async {
     } else if (snapshot.data["UserType"].toString() == "Customer") {
       Customer cobj = new Customer();
       cobj.cAccountType = snapshot.data["cAccountType"].toString();
-      cobj.cPhoneNumber = snapshot.data["cPhoneNumber"].toString();
+      //cobj.cPhoneNumber = snapshot.data["cPhoneNumber"].toString();
       cobj.ccName = snapshot.data["ccName"].toString();
       cobj.ccPhoneNumber = snapshot.data["ccPhoneNumber"].toString();
       cobj.ccWebsite = snapshot.data["ccWebsite"].toString();
@@ -254,7 +268,7 @@ Future<bool> signup(User user) async {
         'PhoneNo': user.phone_no.toString(),
         'UserType': user.usertype.toString(),
         'scExperience': user.supplier.scExperience.toString(),
-        'sPhoneNumber': user.supplier.sPhoneNumber.toString(),
+        //'sPhoneNumber': user.supplier.sPhoneNumber.toString(),
         'sType': user.supplier.sType.toString(),
         'sSelectedTypes': user.supplier.sSelectedTypes,
         'sAddress': user.supplier.sAddress.toString(),
@@ -269,7 +283,7 @@ Future<bool> signup(User user) async {
         'PhoneNo': user.phone_no.toString(),
         'UserType': user.usertype.toString(),
         'cAccountType': user.customer.cAccountType.toString(),
-        'cPhoneNumber': user.customer.cPhoneNumber.toString(),
+        //'cPhoneNumber': user.customer.cPhoneNumber.toString(),
         'ccName': user.customer.ccName.toString(),
         'ccPhoneNumber': user.customer.ccPhoneNumber.toString(),
         'ccWebsite': user.customer.ccWebsite.toString()

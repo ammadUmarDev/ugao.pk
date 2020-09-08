@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'change_country_screen.dart';
+import 'package:ugao/screens/profile/Components/Account_Settings_Screen.dart';
 import 'components/custom_background.dart';
 import 'change_language_screen.dart';
 import 'legal_about_screen.dart';
@@ -54,11 +54,12 @@ class SettingsScreen extends StatelessWidget {
                                       builder: (_) => ChangeLanguageScreen())),
                             ),
                             ListTile(
-                              title: Text('Change Country'),
+                              title: Text('Account Settings'),
                               leading: Image.asset('assets/icons/country.png'),
                               onTap: () => Navigator.of(context).push(
                                   MaterialPageRoute(
-                                      builder: (_) => ChangeCountryScreen())),
+                                      builder: (_) =>
+                                          Account_Settings_State())),
                             ),
                             ListTile(
                               title: Text('Notifications'),

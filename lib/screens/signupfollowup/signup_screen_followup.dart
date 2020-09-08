@@ -420,9 +420,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
             hintText: "Phone Number:",
             icon: Icons.local_florist,
             onChanged: (value) {
-              setState(() {
-                sobject.sPhoneNumber = value.trim();
-              });
+              setState(() {});
             },
           ),
           RoundedInputField(
@@ -464,9 +462,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
               hintText: "Phone Number:",
               icon: Icons.local_florist,
               onChanged: (value) {
-                setState(() {
-                  cobject.cPhoneNumber = value.trim();
-                });
+                setState(() {});
               },
             ),
           ],
