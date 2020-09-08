@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:ugao/Classes/Cart_Product_Model.dart';
+import 'package:ugao/Classes/Product_Model_Fetch.dart';
 import 'package:ugao/Classes/User_Model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:math';
@@ -8,6 +10,47 @@ class General_Provider extends ChangeNotifier {
   // ignore: non_constant_identifier_names
   User user;
   FirebaseUser firebaseUser;
+  List<CartProduct> cart = [
+    CartProduct(
+        product: ProductFetch(
+            prodName: "Green Up Lawn Fertilizer",
+            prodImage:
+            "https://firebasestorage.googleapis.com/v0/b/ugao-58f32.appspot.com/o/data%2Fuser%2F0%2Fcom.vectech.ugao%2Fcache%2Fimage_picker2573009106067769771.jpg?alt=media&token=06f7a0c2-7cfb-4855-9b3b-3246e710331d",
+            price: 4000),
+        quantity: 5,
+        serviceType: "Delivery"),
+    CartProduct(
+        product: ProductFetch(
+            prodName: "Green Up Lawn Fertilizer",
+            prodImage:
+            "https://firebasestorage.googleapis.com/v0/b/ugao-58f32.appspot.com/o/data%2Fuser%2F0%2Fcom.vectech.ugao%2Fcache%2Fimage_picker2573009106067769771.jpg?alt=media&token=06f7a0c2-7cfb-4855-9b3b-3246e710331d",
+            price: 4000),
+        quantity: 2,
+        serviceType: "Pickup"),
+    CartProduct(
+        product: ProductFetch(
+            prodName: "Green Up Lawn Fertilizer",
+            prodImage:
+            "https://firebasestorage.googleapis.com/v0/b/ugao-58f32.appspot.com/o/data%2Fuser%2F0%2Fcom.vectech.ugao%2Fcache%2Fimage_picker2573009106067769771.jpg?alt=media&token=06f7a0c2-7cfb-4855-9b3b-3246e710331d",
+            price: 4000),
+        quantity: 5,
+        serviceType: "Delivery"),
+  ];
+
+  CartProduct getCartProduct(int index)
+  {
+    return cart[index];
+  }
+
+  void incrementInCart(int index)
+  {
+    cart[index].quantity+=1;
+  }
+
+  void decrementInCart(int index)
+  {
+    cart[index].quantity-=1;
+  }
 
   User get_user() {
     if (user == null) {
