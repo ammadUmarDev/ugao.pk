@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "526013074428-f9s8flik5frf15vqkuf3adsqakro9f4s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vectech.ugao",
+            "certificate_hash": "b4c107c3477e87bbe82bd0aab9080212b83724f7"
+          }
+        },
+        {
           "client_id": "526013074428-annvnp684a2p10a3joe08f9eefdnejbu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

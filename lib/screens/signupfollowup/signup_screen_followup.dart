@@ -101,7 +101,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
               print("verification completed");
             },
             verificationFailed: (AuthException a) {
-              print("verification failed " + a.code.toString());
+              print("verification failed " + a.message.toString());
             },
             codeSent: (String verificationID, [int b]) async {
               String code;
