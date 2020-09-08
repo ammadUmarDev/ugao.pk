@@ -8,6 +8,7 @@ class RoundedInputField extends StatelessWidget {
   final IconData icon;
   final ValueChanged<String> onChanged;
   final keyboardType;
+  final enabled;
   Set<TextInputFormatter> inputFormatters = Set<TextInputFormatter>();
   RoundedInputField({
     Key key,
@@ -15,6 +16,7 @@ class RoundedInputField extends StatelessWidget {
     this.icon,
     this.onChanged,
     this.keyboardType,
+    this.enabled,
     inputFormatters,
   }) : super(key: key) {
     if (inputFormatters != null) this.inputFormatters = inputFormatters;
@@ -30,6 +32,7 @@ class RoundedInputField extends StatelessWidget {
         onChanged: onChanged,
         cursorColor: kPrimaryAccentColor,
         keyboardType: this.keyboardType,
+        enabled: this.enabled,
         decoration: InputDecoration(
           icon: Icon(
             icon,

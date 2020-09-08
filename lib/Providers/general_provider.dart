@@ -18,11 +18,11 @@ class General_Provider extends ChangeNotifier {
 
   void set_user(User u) {
     this.user = u;
-    const _chars =
+    /*const _chars =
         'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
     Random _rnd = Random();
     this.user.pass = String.fromCharCodes(Iterable.generate(
-        5, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+        5, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));*/
   }
 
   FirebaseUser get_firebase_user() {

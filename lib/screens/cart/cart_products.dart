@@ -25,6 +25,62 @@ class _Cart_productsState extends State<Cart_products> {
       "quantity": 2,
       "service": "Delivery",
     },
+    {
+      "name": "Fertilizer",
+      "picture": "assets/images/bgwelcome.png",
+      "price": 3000,
+      "quantity": 1,
+      "service": "Pickup",
+    },
+    {
+      "name": "Rice",
+      "picture": "assets/images/clothes.jpeg",
+      "price": 200,
+      "quantity": 2,
+      "service": "Delivery",
+    },
+    {
+      "name": "Fertilizer",
+      "picture": "assets/images/bgwelcome.png",
+      "price": 3000,
+      "quantity": 1,
+      "service": "Pickup",
+    },
+    {
+      "name": "Rice",
+      "picture": "assets/images/clothes.jpeg",
+      "price": 200,
+      "quantity": 2,
+      "service": "Delivery",
+    },
+    {
+      "name": "Fertilizer",
+      "picture": "assets/images/bgwelcome.png",
+      "price": 3000,
+      "quantity": 1,
+      "service": "Pickup",
+    },
+    {
+      "name": "Rice",
+      "picture": "assets/images/clothes.jpeg",
+      "price": 200,
+      "quantity": 2,
+      "service": "Delivery",
+    },
+    {
+      "name": "Fertilizer",
+      "picture": "assets/images/bgwelcome.png",
+      "price": 3000,
+      "quantity": 1,
+      "service": "Pickup",
+    },
+    {
+      "name": "Rice",
+      "picture": "assets/images/clothes.jpeg",
+      "price": 200,
+      "quantity": 2,
+      "service": "Delivery",
+    },
   ];
 
   @override
