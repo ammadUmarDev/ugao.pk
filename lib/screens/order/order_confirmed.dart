@@ -24,36 +24,52 @@ class _orderConfirmedState extends State<orderConfirmed> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBarPageName(
-          pageName: 'Checkout',
+          pageName: 'Order Confirmed',
         ),
-        backgroundColor: kPrimaryLightColor,
+        //backgroundColor: kPrimaryLightColor,
         body: SingleChildScrollView(
             child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: size.height * 0.1),
+            SizedBox(height: size.height * 0.05),
+            Text(
+              "Order #<Insert Order Number> \n CONFIRMED",
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 24.0,
+              ),
+            ),
+            SizedBox(height: size.height * 0.04),
             Container(
               margin: EdgeInsets.all(20.0),
               padding: EdgeInsets.symmetric(
-                  horizontal: size.width * 0.8, vertical: size.height * 0.6),
+                  horizontal: size.width * 0.8, vertical: size.height * 0.2),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
                   border: Border.all(
                     color: Colors.blueGrey,
                   )),
-              child: Text(
-                "Order #<Insert Order Number> \n CONFIRMED",
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  //fontWeight: FontWeight.bold,
-                  fontSize: 24.0,
-                ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "Order Summary",
+                    //textAlign: TextAlign.center,
+                    //overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      //fontWeight: FontWeight.bold,
+                      fontSize: 12.0,
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(height: size.height * 0.11),
-            Row(),
+            //Row(),
           ],
         )));
   }
