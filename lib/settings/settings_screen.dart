@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ugao/screens/profile/Components/Account_Settings_Screen.dart';
+import 'package:ugao/screens/welcome/welcome_screen.dart';
 import 'components/custom_background.dart';
 import 'change_language_screen.dart';
 import 'legal_about_screen.dart';
@@ -94,12 +96,14 @@ class SettingsScreen extends StatelessWidget {
                               ),
                             ),
                             ListTile(
-                              title: Text('Sign out'),
-                              leading: Image.asset('assets/icons/sign_out.png'),
-                              //onTap: () => Navigator.of(context).push(
-                              //    MaterialPageRoute(
-                              //        builder: (_) => WelcomeBackPage())),
-                            ),
+                                title: Text('Sign out'),
+                                leading:
+                                    Image.asset('assets/icons/sign_out.png'),
+                                onTap: () {
+                                  FirebaseAuth.instance.signOut();
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (_) => WelcomeScreen()));
+                                }),
                           ],
                         ),
                       ),

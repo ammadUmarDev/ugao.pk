@@ -114,9 +114,10 @@ class Change_User_Type_FollowUp extends State<Change_User_Type_FollowUp_State> {
                 "Updated Successfully",
                 style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
               ));
+              FirebaseAuth.instance.signOut();
               Navigator.push(context, MaterialPageRoute(
                 builder: (context) {
-                  return DashBoard();
+                  return LoginScreen();
                 },
               ));
             }
@@ -132,9 +133,10 @@ class Change_User_Type_FollowUp extends State<Change_User_Type_FollowUp_State> {
                 "Updated Successfully",
                 style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
               ));
+              FirebaseAuth.instance.signOut();
               Navigator.push(context, MaterialPageRoute(
                 builder: (context) {
-                  return DashBoard();
+                  return LoginScreen();
                 },
               ));
             }
@@ -149,9 +151,10 @@ class Change_User_Type_FollowUp extends State<Change_User_Type_FollowUp_State> {
                 "Updated Successfully",
                 style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
               ));
+              FirebaseAuth.instance.signOut();
               Navigator.push(context, MaterialPageRoute(
                 builder: (context) {
-                  return DashBoard();
+                  return LoginScreen();
                 },
               ));
             }
