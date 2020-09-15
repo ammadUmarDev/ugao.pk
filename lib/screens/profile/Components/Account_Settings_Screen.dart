@@ -7,14 +7,14 @@ import 'package:ugao/Classes/User_Model.dart';
 import 'package:ugao/Classes/firebase_functions.dart';
 import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/components/appbar.dart';
-import 'package:ugao/components/body_text.dart';
 import 'package:ugao/components/button_loading.dart';
 import 'package:ugao/components/h2.dart';
+import 'package:ugao/components/rounded_alert_dialog.dart';
 import 'package:ugao/components/shadowBoxList.dart';
 import 'package:ugao/screens/product/background_view_product.dart';
-import 'package:ugao/screens/profile/Components/Change_User_Type_Model/Change_User_Type_Screen.dart';
 
 import '../../../constants.dart';
+import 'Change_User_Type_Model/FollowUp/Follow_Up.dart';
 
 class Account_Settings_State extends StatefulWidget {
   Account_Settings createState() => Account_Settings();
@@ -23,6 +23,8 @@ class Account_Settings_State extends StatefulWidget {
 class Account_Settings extends State<Account_Settings_State> {
   String new_user_name;
   String new_phone_no;
+  String typeUser;
+  List<String> users = <String>[FARMER, SUPPLIER, CUSTOMER];
   User u;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   LinearGradient mainButton = LinearGradient(
@@ -80,11 +82,11 @@ class Account_Settings extends State<Account_Settings_State> {
                                 startLoading();
                                 //Add code here
                                 var fire = Provider.of<General_Provider>(
-                                        context,
-                                        listen: false)
+                                    context,
+                                    listen: false)
                                     .get_firebase_user();
                                 var check =
-                                    await change_User_Name(u, new_user_name);
+                                await change_User_Name(u, new_user_name);
                                 if (check == true) {
                                   setState(() {
                                     this.u.fullName = new_user_name;
@@ -153,7 +155,7 @@ class Account_Settings extends State<Account_Settings_State> {
                                 startLoading();
                                 //Add code here
                                 var check =
-                                    await change_Phone_No(u, this.new_phone_no);
+                                await change_Phone_No(u, this.new_phone_no);
                                 if (check == true) {
                                   setState(() {
                                     this.u.phone_no = this.new_phone_no;
@@ -198,7 +200,7 @@ class Account_Settings extends State<Account_Settings_State> {
                 onTapFunction: () {
                   Alert(
                       context: context,
-                      title: "Edit",
+                      title: "Change User Type",
                       style: AlertStyle(
                         titleStyle: H2TextStyle(color: kPrimaryAccentColor),
                       ),
@@ -207,19 +209,114 @@ class Account_Settings extends State<Account_Settings_State> {
                           SizedBox(
                             height: 10,
                           ),
-                          TextField(
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText:
-                                    "Click Update Button To Change User_Type"),
+                          DropdownButton<String>(
+                            isExpanded: true,
+                            isDense: false,
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                            hint: Text("User Type", style: TextStyle(fontSize: 15.5)),
+                            value: typeUser,
+                            onChanged: (String value) {
+                              setState(() {
+                                typeUser = value;
+                              });
+                            },
+                            items: users.map((String user) {
+                              return DropdownMenuItem<String>(
+                                value: user,
+                                child: Row(
+                                  children: <Widget>[
+                                    Text(
+                                      user,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 15.5,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
                           ),
                           SizedBox(
                             height: 10,
                           ),
                           ButtonLoading(
                             onTap: (startLoading, stopLoading, btnState) async {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (_) => Change_User_Type_State()));
+                              startLoading();
+                              User u=Provider.of<General_Provider>(context, listen: false).get_user();
+                              if (u.cnic.length != 15) {
+                                showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (context) {
+                                    return RoundedAlertDialog(
+                                      title: "Invalid CNIC",
+                                      buttonName: "OK",
+                                      onButtonPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    );
+                                  },
+                                );
+                              } else
+                              {
+                                //Navigator.pushNamed(context, "signupPageFollowup");
+                                if ((checkUniquenessOfCNIC(u.cnic) &&
+                                    checkUniquenessOfPhone(
+                                        u.phone_no)) //TODO: put at the specific fields
+                                    ==
+                                    true) {
+                                  if (u.fullName == null ||
+                                      u.cnic == null ||
+                                      u.pass == null ||
+                                      typeUser == null ||
+                                      u.phone_no == null) {
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (context) {
+                                        return RoundedAlertDialog(
+                                          title: "Please fill all fields",
+                                          onButtonPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            Change_User_Type_FollowUp_State(
+                                              fullName: u.fullName.trim(),
+                                              cnic: u.cnic.trim(),
+                                              password: u.pass.trim(),
+                                              userType: typeUser.trim(),
+                                              phone_no: u.phone_no.trim(),
+                                            ),
+                                      ),
+                                    );
+                                  }
+                                } else {
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) {
+                                      return RoundedAlertDialog(
+                                        title: "CNIC or Phone No is not unique",
+                                        buttonName: "OK",
+                                        onButtonPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                      );
+                                    },
+                                  );
+                                }
+                              }
+                              stopLoading();
                             },
                             labelText: 'Update',
                           ),
