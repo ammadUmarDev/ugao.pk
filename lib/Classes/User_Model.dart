@@ -1,6 +1,7 @@
 import 'package:ugao/Classes/Customer_Model.dart';
 import 'package:ugao/Classes/Farmer_Model.dart';
 import 'package:ugao/Classes/Supplier_Model.dart';
+import 'package:ugao/constants.dart';
 
 class User {
   String cnic;
@@ -39,13 +40,13 @@ class User {
     print(this.fullName);
     print(this.cnic);
     print(phone_no);
-    if (this.usertype == "Farmer") {
+    if (this.usertype == FARMER) {
       this.farmer.printf();
     }
-    if (this.usertype == "Customer") {
+    if (this.usertype == CUSTOMER) {
       this.customer.printc();
     }
-    if (this.usertype == "Supplier") {
+    if (this.usertype == SUPPLIER) {
       this.supplier.prints();
     }
   }

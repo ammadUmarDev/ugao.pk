@@ -11,3 +11,7 @@ const double h1Size = 18;
 const double h2Size = 16;
 const double h3Size = 14;
 const double pSize = 12;
+
+const String FARMER="Farmer";
+const String SUPPLIER="Supplier";
+const String CUSTOMER="Customer";

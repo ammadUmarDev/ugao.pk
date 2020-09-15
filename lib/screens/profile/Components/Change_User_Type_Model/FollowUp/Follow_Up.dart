@@ -103,7 +103,7 @@ class Change_User_Type_FollowUp extends State<Change_User_Type_FollowUp_State> {
             },
           );
         } else {
-          if (user.usertype == "Farmer") {
+          if (user.usertype == FARMER) {
             print("Entered in farmer");
             var check = await update_User_Type(user, user.farmer);
             if (check == true) {
@@ -122,7 +122,7 @@ class Change_User_Type_FollowUp extends State<Change_User_Type_FollowUp_State> {
               ));
             }
           }
-          if (user.usertype == "Customer") {
+          if (user.usertype == CUSTOMER) {
             print("Entered in customer");
             var check = await update_User_Type(user, user.customer);
             if (check == true) {
@@ -141,7 +141,7 @@ class Change_User_Type_FollowUp extends State<Change_User_Type_FollowUp_State> {
               ));
             }
           }
-          if (user.usertype == "Supplier") {
+          if (user.usertype == SUPPLIER) {
             var check = await update_User_Type(user, user.supplier);
             if (check == true) {
               Provider.of<General_Provider>(context, listen: false)
@@ -510,13 +510,13 @@ class Change_User_Type_FollowUp extends State<Change_User_Type_FollowUp_State> {
     }
 
     Widget FollowUpSignUp() {
-      if (widget.userType == "Farmer") {
+      if (widget.userType == FARMER) {
         return FarmerSignUp();
       }
-      if (widget.userType == "Supplier") {
+      if (widget.userType == SUPPLIER) {
         return SupplierSignUp();
       }
-      if (widget.userType == "Customer") {
+      if (widget.userType == CUSTOMER) {
         return CustomerSignUp();
       }
     }

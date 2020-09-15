@@ -2,6 +2,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:ugao/Classes/User_Model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:io';
+import '../constants.dart';
 import 'Customer_Model.dart';
 import 'Farmer_Model.dart';
 import 'Product_Model_Upload.dart';
@@ -41,7 +42,7 @@ Future<bool> update_User_Type(User user, var obj) async {
       'CNIC': user.cnic.toString(),
       'Password': user.pass.toString(),
       'PhoneNo': user.phone_no.toString(),
-      'UserType': "Famrer".toString(),
+      'UserType': FARMER,
       'fExperience': obj.fExperience,
       'fAddress': obj.fAddress,
       'fService': obj.fService,
@@ -61,7 +62,7 @@ Future<bool> update_User_Type(User user, var obj) async {
       'CNIC': user.cnic.toString(),
       'Password': user.pass.toString(),
       'PhoneNo': user.phone_no.toString(),
-      'UserType': "Supplier".toString(),
+      'UserType': SUPPLIER,
       'scExperience': obj.scExperience.toString(),
       'sPhoneNumber': obj.sPhoneNumber.toString(),
       'sType': obj.sType.toString(),
@@ -78,7 +79,7 @@ Future<bool> update_User_Type(User user, var obj) async {
       'CNIC': user.cnic.toString(),
       'Password': user.pass.toString(),
       'PhoneNo': user.phone_no.toString(),
-      'UserType': "Customer".toString(),
+      'UserType': CUSTOMER,
       'cAccountType': obj.cAccountType.toString(),
       'cPhoneNumber': obj.ccPhoneNumber.toString(),
       'ccName': obj.ccName.toString(),
@@ -181,7 +182,7 @@ Future<User> getUser(String entered_cnic) async {
   var snapshot =
       await firestore.collection('Users').document(entered_cnic).get();
   if (snapshot.data != null) {
-    if (snapshot.data["UserType"].toString() == "Farmer") {
+    if (snapshot.data["UserType"].toString() == FARMER) {
       Farmer fobj = new Farmer();
       fobj.fAddress = snapshot.data["fAddress"].toString();
       fobj.fAnimals = snapshot.data["fAnimals"].toString();
@@ -199,7 +200,7 @@ Future<User> getUser(String entered_cnic) async {
         phone_no: snapshot.data['PhoneNo'].toString(),
         farmer: fobj,
       );
-    } else if (snapshot.data["UserType"].toString() == "Supplier") {
+    } else if (snapshot.data["UserType"].toString() == SUPPLIER) {
       Supplier sobj = new Supplier();
       sobj.sAddress = snapshot.data["sAddress"].toString();
       //sobj.sPhoneNumber = snapshot.data["sPhoneNumber"].toString();
@@ -215,7 +216,7 @@ Future<User> getUser(String entered_cnic) async {
         phone_no: snapshot.data['PhoneNo'].toString(),
         supplier: sobj,
       );
-    } else if (snapshot.data["UserType"].toString() == "Customer") {
+    } else if (snapshot.data["UserType"].toString() == CUSTOMER) {
       Customer cobj = new Customer();
       cobj.cAccountType = snapshot.data["cAccountType"].toString();
       //cobj.cPhoneNumber = snapshot.data["cPhoneNumber"].toString();
@@ -242,7 +243,7 @@ Future<bool> signup(User user) async {
   if (internetCheck_ == false)
     return false;
   else {
-    if (user.usertype == 'Farmer') {
+    if (user.usertype == FARMER) {
       await firestore.collection('Users').document(user.cnic).setData({
         'Full_Name': user.fullName.toString(),
         'CNIC': user.cnic.toString(),
@@ -260,7 +261,7 @@ Future<bool> signup(User user) async {
       });
       //return true;
     }
-    if (user.usertype == "Supplier") {
+    if (user.usertype == SUPPLIER) {
       await firestore.collection('Users').document(user.cnic).setData({
         'Full_Name': user.fullName.toString(),
         'CNIC': user.cnic.toString(),
@@ -275,7 +276,7 @@ Future<bool> signup(User user) async {
       });
       //return true;
     }
-    if (user.usertype == 'Customer') {
+    if (user.usertype == CUSTOMER) {
       await firestore.collection('Users').document(user.cnic).setData({
         'Full_Name': user.fullName.toString(),
         'CNIC': user.cnic.toString(),

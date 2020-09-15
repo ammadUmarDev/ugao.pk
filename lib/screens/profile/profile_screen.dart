@@ -22,7 +22,7 @@ class ProfilePage extends State<Profile_Page_State> {
   @override
   Widget build(BuildContext context) {
     user = Provider.of<General_Provider>(context, listen: false).get_user();
-    if (user.usertype == "Farmer") {
+    if (user.usertype == FARMER) {
       this.description = "CNIC:" +
           this.user.cnic +
           "\nPhone_NO: " +
@@ -32,7 +32,7 @@ class ProfilePage extends State<Profile_Page_State> {
           "\nAddress:" +
           this.user.farmer.fAddress;
     }
-    if (user.usertype == "Supplier") {
+    if (user.usertype == SUPPLIER) {
       this.description = "CNIC:" +
           this.user.cnic +
           "\nPhone_NO: " +
@@ -42,7 +42,7 @@ class ProfilePage extends State<Profile_Page_State> {
           "\nAddress:" +
           this.user.supplier.sAddress;
     }
-    if (user.usertype == "Customer") {
+    if (user.usertype == CUSTOMER) {
       this.description = "CNIC:" +
           this.user.cnic +
           "\nPhone_NO: " +

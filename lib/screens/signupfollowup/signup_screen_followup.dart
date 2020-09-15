@@ -579,13 +579,13 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
     }
 
     Widget FollowUpSignUp() {
-      if (widget.userType == "Farmer") {
+      if (widget.userType == FARMER) {
         return FarmerSignUp();
       }
-      if (widget.userType == "Supplier") {
+      if (widget.userType == SUPPLIER) {
         return SupplierSignUp();
       }
-      if (widget.userType == "Customer") {
+      if (widget.userType == CUSTOMER) {
         return CustomerSignUp();
       }
     }
