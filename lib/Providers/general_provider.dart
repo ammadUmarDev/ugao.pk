@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:ugao/Classes/User_Model.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:math';
 

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ugao/components/h2.dart';
+import 'package:ugao/components/h3.dart';
 import 'package:ugao/constants.dart';
 
 import 'dashboard_customer_screen.dart';
@@ -65,19 +67,25 @@ class _DashBoardState extends State<DashBoard> {
       bottomNavigationBar: CupertinoTabBar(
         currentIndex: pageIndex,
         onTap: onTap,
-        activeColor: kPrimaryLightColor,
-        inactiveColor: kPrimaryAccentColor,
+        activeColor: kPrimaryColor,
+        inactiveColor: kPrimaryLightColor,
         items: [
           BottomNavigationBarItem(
+              title: H3(
+                textBody: "Store",
+              ),
               icon: Icon(
-            Icons.present_to_all,
-            size: 25,
-          )),
+                Icons.shopping_cart,
+                size: 25,
+              )),
           BottomNavigationBarItem(
+              title: H3(
+                textBody: "Dashboard",
+              ),
               icon: Icon(
-            Icons.supervisor_account,
-            size: 25,
-          )),
+                Icons.supervisor_account,
+                size: 25,
+              )),
         ],
       ),
     );

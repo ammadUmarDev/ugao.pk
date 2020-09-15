@@ -10,9 +10,12 @@ import 'package:ugao/components/already_have_an_account_acheck.dart';
 import 'package:ugao/components/h1.dart';
 import 'package:ugao/components/rounded_button.dart';
 import 'package:ugao/components/rounded_input_field.dart';
+import 'package:ugao/components/rounded_phone_input_field.dart';
 import 'package:ugao/constants.dart';
+import 'package:ugao/screens/dashboard/dashboard_customer_screen.dart';
+import 'package:ugao/screens/dashboard/dashboard_supplier_screen.dart';
 
-import 'components/background.dart';
+import 'background.dart';
 import 'package:ugao/Classes/User_Model.dart';
 import 'package:ugao/Classes/firebase_functions.dart';
 import 'package:ugao/components/rounded_alert_dialog.dart';
@@ -75,6 +78,8 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
 
     Widget signupButton = RoundedButton(
       text: "SIGNUP",
+      color: kPrimaryAccentColor,
+      textColor: Colors.white,
       press: () async {
         User user = User(
           cnic: widget.cnic,
@@ -92,8 +97,47 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
           firebaseAuth.verifyPhoneNumber(
             phoneNumber: widget.phone_no,
             timeout: Duration(seconds: 60),
-            verificationCompleted: (AuthCredential a) {
+            verificationCompleted: (AuthCredential credential) async {
               print("verification completed");
+              AuthResult result =
+                  await firebaseAuth.signInWithCredential(credential);
+
+              if (result.user != null) {
+                print("Verification successful");
+                Navigator.of(context).pop();
+                Provider.of<General_Provider>(context, listen: false)
+                    .set_user(user);
+                Provider.of<General_Provider>(context, listen: false)
+                    .set_firebase_user(result.user);
+                if (user.usertype == FARMER) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return DashBoard();
+                      },
+                    ),
+                  );
+                } else if (user.usertype == CUSTOMER) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return DashboardCustomerScreen();
+                      },
+                    ),
+                  );
+                } else if (user.usertype == SUPPLIER) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return DashboardSupplierScreen();
+                      },
+                    ),
+                  );
+                }
+              }
             },
             verificationFailed: (AuthException a) {
               print("verification failed " + a.code.toString());
@@ -149,14 +193,34 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
                               print(Provider.of<General_Provider>(context,
                                       listen: false)
                                   .get_firebase_user());
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return DashBoard();
-                                  },
-                                ),
-                              );
+                              if (user.usertype == FARMER) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return DashBoard();
+                                    },
+                                  ),
+                                );
+                              } else if (user.usertype == CUSTOMER) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return DashboardCustomerScreen();
+                                    },
+                                  ),
+                                );
+                              } else if (user.usertype == SUPPLIER) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return DashboardSupplierScreen();
+                                    },
+                                  ),
+                                );
+                              }
                             }
                           },
                         )
@@ -252,6 +316,7 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
           RoundedInputField(
             hintText: "Years of Experience",
             icon: Icons.donut_large,
+            keyboardType: TextInputType.number,
             onChanged: (value) {
               fobject.fExperience = value.trim();
             },
@@ -410,17 +475,11 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
           RoundedInputField(
             hintText: "Years of Experience:",
             icon: Icons.local_florist,
+            keyboardType: TextInputType.number,
             onChanged: (value) {
               setState(() {
                 sobject.scExperience = value.trim();
               });
-            },
-          ),
-          RoundedInputField(
-            hintText: "Phone Number:",
-            icon: Icons.local_florist,
-            onChanged: (value) {
-              setState(() {});
             },
           ),
           RoundedInputField(
@@ -454,19 +513,6 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
 
     //Customer
     Widget CCustomerTypeFollowUp() {
-      if (cobject.cAccountType == null) return SizedBox(height: 1);
-      if (cobject.cAccountType == "Individual")
-        return Column(
-          children: <Widget>[
-            RoundedInputField(
-              hintText: "Phone Number:",
-              icon: Icons.local_florist,
-              onChanged: (value) {
-                setState(() {});
-              },
-            ),
-          ],
-        );
       if (cobject.cAccountType == "Commercial")
         return Column(
           children: <Widget>[
@@ -479,9 +525,8 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
                 });
               },
             ),
-            RoundedInputField(
+            RoundedIntlPhoneField(
               hintText: "Company Phone Number:",
-              icon: Icons.panorama_wide_angle,
               onChanged: (value) {
                 cobject.ccPhoneNumber = value.trim();
               },
@@ -495,6 +540,18 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
             ),
           ],
         );
+      if (cobject.cAccountType == "Individual") {
+        return Column(
+          children: [
+            SizedBox(height: 1),
+            Text(
+              "NO MORE QUESTIONS, THANKYOU!",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
+        );
+      }
+      return SizedBox(height: 1);
     }
 
     Widget CustomerSignUp() {

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ugao/components/rounded_cnic_field.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/rounded_password_field.dart';
-import 'components/background.dart';
+import 'package:ugao/components/rounded_phone_input_field.dart';
+import 'background.dart';
 import 'package:ugao/Screens/Login/login_screen.dart';
 import 'package:ugao/components/already_have_an_account_acheck.dart';
 import 'package:ugao/components/rounded_button.dart';
@@ -16,7 +18,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  List<String> users = <String>['Farmer', 'Supplier', 'Customer'];
+  List<String> users = <String>[FARMER, SUPPLIER, CUSTOMER];
   String fullName;
   String cnic;
   String password;
@@ -53,22 +55,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   });
                 },
               ),
-              RoundedInputField(
-                hintText: "CNIC",
-                icon: Icons.credit_card,
+              RoundedCNICField(
                 onChanged: (value) {
                   setState(() {
                     cnic = value.trim();
+                    print(cnic);
                   });
                 },
               ),
-              RoundedInputField(
-                hintText: "Phone No",
-                icon: Icons.person,
-                keyboardType: TextInputType.phone,
+              RoundedIntlPhoneField(
                 onChanged: (value) {
                   setState(() {
-                    phone_no = value.trim();
+                    phone_no = value.completeNumber;
                   });
                 },
               ),
@@ -124,32 +122,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               RoundedButton(
                 text: "NEXT",
+                textColor: Colors.white,
+                color: kPrimaryAccentColor,
                 press: () {
-                  //Navigator.pushNamed(context, "signupPageFollowup");
-                  if ((checkUniquenessOfCNIC(cnic) &&
-                          checkUniquenessOfPhone(
-                              phone_no)) //TODO: put at the specific fields
-                      ==
-                      true) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SignUpScreenFollowup(
-                          fullName: fullName.trim(),
-                          cnic: cnic.trim(),
-                          password: password.trim(),
-                          userType: typeUser.trim(),
-                          phone_no: phone_no.trim(),
-                        ),
-                      ),
-                    );
-                  } else {
+                  if (cnic.length != 15) {
                     showDialog(
                       context: context,
                       barrierDismissible: false,
                       builder: (context) {
                         return RoundedAlertDialog(
-                          title: "CNIC or Phone No is not unique",
+                          title: "Invalid CNIC",
                           buttonName: "OK",
                           onButtonPressed: () {
                             Navigator.pop(context);
@@ -157,6 +139,59 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         );
                       },
                     );
+                  } else {
+                    //Navigator.pushNamed(context, "signupPageFollowup");
+                    if ((checkUniquenessOfCNIC(cnic) &&
+                            checkUniquenessOfPhone(
+                                phone_no)) //TODO: put at the specific fields
+                        ==
+                        true) {
+                      if (fullName == null ||
+                          cnic == null ||
+                          password == null ||
+                          typeUser == null ||
+                          phone_no == null) {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (context) {
+                            return RoundedAlertDialog(
+                              title: "Please fill all fields",
+                              onButtonPressed: () {
+                                Navigator.pop(context);
+                              },
+                            );
+                          },
+                        );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SignUpScreenFollowup(
+                              fullName: fullName.trim(),
+                              cnic: cnic.trim(),
+                              password: password.trim(),
+                              userType: typeUser.trim(),
+                              phone_no: phone_no.trim(),
+                            ),
+                          ),
+                        );
+                      }
+                    } else {
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) {
+                          return RoundedAlertDialog(
+                            title: "CNIC or Phone No is not unique",
+                            buttonName: "OK",
+                            onButtonPressed: () {
+                              Navigator.pop(context);
+                            },
+                          );
+                        },
+                      );
+                    }
                   }
                 },
               ),

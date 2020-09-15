@@ -23,7 +23,7 @@ class Change_User_Type_State extends StatefulWidget {
 
 class Change_User_Type extends State<Change_User_Type_State> {
   User u;
-  List<String> users = <String>['Farmer', 'Supplier', 'Customer'];
+  List<String> users = <String>[FARMER, SUPPLIER, CUSTOMER];
   String fullName;
   String cnic;
   String password;
