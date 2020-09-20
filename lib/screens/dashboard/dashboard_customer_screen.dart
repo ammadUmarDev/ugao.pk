@@ -215,13 +215,13 @@ class _DashboardCustomerScreenState extends State<DashboardCustomerScreen> {
                       color: kPrimaryAccentColor,
                     )),
                 IconButton(
-                  //TODO: fix this later
+                    //TODO: fix this later
                     //onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => CartScreen())),
                     icon: Icon(
-                      Icons.shopping_cart,
-                      size: 30,
-                      color: kPrimaryAccentColor,
-                    )),
+                  Icons.shopping_cart,
+                  size: 30,
+                  color: kPrimaryAccentColor,
+                )),
               ],
             ),
           ),
@@ -284,17 +284,6 @@ class _DashboardCustomerScreenState extends State<DashboardCustomerScreen> {
                                 builder: (context) => CategoryListScreen(),
                               ),
                             );
-                          },
-                        ),
-                        RoundedButton(
-                          text: "Profile",
-                          color: kPrimaryAccentColor,
-                          press: () async {
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (context) {
-                                return Profile_Page_State();
-                              },
-                            ));
                           },
                         ),
                       ],

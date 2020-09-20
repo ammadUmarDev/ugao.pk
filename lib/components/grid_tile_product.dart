@@ -18,6 +18,8 @@ class GridTileProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double cardHeight = MediaQuery.of(context).size.height / 6.5;
+    double cardWidth = MediaQuery.of(context).size.width / 6.5;
     return InkWell(
       onTap: () {
         if (type == "buy") {
@@ -42,7 +44,7 @@ class GridTileProduct extends StatelessWidget {
         }
       },
       child: Container(
-        padding: EdgeInsets.only(top: 5),
+        padding: EdgeInsets.only(top: 0),
         child: Card(
             color: Colors.white,
             shape: RoundedRectangleBorder(
@@ -56,16 +58,16 @@ class GridTileProduct extends StatelessWidget {
                 children: <Widget>[
                   Image.network(
                     product.prodImage,
-                    width: 130,
-                    height: 130,
+                    width: cardWidth,
+                    height: cardHeight,
                   ),
                   SizedBox(
                     height: 5,
                   ),
                   H3(
-                    textBody: product.prodName.length <= 40
+                    textBody: product.prodName.length <= 20
                         ? product.prodName
-                        : product.prodName.substring(0, 40),
+                        : product.prodName.substring(0, 20),
                   ),
                   SizedBox(
                     height: 5,
