@@ -52,7 +52,7 @@ class Account_Settings extends State<Account_Settings_State> {
               ShadowBoxList(
                 icon: Icon(Icons.edit),
                 widgetColumn: <Widget>[
-                  H2(textBody: "User_Name: " + u.fullName),
+                  H2(textBody: "User Name: " + u.fullName),
                   SizedBox(height: 5),
                 ],
                 onTapFunction: () {
@@ -125,7 +125,7 @@ class Account_Settings extends State<Account_Settings_State> {
               ShadowBoxList(
                 icon: Icon(Icons.edit),
                 widgetColumn: <Widget>[
-                  H2(textBody: "Phone_No: " + u.phone_no),
+                  H2(textBody: "Phone No: " + u.phone_no),
                   SizedBox(height: 5),
                 ],
                 onTapFunction: () {
@@ -194,7 +194,7 @@ class Account_Settings extends State<Account_Settings_State> {
               ShadowBoxList(
                 icon: Icon(Icons.edit),
                 widgetColumn: <Widget>[
-                  H2(textBody: "User_Type: " + u.usertype),
+                  H2(textBody: "User Type: " + u.usertype),
                   SizedBox(height: 5),
                 ],
                 onTapFunction: () {
