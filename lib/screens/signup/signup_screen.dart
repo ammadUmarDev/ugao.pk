@@ -122,16 +122,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               RoundedButton(
                 text: "NEXT",
-                textColor: Colors.white,
-                color: kPrimaryAccentColor,
-                press: () {
-                  if (cnic.length != 15) {
+                press: () async {
+                  if (phone_no.length != 13) {
                     showDialog(
                       context: context,
                       barrierDismissible: false,
                       builder: (context) {
                         return RoundedAlertDialog(
-                          title: "Invalid CNIC",
+                          title: "Invalid Phone No",
                           buttonName: "OK",
                           onButtonPressed: () {
                             Navigator.pop(context);
@@ -140,50 +138,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       },
                     );
                   } else {
-                    //Navigator.pushNamed(context, "signupPageFollowup");
-                    if ((checkUniquenessOfCNIC(cnic) &&
-                            checkUniquenessOfPhone(
-                                phone_no)) //TODO: put at the specific fields
-                        ==
-                        true) {
-                      if (fullName == null ||
-                          cnic == null ||
-                          password == null ||
-                          typeUser == null ||
-                          phone_no == null) {
-                        showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (context) {
-                            return RoundedAlertDialog(
-                              title: "Please fill all fields",
-                              onButtonPressed: () {
-                                Navigator.pop(context);
-                              },
-                            );
-                          },
-                        );
-                      } else {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SignUpScreenFollowup(
-                              fullName: fullName.trim(),
-                              cnic: cnic.trim(),
-                              password: password.trim(),
-                              userType: typeUser.trim(),
-                              phone_no: phone_no.trim(),
-                            ),
-                          ),
-                        );
-                      }
-                    } else {
+                    if (cnic.length != 15) {
                       showDialog(
                         context: context,
                         barrierDismissible: false,
                         builder: (context) {
                           return RoundedAlertDialog(
-                            title: "CNIC or Phone No is not unique",
+                            title: "Invalid CNIC",
                             buttonName: "OK",
                             onButtonPressed: () {
                               Navigator.pop(context);
@@ -191,6 +152,76 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           );
                         },
                       );
+                    } else {
+                      //Navigator.pushNamed(context, "signupPageFollowup");
+                      if ((await checkUniquenessOfCNIC(cnic) &&
+                              await checkUniquenessOfPhone(
+                                  phone_no)) //TODO: put at the specific fields
+                          ==
+                          true) {
+                        if (fullName.isEmpty ||
+                            cnic.isEmpty ||
+                            password.isEmpty ||
+                            typeUser.isEmpty ||
+                            phone_no.isEmpty) {
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (context) {
+                              return RoundedAlertDialog(
+                                title: "Please fill all fields",
+                                onButtonPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              );
+                            },
+                          );
+                        } else {
+                          if (password.length <= 6) {
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (context) {
+                                return RoundedAlertDialog(
+                                  title:
+                                      "Password length must be greater than 6 digits",
+                                  buttonName: "OK",
+                                  onButtonPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                );
+                              },
+                            );
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SignUpScreenFollowup(
+                                  fullName: fullName.trim(),
+                                  cnic: cnic.trim(),
+                                  password: password.trim(),
+                                  userType: typeUser.trim(),
+                                  phone_no: phone_no.trim(),
+                                ),
+                              ),
+                            );
+                          }
+                        }
+                      } else {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (context) {
+                            return RoundedAlertDialog(
+                              title: "CNIC or Phone No is not unique",
+                              buttonName: "OK",
+                              onButtonPressed: () {
+                                Navigator.pop(context);
+                              },
+                            );
+                          },
+                        );
+                      }
                     }
                   }
                 },

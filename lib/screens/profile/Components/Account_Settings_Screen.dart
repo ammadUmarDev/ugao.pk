@@ -263,8 +263,8 @@ class Account_Settings extends State<Account_Settings_State> {
                               } else
                               {
                                 //Navigator.pushNamed(context, "signupPageFollowup");
-                                if ((checkUniquenessOfCNIC(u.cnic) &&
-                                    checkUniquenessOfPhone(
+                                if ((await checkUniquenessOfCNIC(u.cnic) &&
+                                   await checkUniquenessOfPhone(
                                         u.phone_no)) //TODO: put at the specific fields
                                     ==
                                     true) {
