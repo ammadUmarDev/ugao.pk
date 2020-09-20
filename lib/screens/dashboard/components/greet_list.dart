@@ -4,6 +4,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:ugao/Classes/greet_card.dart';
 import 'package:ugao/components/h1.dart';
 import 'package:ugao/components/h2.dart';
+import 'package:ugao/components/h3.dart';
 import 'package:ugao/constants.dart';
 
 class GreetList extends StatelessWidget {
@@ -134,7 +135,7 @@ class ProductCard extends StatelessWidget {
                     child: Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 20, horizontal: 20),
-                        child: H2(
+                        child: H3(
                           textBody: product.name ?? '',
                           color: Colors.white,
                         )))
