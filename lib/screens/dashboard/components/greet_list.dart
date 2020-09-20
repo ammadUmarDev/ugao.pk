@@ -15,8 +15,8 @@ class GreetList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double cardHeight = MediaQuery.of(context).size.height / 5.2;
-    double cardWidth = MediaQuery.of(context).size.width / 2.2;
+    double cardHeight = 140;
+    double cardWidth = 200;
     if (products == null) products = [];
 
     return SizedBox(
