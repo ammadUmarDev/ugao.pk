@@ -26,7 +26,16 @@ class _AddProductState extends State<AddProduct> {
     "Per Unit Price",
     "Bulk Price"
   ]; //TODO: fetch from firebase
-  List<String> pCategories = ["Fertilizer"]; //TODO: fetch from firebase
+  List<String> pCategories = [
+    "Machinery",
+    "Tools & Equipment",
+    "Pesticide",
+    "Fertilizer",
+    "Livestock",
+    "Dairy",
+    "Meat",
+    "Crop",
+  ]; //TODO: fetch from firebase
   List<String> sTypes = ["Pickup", "Delivery"]; //TODO: fetch from firebase
   List<String> wUnits = [
     "Kgs"

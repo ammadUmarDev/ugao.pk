@@ -4,13 +4,11 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
 import 'package:ugao/Classes/greet_card.dart';
 import 'package:ugao/Providers/product_provider.dart';
+import 'package:ugao/components/category_display.dart';
 import 'package:ugao/components/grid_tile_product.dart';
 import 'package:ugao/components/h3.dart';
-import 'package:ugao/components/rounded_button.dart';
 import 'package:ugao/components/search_widget.dart';
 import 'package:ugao/components/h1.dart';
-import 'package:ugao/screens/Cart/cart_screen.dart';
-import 'package:ugao/screens/cart/cart_screen.dart';
 import 'package:ugao/screens/product/category_list_screen.dart';
 import 'package:ugao/screens/profile/profile_screen.dart';
 import 'package:ugao/screens/tutorial/tutorial_screen.dart';
@@ -28,15 +26,15 @@ class DashboardCustomerScreen extends StatefulWidget {
   List<GreetCard> products = [
     GreetCard(
       'assets/images/promo2.png',
-      'increase your yeild',
+      'Increase Your Yeild',
     ),
     GreetCard(
       'assets/images/promo4.png',
-      'grow with us',
+      'Grow With Us',
     ),
     GreetCard(
       'assets/images/promo1.png',
-      'all under one app',
+      'All Under One App',
     ),
   ];
 }
@@ -215,8 +213,9 @@ class _DashboardCustomerScreenState extends State<DashboardCustomerScreen> {
                       color: kPrimaryAccentColor,
                     )),
                 IconButton(
-                  //TODO: fix this later
-                    //onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => CartScreen())),
+                    //TODO: fix this later
+                    onPressed: () => Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (_) => CartScreen())),
                     icon: Icon(
                       Icons.shopping_cart,
                       size: 30,
@@ -286,16 +285,23 @@ class _DashboardCustomerScreenState extends State<DashboardCustomerScreen> {
                             );
                           },
                         ),
-                        RoundedButton(
-                          text: "Profile",
+                      ],
+                    ),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: CategoryDisplay(),
+                ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        H1(
+                          textBody: "Explore",
                           color: kPrimaryAccentColor,
-                          press: () async {
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (context) {
-                                return Profile_Page_State();
-                              },
-                            ));
-                          },
                         ),
                       ],
                     ),

@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:ugao/Classes/Product_Model_Fetch.dart';
-import 'package:ugao/Classes/User_Model.dart';
-import 'package:ugao/Providers/product_provider.dart';
 import 'package:ugao/components/appbar.dart';
 import 'package:ugao/components/body_text.dart';
 import 'package:ugao/components/button_loading.dart';
@@ -13,7 +11,6 @@ import 'package:ugao/components/h1.dart';
 import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/h3.dart';
 import 'package:ugao/constants.dart';
-import 'package:ugao/screens/cart/cart_screen.dart';
 
 import 'background_view_product.dart';
 
@@ -70,7 +67,7 @@ class _ViewProductState extends State<ViewProduct> {
                         right: 0.0,
                         child: Container(
                           height: 200,
-                          width: 350,
+                          width: 250,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             mainAxisAlignment: MainAxisAlignment.center,

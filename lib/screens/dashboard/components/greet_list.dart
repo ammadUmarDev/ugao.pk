@@ -3,6 +3,8 @@ import 'package:flutter_page_indicator/flutter_page_indicator.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:ugao/Classes/greet_card.dart';
 import 'package:ugao/components/h1.dart';
+import 'package:ugao/components/h2.dart';
+import 'package:ugao/components/h3.dart';
 import 'package:ugao/constants.dart';
 
 class GreetList extends StatelessWidget {
@@ -14,8 +16,8 @@ class GreetList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double cardHeight = MediaQuery.of(context).size.height / 4.5;
-    double cardWidth = MediaQuery.of(context).size.width / 2;
+    double cardHeight = 140;
+    double cardWidth = 200;
     if (products == null) products = [];
 
     return SizedBox(
@@ -133,7 +135,7 @@ class ProductCard extends StatelessWidget {
                     child: Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 20, horizontal: 20),
-                        child: H1(
+                        child: H3(
                           textBody: product.name ?? '',
                           color: Colors.white,
                         )))
@@ -141,13 +143,14 @@ class ProductCard extends StatelessWidget {
             ),
           ),
           Positioned(
-            left: 25,
+            left: 50,
+            top: 10,
             child: Hero(
               tag: product.image,
               child: Image.asset(
                 product.image ?? '',
-                height: height / 1.4,
-                width: width / 1.4,
+                height: height / 2,
+                width: width / 2,
                 fit: BoxFit.contain,
               ),
             ),
