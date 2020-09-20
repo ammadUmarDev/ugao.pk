@@ -7,11 +7,8 @@ import 'package:ugao/Providers/product_provider.dart';
 import 'package:ugao/components/category_display.dart';
 import 'package:ugao/components/grid_tile_product.dart';
 import 'package:ugao/components/h3.dart';
-import 'package:ugao/components/rounded_button.dart';
 import 'package:ugao/components/search_widget.dart';
 import 'package:ugao/components/h1.dart';
-import 'package:ugao/screens/Cart/cart_screen.dart';
-import 'package:ugao/screens/cart/cart_screen.dart';
 import 'package:ugao/screens/product/category_list_screen.dart';
 import 'package:ugao/screens/profile/profile_screen.dart';
 import 'package:ugao/screens/tutorial/tutorial_screen.dart';
@@ -217,12 +214,13 @@ class _DashboardCustomerScreenState extends State<DashboardCustomerScreen> {
                     )),
                 IconButton(
                     //TODO: fix this later
-                    //onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => CartScreen())),
+                    onPressed: () => Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (_) => CartScreen())),
                     icon: Icon(
-                  Icons.shopping_cart,
-                  size: 30,
-                  color: kPrimaryAccentColor,
-                )),
+                      Icons.shopping_cart,
+                      size: 30,
+                      color: kPrimaryAccentColor,
+                    )),
               ],
             ),
           ),

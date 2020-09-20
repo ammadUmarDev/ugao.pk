@@ -73,7 +73,7 @@ class CategoryDisplay extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 5),
-                    BodyText(textBody: "Tools & Equipment"),
+                    BodyText(textBody: "Equipment/Tools"),
                   ],
                 ),
               ],
