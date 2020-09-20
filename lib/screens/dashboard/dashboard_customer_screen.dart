@@ -4,6 +4,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
 import 'package:ugao/Classes/greet_card.dart';
 import 'package:ugao/Providers/product_provider.dart';
+import 'package:ugao/components/category_display.dart';
 import 'package:ugao/components/grid_tile_product.dart';
 import 'package:ugao/components/h3.dart';
 import 'package:ugao/components/rounded_button.dart';
@@ -285,6 +286,24 @@ class _DashboardCustomerScreenState extends State<DashboardCustomerScreen> {
                               ),
                             );
                           },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: CategoryDisplay(),
+                ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        H1(
+                          textBody: "Explore",
+                          color: kPrimaryAccentColor,
                         ),
                       ],
                     ),
