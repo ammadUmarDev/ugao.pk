@@ -18,8 +18,8 @@ class GridTileProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double cardHeight = MediaQuery.of(context).size.height / 6.5;
-    double cardWidth = MediaQuery.of(context).size.width / 6.5;
+    double cardHeight = MediaQuery.of(context).size.height / 7;
+    double cardWidth = MediaQuery.of(context).size.width / 7;
     return InkWell(
       onTap: () {
         if (type == "buy") {
