@@ -5,7 +5,6 @@ import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/components/already_have_an_account_acheck.dart';
 import 'package:ugao/components/rounded_button.dart';
 import 'package:ugao/components/rounded_cnic_field.dart';
-import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/rounded_password_field.dart';
 import 'package:ugao/screens/dashboard/dashboard.dart';
 import 'package:ugao/screens/dashboard/dashboard_customer_screen.dart';
@@ -165,57 +164,75 @@ class _LoginScreenState extends State<LoginScreen> {
                                         color: Colors.blue,
                                         onPressed: () async {
                                           code = code.trim();
-                                          AuthCredential credential =
-                                              PhoneAuthProvider.getCredential(
-                                                  verificationId:
-                                                      verificationID,
-                                                  smsCode: code);
+                                          try {
+                                            AuthCredential credential =
+                                                PhoneAuthProvider.getCredential(
+                                                    verificationId:
+                                                        verificationID,
+                                                    smsCode: code);
 
-                                          AuthResult result = await firebaseAuth
-                                              .signInWithCredential(credential);
+                                            AuthResult result =
+                                                await firebaseAuth
+                                                    .signInWithCredential(
+                                                        credential);
 
-                                          if (result.user != null) {
-                                            print("Verification successful");
-                                            Navigator.of(context).pop();
-                                            Provider.of<General_Provider>(
-                                                    context,
-                                                    listen: false)
-                                                .set_user(userDocument);
-                                            Provider.of<General_Provider>(
-                                                    context,
-                                                    listen: false)
-                                                .set_firebase_user(result.user);
-                                            if (userDocument.usertype ==
-                                                FARMER) {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) {
-                                                    return DashBoard();
-                                                  },
-                                                ),
-                                              );
-                                            } else if (userDocument.usertype ==
-                                                CUSTOMER) {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) {
-                                                    return DashboardCustomerScreen();
-                                                  },
-                                                ),
-                                              );
-                                            } else if (userDocument.usertype ==
-                                                SUPPLIER) {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) {
-                                                    return DashboardSupplierScreen();
-                                                  },
-                                                ),
-                                              );
+                                            if (result.user != null) {
+                                              print("Verification successful");
+                                              Navigator.of(context).pop();
+                                              Provider.of<General_Provider>(
+                                                      context,
+                                                      listen: false)
+                                                  .set_user(userDocument);
+                                              Provider.of<General_Provider>(
+                                                      context,
+                                                      listen: false)
+                                                  .set_firebase_user(
+                                                      result.user);
+                                              if (userDocument.usertype ==
+                                                  "Farmer") {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) {
+                                                      return DashBoard();
+                                                    },
+                                                  ),
+                                                );
+                                              } else if (userDocument
+                                                      .usertype ==
+                                                  "Customer") {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) {
+                                                      return DashboardCustomerScreen();
+                                                    },
+                                                  ),
+                                                );
+                                              } else if (userDocument
+                                                      .usertype ==
+                                                  "Supplier") {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) {
+                                                      return DashboardSupplierScreen();
+                                                    },
+                                                  ),
+                                                );
+                                              }
                                             }
+                                          } catch (PlatformException) {
+                                            print("CAUGHT_PLATFORM_EXCEPTION");
+                                            showDialog(
+                                                context: context,
+                                                barrierDismissible: false,
+                                                builder: (context) {
+                                                  return AlertDialog(
+                                                    title: Text(
+                                                        "Incorrect PIN entered"),
+                                                  );
+                                                });
                                           }
                                         },
                                       )
