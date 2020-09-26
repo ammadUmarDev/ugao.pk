@@ -25,6 +25,7 @@ class Product_Provider extends ChangeNotifier {
 
   from_firebase_document_to_fetch_object(DocumentSnapshot firebaseDocument) {
     return ProductFetch(
+      documentID: firebaseDocument.documentID,
       prodName: firebaseDocument.data['Name'],
       prodDesc: firebaseDocument.data['Desc'],
       priceType: firebaseDocument.data['Price_Type'],
@@ -36,6 +37,7 @@ class Product_Provider extends ChangeNotifier {
       prodImage: firebaseDocument.data['Prod_Image'][0],
       serviceType: firebaseDocument.data['Service_Type'],
       creator: firebaseDocument.data['Creator'],
+      creationTimestamp: DateTime.fromMicrosecondsSinceEpoch(firebaseDocument.data['Created_Timestamp']),
     );
   }
 }

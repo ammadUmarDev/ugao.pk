@@ -82,11 +82,11 @@ class Account_Settings extends State<Account_Settings_State> {
                                 startLoading();
                                 //Add code here
                                 var fire = Provider.of<General_Provider>(
-                                    context,
-                                    listen: false)
+                                        context,
+                                        listen: false)
                                     .get_firebase_user();
                                 var check =
-                                await change_User_Name(u, new_user_name);
+                                    await change_User_Name(u, new_user_name);
                                 if (check == true) {
                                   setState(() {
                                     this.u.fullName = new_user_name;
@@ -155,7 +155,7 @@ class Account_Settings extends State<Account_Settings_State> {
                                 startLoading();
                                 //Add code here
                                 var check =
-                                await change_Phone_No(u, this.new_phone_no);
+                                    await change_Phone_No(u, this.new_phone_no);
                                 if (check == true) {
                                   setState(() {
                                     this.u.phone_no = this.new_phone_no;
@@ -215,7 +215,8 @@ class Account_Settings extends State<Account_Settings_State> {
                             style: TextStyle(
                               color: Colors.black,
                             ),
-                            hint: Text("User Type", style: TextStyle(fontSize: 15.5)),
+                            hint: Text("User Type",
+                                style: TextStyle(fontSize: 15.5)),
                             value: typeUser,
                             onChanged: (String value) {
                               setState(() {
@@ -245,77 +246,22 @@ class Account_Settings extends State<Account_Settings_State> {
                           ButtonLoading(
                             onTap: (startLoading, stopLoading, btnState) async {
                               startLoading();
-                              User u=Provider.of<General_Provider>(context, listen: false).get_user();
-                              if (u.cnic.length != 15) {
-                                showDialog(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (context) {
-                                    return RoundedAlertDialog(
-                                      title: "Invalid CNIC",
-                                      buttonName: "OK",
-                                      onButtonPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                    );
-                                  },
-                                );
-                              } else
-                              {
-                                //Navigator.pushNamed(context, "signupPageFollowup");
-                                if ((await checkUniquenessOfCNIC(u.cnic) &&
-                                   await checkUniquenessOfPhone(
-                                        u.phone_no)) //TODO: put at the specific fields
-                                    ==
-                                    true) {
-                                  if (u.fullName == null ||
-                                      u.cnic == null ||
-                                      u.pass == null ||
-                                      typeUser == null ||
-                                      u.phone_no == null) {
-                                    showDialog(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (context) {
-                                        return RoundedAlertDialog(
-                                          title: "Please fill all fields",
-                                          onButtonPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                        );
-                                      },
-                                    );
-                                  } else {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            Change_User_Type_FollowUp_State(
-                                              fullName: u.fullName.trim(),
-                                              cnic: u.cnic.trim(),
-                                              password: u.pass.trim(),
-                                              userType: typeUser.trim(),
-                                              phone_no: u.phone_no.trim(),
-                                            ),
-                                      ),
-                                    );
-                                  }
-                                } else {
-                                  showDialog(
-                                    context: context,
-                                    barrierDismissible: false,
-                                    builder: (context) {
-                                      return RoundedAlertDialog(
-                                        title: "CNIC or Phone No is not unique",
-                                        buttonName: "OK",
-                                        onButtonPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                      );
-                                    },
-                                  );
-                                }
-                              }
+                              User u = Provider.of<General_Provider>(context,
+                                      listen: false)
+                                  .get_user();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      Change_User_Type_FollowUp_State(
+                                    fullName: u.fullName.trim(),
+                                    cnic: u.cnic.trim(),
+                                    password: u.pass.trim(),
+                                    userType: typeUser.trim(),
+                                    phone_no: u.phone_no.trim(),
+                                  ),
+                                ),
+                              );
                               stopLoading();
                             },
                             labelText: 'Update',
