@@ -122,6 +122,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               RoundedButton(
                 text: "NEXT",
+                color: kPrimaryAccentColor,
+                textColor: Colors.white,
                 press: () async {
                   if (phone_no.length != 13) {
                     showDialog(
