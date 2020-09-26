@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:ugao/Classes/Order_Model.dart';
 
 //my imports
 import 'package:ugao/components/appbar.dart';
 import '../../constants.dart';
 
-class orderConfirmed extends StatefulWidget {
-  String order_address;
+class OrderConfirmedScreen extends StatefulWidget {
+  final String orderAddress;
 
-  orderConfirmed({Key key, this.order_address}) : super(key: key);
+  OrderConfirmedScreen({Key key, this.orderAddress}) : super(key: key);
 
   @override
-  _orderConfirmedState createState() =>
-      _orderConfirmedState(add: this.order_address);
+  _OrderConfirmedScreenState createState() =>
+      _OrderConfirmedScreenState(add: this.orderAddress);
 }
 
-class _orderConfirmedState extends State<orderConfirmed> {
-  String order_address;
+class _OrderConfirmedScreenState extends State<OrderConfirmedScreen> {
+  Order orderObj;
 
-  _orderConfirmedState({Key key, String add}) : this.order_address = add;
+  _OrderConfirmedScreenState({Key key, String add}) {
+    this.orderObj.address = add;
+  }
 
   @override
   Widget build(BuildContext context) {
