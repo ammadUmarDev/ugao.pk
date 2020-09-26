@@ -1,11 +1,8 @@
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:ugao/Classes/Product_Model_Fetch.dart';
-import 'package:ugao/Classes/User_Model.dart';
-import 'package:ugao/Providers/product_provider.dart';
 import 'package:ugao/components/appbar.dart';
 import 'package:ugao/components/body_text.dart';
 import 'package:ugao/components/button_loading.dart';

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_page_indicator/flutter_page_indicator.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:ugao/Classes/greet_card.dart';
-import 'package:ugao/components/h1.dart';
-import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/h3.dart';
 import 'package:ugao/constants.dart';
 

@@ -12,11 +12,11 @@ import 'package:ugao/components/h1.dart';
 import 'package:ugao/screens/product/category_list_screen.dart';
 import 'package:ugao/screens/profile/profile_screen.dart';
 import 'package:ugao/screens/tutorial/tutorial_screen.dart';
-import 'package:ugao/settings/components/custom_background.dart';
 import 'package:ugao/screens/cart/cart_screen.dart';
 
 import '../../constants.dart';
 import 'components/greet_list.dart';
+import 'components/main_background.dart';
 
 class DashboardCustomerScreen extends StatefulWidget {
   @override

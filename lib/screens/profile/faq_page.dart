@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ugao/components/appbar.dart';
 
 class FaqScreen extends StatefulWidget {
   @override
@@ -38,17 +39,8 @@ class _FaqScreenState extends State<FaqScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.black,
-        ),
-        brightness: Brightness.light,
-        backgroundColor: Colors.transparent,
-        title: Text(
-          'Settings',
-          style: TextStyle(color: Colors.black45),
-        ),
-        elevation: 0,
+      appBar: AppBarPageName(
+        pageName: "FAQs",
       ),
       body: SafeArea(
         bottom: true,
@@ -56,17 +48,6 @@ class _FaqScreenState extends State<FaqScreen> {
           padding: const EdgeInsets.only(top: 24.0),
           child: ListView(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 24.0, right: 24.0, bottom: 16.0),
-                child: Text(
-                  'FAQ',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0),
-                ),
-              ),
               ...panels
                   .map((panel) => ExpansionTile(
                           title: Text(

@@ -1,8 +1,9 @@
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:ugao/components/h1.dart';
 import 'package:ugao/constants.dart';
+
+import 'h3.dart';
 
 // ignore: must_be_immutable
 class ButtonLoading extends StatefulWidget {
@@ -24,7 +25,7 @@ class _ButtonLoadingState extends State<ButtonLoading> {
       width: MediaQuery.of(context).size.width * 0.45,
       onTap: widget.onTap,
       child: Text(widget.labelText,
-          style: H1TextStyle(color: kPrimaryAccentColor)),
+          style: H3TextStyle(color: kPrimaryAccentColor)),
       loader: Container(
         padding: EdgeInsets.all(10),
         child: SpinKitRotatingCircle(

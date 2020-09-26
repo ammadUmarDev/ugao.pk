@@ -1,7 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:provider/provider.dart';
-import 'package:ugao/Providers/product_provider.dart';
-
 class ProductFetch {
   String prodName;
   String prodDesc;

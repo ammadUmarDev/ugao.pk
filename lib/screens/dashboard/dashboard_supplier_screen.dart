@@ -8,24 +8,20 @@ import 'package:ugao/Classes/greet_card.dart';
 import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/Providers/product_provider.dart';
 import 'package:ugao/components/body_text.dart';
-import 'package:ugao/components/category_display.dart';
 import 'package:ugao/components/grid_tile_product.dart';
 import 'package:ugao/components/h1.dart';
 import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/h3.dart';
-import 'package:ugao/components/rounded_button.dart';
 import 'package:ugao/components/shadowBoxList.dart';
 import 'package:ugao/screens/cart/cart_screen.dart';
 import 'package:ugao/screens/order/orders_received_seller.dart';
 import 'package:ugao/screens/product/add_product.dart';
-import 'package:ugao/screens/product/category_list_screen.dart';
-import 'package:ugao/screens/product/my_products_screen.dart';
 import 'package:ugao/screens/profile/profile_screen.dart';
 import 'package:ugao/screens/tutorial/tutorial_screen.dart';
-import 'package:ugao/settings/components/custom_background.dart';
 
 import '../../constants.dart';
 import 'components/greet_list.dart';
+import 'components/main_background.dart';
 
 class DashboardSupplierScreen extends StatefulWidget {
   @override
@@ -84,8 +80,9 @@ class _DashboardSupplierScreenState extends State<DashboardSupplierScreen> {
             child: Row(
               children: [
                 IconButton(
-                    onPressed: () => Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (_) => Profile_Page_State())),
+                    onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (_) => Profile_Page_State())),
                     icon: Icon(
                       Icons.person,
                       size: 30,

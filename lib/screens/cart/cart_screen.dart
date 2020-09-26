@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-
-//my own imports
-import 'package:ugao/screens/dashboard/dashboard.dart';
 import 'package:ugao/screens/cart/cart_products.dart';
 import 'package:ugao/components/appbar.dart';
 import 'package:ugao/screens/checkout/checkout_screen.dart';

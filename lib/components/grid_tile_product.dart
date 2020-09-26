@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ugao/Classes/Product_Model_Fetch.dart';
 import 'package:ugao/components/body_text.dart';
 import 'package:ugao/components/h3.dart';
-import 'package:ugao/screens/dashboard/dashboard.dart';
 import 'package:ugao/screens/product/edit_product_screen.dart';
 import 'package:ugao/screens/product/view_product_screen.dart';
 

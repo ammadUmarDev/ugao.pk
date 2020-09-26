@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/h3.dart';
 import 'package:ugao/constants.dart';
 

@@ -6,7 +6,6 @@ import 'package:ugao/constants.dart';
 import 'package:ugao/components/staggered_category_card.dart';
 
 import 'background_catagory.dart';
-import 'background_view_product.dart';
 
 class CategoryListScreen extends StatefulWidget {
   @override

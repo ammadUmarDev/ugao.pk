@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 //my imports
 import 'package:ugao/components/appbar.dart';
-import '../../constants.dart';
 
 class orderConfirmed extends StatefulWidget {
   String order_address;

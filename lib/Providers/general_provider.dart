@@ -3,7 +3,6 @@ import 'package:ugao/Classes/Cart_Product_Model.dart';
 import 'package:ugao/Classes/Product_Model_Fetch.dart';
 import 'package:ugao/Classes/User_Model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'dart:math';
 
 // ignore: camel_case_types
 class General_Provider extends ChangeNotifier {
@@ -56,9 +55,9 @@ class General_Provider extends ChangeNotifier {
     return user;
   }
 
-  void addToCart(ProductFetch product, int quantity, String serviceType)
-  {
-    this.cart.add(CartProduct(product: product,quantity: quantity,serviceType: serviceType));
+  void addToCart(ProductFetch product, int quantity, String serviceType) {
+    this.cart.add(CartProduct(
+        product: product, quantity: quantity, serviceType: serviceType));
   }
 
   void set_user(User u) {

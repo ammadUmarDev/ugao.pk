@@ -20,7 +20,7 @@ import 'package:ugao/screens/dashboard/dashboard_customer_screen.dart';
 import 'package:ugao/screens/dashboard/dashboard_supplier_screen.dart';
 import 'package:ugao/screens/login/login_screen.dart';
 
-import '../../../../../constants.dart';
+import '../../../../constants.dart';
 import 'background.dart';
 
 class Change_User_Type_FollowUp_State extends StatefulWidget {

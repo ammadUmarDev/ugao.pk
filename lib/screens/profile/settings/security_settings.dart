@@ -1,4 +1,3 @@
-import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,14 +6,13 @@ import 'package:ugao/Classes/User_Model.dart';
 import 'package:ugao/Classes/firebase_functions.dart';
 import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/components/appbar.dart';
-import 'package:ugao/components/body_text.dart';
 import 'package:ugao/components/button_loading.dart';
 import 'package:ugao/components/h2.dart';
-import 'package:ugao/components/h3.dart';
+import 'package:ugao/components/rounded_password_field.dart';
 import 'package:ugao/components/shadowBoxList.dart';
-import 'package:ugao/screens/product/background_view_product.dart';
 
 import '../../../constants.dart';
+import 'components/background_setting.dart';
 
 class Security_Settings_State extends StatefulWidget {
   Security_Settings createState() => Security_Settings();
@@ -42,19 +40,21 @@ class Security_Settings extends State<Security_Settings_State> {
         appBar: AppBarPageName(
           pageName: "Change Password",
         ),
-        body: Background_VP(
+        body: Background_S(
           child: Column(
             children: [
+              SizedBox(height: 15),
               ShadowBoxList(
                 icon: Icon(Icons.edit),
                 widgetColumn: <Widget>[
-                  H2(textBody: "Password: "),
-                  SizedBox(height: 5),
+                  SizedBox(height: 15),
+                  H2(textBody: "Account Password: ********"),
+                  SizedBox(height: 15),
                 ],
                 onTapFunction: () {
                   Alert(
                       context: context,
-                      title: "Edit",
+                      title: "Change Password",
                       style: AlertStyle(
                         titleStyle: H2TextStyle(color: kPrimaryAccentColor),
                       ),
@@ -63,22 +63,8 @@ class Security_Settings extends State<Security_Settings_State> {
                           SizedBox(
                             height: 10,
                           ),
-                          TextField(
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Please Enter The Old Password"),
-                            obscureText: true,
+                          RoundedPasswordField(
                             onChanged: (value) => {this.oldPassword = value},
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          TextField(
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Please Enter The New Password"),
-                            obscureText: true,
-                            onChanged: (value) => {this.new_password = value},
                           ),
                           SizedBox(
                             height: 10,
