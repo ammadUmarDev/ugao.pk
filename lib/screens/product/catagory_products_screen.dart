@@ -7,7 +7,6 @@ import 'package:ugao/Providers/product_provider.dart';
 import 'package:ugao/components/appbar.dart';
 import 'package:ugao/components/grid_tile_product.dart';
 import 'package:ugao/components/h3.dart';
-import 'package:ugao/screens/product/background_view_product.dart';
 
 import 'background_catagory.dart';
 

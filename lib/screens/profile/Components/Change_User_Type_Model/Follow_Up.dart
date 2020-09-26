@@ -9,15 +9,11 @@ import 'package:ugao/Classes/Supplier_Model.dart';
 import 'package:ugao/Classes/User_Model.dart';
 import 'package:ugao/Classes/firebase_functions.dart';
 import 'package:ugao/Providers/general_provider.dart';
-import 'package:ugao/components/already_have_an_account_acheck.dart';
 import 'package:ugao/components/h1.dart';
 import 'package:ugao/components/rounded_alert_dialog.dart';
 import 'package:ugao/components/rounded_button.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/rounded_phone_input_field.dart';
-import 'package:ugao/screens/dashboard/dashboard.dart';
-import 'package:ugao/screens/dashboard/dashboard_customer_screen.dart';
-import 'package:ugao/screens/dashboard/dashboard_supplier_screen.dart';
 import 'package:ugao/screens/login/login_screen.dart';
 
 import '../../../../constants.dart';

@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ugao/components/appbar.dart';
+import 'package:ugao/components/body_text.dart';
+import 'package:ugao/components/h3.dart';
+import 'package:ugao/constants.dart';
 
 class FaqScreen extends StatefulWidget {
   @override
@@ -50,20 +53,12 @@ class _FaqScreenState extends State<FaqScreen> {
             children: <Widget>[
               ...panels
                   .map((panel) => ExpansionTile(
-                          title: Text(
-                            panel.title,
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey[600]),
-                          ),
+                          title: H3(textBody: panel.title),
                           children: [
                             Container(
                                 padding: EdgeInsets.all(16.0),
-                                color: Color(0xffFAF1E2),
-                                child: Text(panel.content,
-                                    style: TextStyle(
-                                        color: Colors.grey, fontSize: 12)))
+                                color: kPrimaryLightColor.withOpacity(0.3),
+                                child: BodyText(textBody: panel.content))
                           ]))
                   .toList(),
             ],

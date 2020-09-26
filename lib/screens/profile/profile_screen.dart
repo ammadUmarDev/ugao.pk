@@ -13,6 +13,7 @@ import 'package:ugao/screens/profile/settings/general_settings_screen.dart';
 
 import 'faq_page.dart';
 
+// ignore: camel_case_types
 class Profile_Page_State extends StatefulWidget {
   ProfilePage createState() => ProfilePage();
 }
@@ -24,17 +25,41 @@ class ProfilePage extends State<Profile_Page_State> {
   @override
   Widget build(BuildContext context) {
     user = Provider.of<General_Provider>(context, listen: false).get_user();
+    if (user.usertype == FARMER) {
+      userImagePath = "assets/icons/farmIcon.png";
+    }
+    if (user.usertype == SUPPLIER) {
+      userImagePath = "assets/icons/supIcon.png";
+    }
+    if (user.usertype == CUSTOMER) {
+      userImagePath = "assets/icons/custIcon.png";
+    }
+    Widget showCustomerCommercialDescription() {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          H3(textBody: "Company Name:"),
+          SizedBox(height: 5),
+          BodyText(textBody: this.user.customer.ccName),
+          Divider(),
+          H3(textBody: "Company Phone No:"),
+          SizedBox(height: 5),
+          BodyText(textBody: this.user.customer.ccPhoneNumber),
+          Divider(),
+          H3(textBody: "Company Website:"),
+          SizedBox(height: 5),
+          BodyText(textBody: this.user.customer.ccWebsite),
+          Divider(),
+          H3(textBody: "Account Status:"),
+          SizedBox(height: 5),
+          BodyText(textBody: "Active"),
+        ],
+      );
+    }
+
     Widget showDesciption() {
       if (user.usertype == FARMER) {
-//        this.description = "CNIC: " +
-//            this.user.cnic +
-//            "\n\nUserType: " +
-//            this.user.usertype +
-//            "\n\nPhone Number: " +
-//            user.phone_no +
-//            "\nAddress:" +
-//            this.user.farmer.fAddress;
-        userImagePath = "assets/icons/farmIcon.png";
         return Padding(
           padding: const EdgeInsets.all(20.0),
           child: Row(
@@ -87,40 +112,118 @@ class ProfilePage extends State<Profile_Page_State> {
         );
       }
       if (user.usertype == SUPPLIER) {
-//        this.description = "CNIC: " +
-//            this.user.cnic +
-//            "\nPhone_NO: " +
-//            user.phone_no +
-//            "\nUserType: " +
-//            this.user.usertype +
-//            "\nAddress:" +
-//            this.user.supplier.sAddress;
-        userImagePath = "assets/icons/supIcon.png";
+        return Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  H3(textBody: "CNIC:"),
+                  SizedBox(height: 5),
+                  BodyText(textBody: this.user.cnic),
+                  Divider(),
+                  H3(textBody: "Account Type:"),
+                  SizedBox(height: 5),
+                  BodyText(textBody: this.user.usertype),
+                  Divider(),
+                  H3(textBody: "Phone#:"),
+                  SizedBox(height: 5),
+                  BodyText(textBody: user.phone_no),
+                  Divider(),
+                  H3(textBody: "Address:"),
+                  SizedBox(height: 5),
+                  BodyText(textBody: this.user.supplier.sAddress),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  H3(textBody: "Work Experience:"),
+                  SizedBox(height: 5),
+                  BodyText(
+                      textBody: this.user.supplier.scExperience + " years"),
+                  Divider(),
+                  H3(textBody: "Catagory Type:"),
+                  SizedBox(height: 5),
+                  BodyText(textBody: this.user.supplier.scExperience),
+                  Divider(),
+                  H3(textBody: "Service Type:"),
+                  SizedBox(height: 5),
+                  BodyText(
+                      textBody:
+                          this.user.supplier.sSelectedTypes.toString() != null
+                              ? this.user.supplier.sSelectedTypes.toString()
+                              : "Not Selected"),
+                  Divider(),
+                  H3(textBody: "Account Status:"),
+                  SizedBox(height: 5),
+                  BodyText(textBody: "Active"),
+                ],
+              ),
+            ],
+          ),
+        );
       }
       if (user.usertype == CUSTOMER) {
-//        this.description = "CNIC: " +
-//            this.user.cnic +
-//            "\nPhone_NO: " +
-//            user.phone_no +
-//            "\nUserType: " +
-//            this.user.usertype +
-//            "\nWebsite:" +
-//            this.user.customer.ccWebsite;
-        userImagePath = "assets/icons/custIcon.png";
+        return Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  H3(textBody: "CNIC:"),
+                  SizedBox(height: 5),
+                  BodyText(textBody: this.user.cnic),
+                  Divider(),
+                  H3(textBody: "Account Type:"),
+                  SizedBox(height: 5),
+                  BodyText(textBody: this.user.usertype),
+                  Divider(),
+                  H3(textBody: "Phone#:"),
+                  SizedBox(height: 5),
+                  BodyText(textBody: user.phone_no),
+                  Divider(),
+                  H3(textBody: "Customer type:"),
+                  SizedBox(height: 5),
+                  BodyText(textBody: this.user.customer.cAccountType),
+                ],
+              ),
+              this.user.customer.cAccountType == "Commercial"
+                  ? showCustomerCommercialDescription()
+                  : SizedBox(height: 0),
+            ],
+          ),
+        );
       }
     }
 
     Widget showOrder() {
       if (user.usertype == CUSTOMER || user.usertype == FARMER) {
         return Container(
-          child: ListTile(
-            title: Text('Orders'),
-            subtitle: Text('Check placed order statuses'),
-            leading: Icon(FontAwesomeIcons.thList),
-            trailing: Icon(Icons.chevron_right, color: kPrimaryLightColor),
-            onTap: () => Navigator.of(context)
-                .push(MaterialPageRoute(builder: (_) => SettingsScreen())),
+          child: Column(
+            children: [
+              ListTile(
+                title: Text('Orders'),
+                subtitle: Text('Check placed order statuses'),
+                leading: Icon(FontAwesomeIcons.thList),
+                trailing: Icon(Icons.chevron_right, color: kPrimaryLightColor),
+                onTap: () => Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (_) => SettingsScreen())),
+              ),
+              Divider(),
+            ],
           ),
+        );
+      } else {
+        return SizedBox(
+          height: 0,
         );
       }
     }
@@ -176,7 +279,6 @@ class ProfilePage extends State<Profile_Page_State> {
                 ),
                 Divider(),
                 showOrder(),
-                Divider(),
                 ListTile(
                   title: Text('FAQ'),
                   subtitle: Text('Questions and Answer'),

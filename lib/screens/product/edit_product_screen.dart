@@ -11,7 +11,6 @@ import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/h3.dart';
 import 'package:ugao/components/shadowBoxList.dart';
 import 'package:ugao/constants.dart';
-import 'package:ugao/screens/cart/cart_screen.dart';
 
 import 'background_view_product.dart';
 

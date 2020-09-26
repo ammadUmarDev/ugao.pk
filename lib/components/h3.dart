@@ -5,7 +5,7 @@ import 'package:ugao/constants.dart';
 class H3TextStyle extends TextStyle {
   H3TextStyle({this.color});
   final fontFamily = "Cantarell";
-  final fontSize = h2Size;
+  final fontSize = h3Size;
   final Color color;
   final fontWeight = FontWeight.w600;
 }
