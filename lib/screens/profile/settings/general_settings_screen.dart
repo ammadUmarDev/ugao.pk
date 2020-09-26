@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ugao/components/appbar.dart';
 import 'package:ugao/screens/profile/settings/components/background_setting.dart';
-import 'package:ugao/screens/profile/settings/security_settings.dart';
-import 'file:///C:/Users/Ammad/AndroidStudioProjects/vectech/ugao.pk/lib/screens/profile/settings/account_settings_screen.dart';
+import 'package:ugao/screens/profile/settings/account_settings_screen.dart';
 import 'package:ugao/screens/welcome/welcome_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
