@@ -321,6 +321,7 @@ class Account_Settings extends State<Account_Settings_State> {
                                   );
                                 }
                               }
+
                               stopLoading();
                             },
                             labelText: 'Update',

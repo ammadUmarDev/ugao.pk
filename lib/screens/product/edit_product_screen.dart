@@ -3,12 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:ugao/Classes/Product_Model_Fetch.dart';
+import 'package:ugao/Classes/firebase_functions.dart';
 import 'package:ugao/components/appbar.dart';
 import 'package:ugao/components/body_text.dart';
 import 'package:ugao/components/button_loading.dart';
 import 'package:ugao/components/h1.dart';
 import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/h3.dart';
+import 'package:ugao/components/rounded_drop_down.dart';
 import 'package:ugao/components/shadowBoxList.dart';
 import 'package:ugao/constants.dart';
 
@@ -28,6 +30,17 @@ class EditProduct extends StatefulWidget {
 }
 
 class _EditProductState extends State<EditProduct> {
+  String newPName;
+  String newPDesc;
+  int newPQuan;
+  String newPServ;
+  String newPpriceType;
+  int newPPrice;
+  String newPWeightUnit;
+  int newPWeight;
+  List<String> sTypes = ["Pickup", "Delivery"];
+  List<String> pTypes = ["Per Unit Price", "Bulk Price"];
+  List<String> wUnits = ["Kgs"];
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   LinearGradient mainButton = LinearGradient(
       colors: [Color(0xFF2b580c), Color(0xFF2b580c), Color(0xFF2b580c)],
@@ -40,6 +53,7 @@ class _EditProductState extends State<EditProduct> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Colors.white,
@@ -133,7 +147,7 @@ class _EditProductState extends State<EditProduct> {
                   onTapFunction: () {
                     Alert(
                         context: context,
-                        title: "Edit",
+                        title: "Edit\n(Leave empty to keep old value)",
                         style: AlertStyle(
                           titleStyle: H2TextStyle(color: kPrimaryAccentColor),
                         ),
@@ -142,7 +156,44 @@ class _EditProductState extends State<EditProduct> {
                             SizedBox(
                               height: 10,
                             ),
-                            H3(textBody: "Edit Here"),
+                            TextField(
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: "Enter new Product Name"),
+                              onChanged: (value) => {newPName = value},
+                            ),
+                            TextField(
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: "Enter new Product Description"),
+                              onChanged: (value) => {newPDesc = value},
+                            ),
+                            TextField(
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: "Enter new Product Quantity"),
+                              onChanged: (value) => {
+                                newPQuan = (value == null || value.isEmpty)
+                                    ? widget.productObj.quantity
+                                    : int.parse(
+                                        value //TODO: add onError for robustness
+                                        )
+                              },
+                            ),
+                            RoundedDropDown(
+                              name: "Select new Service Type",
+                              size: size,
+                              text: newPServ,
+                              value: newPServ,
+                              onChanged: (String value) {
+                                setState(() {
+                                  newPServ = value;
+                                });
+                              },
+                              items: sTypes,
+                              icon: Icons.departure_board,
+                            ),
                             SizedBox(
                               height: 10,
                             ),
@@ -151,9 +202,38 @@ class _EditProductState extends State<EditProduct> {
                                   (startLoading, stopLoading, btnState) async {
                                 if (btnState == ButtonState.Idle) {
                                   startLoading();
-                                  //Add code here
-                                  stopLoading();
-                                  Navigator.pop(context);
+                                  bool updateNeeded = false;
+                                  if (newPName != null && newPName.isNotEmpty) {
+                                    widget.productObj.prodName = newPName;
+                                    updateNeeded = true;
+                                  }
+                                  if (newPDesc != null && newPDesc.isNotEmpty) {
+                                    widget.productObj.prodDesc = newPDesc;
+                                    updateNeeded = true;
+                                  }
+                                  if (newPQuan != null) {
+                                    widget.productObj.quantity = newPQuan;
+                                    updateNeeded = true;
+                                  }
+                                  if (newPServ != null && newPServ.isNotEmpty) {
+                                    widget.productObj.serviceType = newPServ;
+                                    updateNeeded = true;
+                                  }
+                                  if (updateNeeded == false ||
+                                      await update_product(widget.productObj)) {
+                                    stopLoading();
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder:
+                                            (context) => /*add route to product page*/ EditProduct(
+                                          productObj: widget.productObj,
+                                        ),
+                                      ),
+                                    );
+                                  }
                                 } else {
                                   stopLoading();
                                 }
@@ -188,7 +268,7 @@ class _EditProductState extends State<EditProduct> {
                   onTapFunction: () {
                     Alert(
                         context: context,
-                        title: "Edit",
+                        title: "Edit\n(Leave empty to keep old value)",
                         style: AlertStyle(
                           titleStyle: H2TextStyle(color: kPrimaryAccentColor),
                         ),
@@ -197,7 +277,31 @@ class _EditProductState extends State<EditProduct> {
                             SizedBox(
                               height: 10,
                             ),
-                            H3(textBody: "Edit Here"),
+                            RoundedDropDown(
+                              name: "Select new Price Type",
+                              size: size,
+                              text: newPpriceType,
+                              value: newPpriceType,
+                              onChanged: (String value) {
+                                setState(() {
+                                  newPpriceType = value;
+                                });
+                              },
+                              items: pTypes,
+                            ),
+                            TextField(
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: "Enter new Product Price"),
+                              onChanged: (value) => {
+                                newPPrice = (value == null || value.isEmpty)
+                                    ? widget.productObj.price
+                                    : int.parse(
+                                        value //TODO: add onError for robustness
+                                        )
+                              },
+                            ),
                             SizedBox(
                               height: 10,
                             ),
@@ -206,12 +310,32 @@ class _EditProductState extends State<EditProduct> {
                                   (startLoading, stopLoading, btnState) async {
                                 if (btnState == ButtonState.Idle) {
                                   startLoading();
-                                  //Add code here
-                                  stopLoading();
-                                  Navigator.pop(context);
-                                } else {
-                                  stopLoading();
+                                  bool updateNeeded = false;
+                                  if (newPPrice != null) {
+                                    widget.productObj.price = newPPrice;
+                                    updateNeeded = true;
+                                  }
+                                  if (newPpriceType != null &&
+                                      newPpriceType.isNotEmpty) {
+                                    widget.productObj.priceType = newPpriceType;
+                                    updateNeeded = true;
+                                  }
+                                  if (updateNeeded == false ||
+                                      await update_product(widget.productObj)) {
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder:
+                                            (context) => /*add route to product page*/ EditProduct(
+                                          productObj: widget.productObj,
+                                        ),
+                                      ),
+                                    );
+                                  }
                                 }
+                                stopLoading();
                               },
                               labelText: 'SAVE',
                             ),
@@ -243,7 +367,7 @@ class _EditProductState extends State<EditProduct> {
                   onTapFunction: () {
                     Alert(
                         context: context,
-                        title: "Edit",
+                        title: "Edit\n(Leave empty to keep old value)",
                         style: AlertStyle(
                           titleStyle: H2TextStyle(color: kPrimaryAccentColor),
                         ),
@@ -252,7 +376,31 @@ class _EditProductState extends State<EditProduct> {
                             SizedBox(
                               height: 10,
                             ),
-                            H3(textBody: "Edit Here"),
+                            RoundedDropDown(
+                              name: "Select new Weight Unit",
+                              size: size,
+                              text: newPWeightUnit,
+                              value: newPWeightUnit,
+                              onChanged: (String value) {
+                                setState(() {
+                                  newPWeightUnit = value;
+                                });
+                              },
+                              items: wUnits,
+                            ),
+                            TextField(
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: "Enter new Product Weight"),
+                              onChanged: (value) => {
+                                newPWeight = (value == null || value.isEmpty)
+                                    ? widget.productObj.weight
+                                    : int.parse(
+                                        value //TODO: add onError for robustness
+                                        )
+                              },
+                            ),
                             SizedBox(
                               height: 10,
                             ),
@@ -261,12 +409,33 @@ class _EditProductState extends State<EditProduct> {
                                   (startLoading, stopLoading, btnState) async {
                                 if (btnState == ButtonState.Idle) {
                                   startLoading();
-                                  //Add code here
-                                  stopLoading();
-                                  Navigator.pop(context);
-                                } else {
-                                  stopLoading();
+                                  bool updateNeeded = false;
+                                  if (newPWeight != null) {
+                                    widget.productObj.weight = newPWeight;
+                                    updateNeeded = true;
+                                  }
+                                  if (newPWeightUnit != null &&
+                                      newPWeightUnit.isNotEmpty) {
+                                    widget.productObj.weightUnit =
+                                        newPWeightUnit;
+                                    updateNeeded = true;
+                                  }
+                                  if (updateNeeded == false ||
+                                      await update_product(widget.productObj)) {
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder:
+                                            (context) => /*add route to product page*/ EditProduct(
+                                          productObj: widget.productObj,
+                                        ),
+                                      ),
+                                    );
+                                  }
                                 }
+                                stopLoading();
                               },
                               labelText: 'SAVE',
                             ),

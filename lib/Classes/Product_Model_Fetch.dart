@@ -1,4 +1,5 @@
 class ProductFetch {
+  String documentID;
   String prodName;
   String prodDesc;
   String priceType;
@@ -10,8 +11,11 @@ class ProductFetch {
   String prodImage;
   String serviceType;
   String creator;
+  DateTime creationTimestamp;
 
   ProductFetch({
+    this.documentID,
+    this.creationTimestamp,
     this.prodName,
     this.prodDesc,
     this.priceType,
@@ -23,7 +27,7 @@ class ProductFetch {
     this.prodImage,
     this.serviceType,
     this.creator,
-  });
+  }) {}
 
   void set_product(ProductFetch pobject) {
     if (pobject.prodName != null) {

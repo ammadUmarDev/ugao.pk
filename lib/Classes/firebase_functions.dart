@@ -5,6 +5,7 @@ import 'dart:io';
 import '../constants.dart';
 import 'Customer_Model.dart';
 import 'Farmer_Model.dart';
+import 'Product_Model_Fetch.dart';
 import 'Product_Model_Upload.dart';
 import 'Supplier_Model.dart';
 
@@ -178,7 +179,26 @@ Future<bool> add_a_product(Product product, User currentUser) async {
     'Prod_Image': [imageURL],
     'Service_Type': product.serviceType,
     'Creator': currentUser.cnic,
-    'Created_Timestamp': DateTime.now(),
+    'Created_Timestamp': DateTime.now().millisecondsSinceEpoch,
+  });
+  return true;
+}
+
+Future<bool> update_product(ProductFetch product) async {
+  Firestore firestore = Firestore.instance;
+  await firestore.collection('Products').document(product.documentID).setData({
+    'Name': product.prodName.toString(),
+    'Desc': product.prodDesc.toString(),
+    'Price_Type': product.priceType.toString(),
+    'Price': product.price,
+    'Quantity': product.quantity,
+    'Weight': product.weight,
+    'WeightUnit': product.weightUnit,
+    'Prod_Category': product.prodCategory,
+    'Prod_Image': [product.prodImage],
+    'Service_Type': product.serviceType,
+    'Creator': product.creator,
+    'Created_Timestamp': product.creationTimestamp.millisecondsSinceEpoch,
   });
   return true;
 }
