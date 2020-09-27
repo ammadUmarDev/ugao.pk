@@ -14,7 +14,7 @@ import 'package:ugao/components/rounded_alert_dialog.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/shadowBoxList.dart';
 import 'package:ugao/screens/profile/Components/Change_User_Type_Model/Follow_Up.dart';
-import 'file:///C:/Users/Ammad/AndroidStudioProjects/vectech/ugao.pk/lib/screens/profile/Components/background_setting.dart';
+import 'package:ugao/screens/profile/Components/background_setting.dart';
 import '../../../constants.dart';
 
 class Account_Settings_State extends StatefulWidget {

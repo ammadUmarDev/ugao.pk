@@ -11,6 +11,7 @@ import 'package:ugao/constants.dart';
 import 'package:ugao/screens/profile/about_us.dart';
 import 'package:ugao/screens/profile/settings/general_settings_screen.dart';
 import 'faq_page.dart';
+import 'package:ugao/screens/order/myorders_screen.dart';
 
 // ignore: camel_case_types
 class Profile_Page_State extends StatefulWidget {
@@ -217,7 +218,7 @@ class ProfilePage extends State<Profile_Page_State> {
                 leading: Icon(FontAwesomeIcons.thList),
                 trailing: Icon(Icons.chevron_right, color: kPrimaryLightColor),
                 onTap: () => Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (_) => SettingsScreen())),
+                    .push(MaterialPageRoute(builder: (_) => MyOrders())),
               ),
               Divider(),
             ],

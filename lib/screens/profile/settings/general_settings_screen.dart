@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ugao/components/appbar.dart';
-import 'file:///C:/Users/Ammad/AndroidStudioProjects/vectech/ugao.pk/lib/screens/profile/Components/background_setting.dart';
+import 'package:ugao/screens/profile/Components/background_setting.dart';
 import 'package:ugao/screens/profile/settings/account_settings_screen.dart';
 import 'package:ugao/screens/profile/settings/security_settings.dart';
 import 'package:ugao/screens/welcome/welcome_screen.dart';
