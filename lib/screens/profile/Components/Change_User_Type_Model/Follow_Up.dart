@@ -7,7 +7,7 @@ import 'package:ugao/Classes/Customer_Model.dart';
 import 'package:ugao/Classes/Farmer_Model.dart';
 import 'package:ugao/Classes/Supplier_Model.dart';
 import 'package:ugao/Classes/User_Model.dart';
-import 'package:ugao/Classes/firebase_functions.dart';
+import 'package:ugao/Classes/Firebase_Functions.dart';
 import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/components/h1.dart';
 import 'package:ugao/components/rounded_alert_dialog.dart';
