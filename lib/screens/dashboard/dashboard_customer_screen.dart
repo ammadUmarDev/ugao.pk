@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'file:///C:/Users/Ammad/AndroidStudioProjects/vectech/ugao.pk/lib/components/greet_card.dart';
+import 'package:ugao/components/greet_card.dart';
 import 'package:ugao/Providers/product_provider.dart';
 import 'package:ugao/components/category_display.dart';
 import 'package:ugao/components/grid_tile_product.dart';
