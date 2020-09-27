@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:ugao/Classes/User_Model.dart';
 import 'package:ugao/components/appbar.dart';
 import 'package:ugao/components/body_text.dart';
@@ -222,6 +224,37 @@ class _SellerProfileScreenState extends State<SellerProfileScreen> {
     return Scaffold(
       backgroundColor: Color(0xffF9F9F9),
       appBar: AppBarPageName(pageName: "Seller Profile"),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(FontAwesomeIcons.comment),
+        backgroundColor: kPrimaryAccentColor,
+        onPressed: () {
+          //Comming soon alert
+          Alert(
+              context: context,
+              title: "Coming Soon",
+              style: AlertStyle(
+                titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+              ),
+              content: Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 10,
+                  ),
+                  H3(textBody: "Stay tuned for the next update :)"),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
+              buttons: [
+                DialogButton(
+                  color: Colors.white,
+                  height: 0,
+                ),
+              ]).show();
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
         top: true,
         child: SingleChildScrollView(
