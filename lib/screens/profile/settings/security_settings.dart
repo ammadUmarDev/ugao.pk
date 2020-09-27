@@ -6,13 +6,14 @@ import 'package:ugao/Classes/User_Model.dart';
 import 'package:ugao/Classes/firebase_functions.dart';
 import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/components/appbar.dart';
+import 'package:ugao/components/body_text.dart';
 import 'package:ugao/components/button_loading.dart';
 import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/rounded_password_field.dart';
 import 'package:ugao/components/shadowBoxList.dart';
 
 import '../../../constants.dart';
-import 'components/background_setting.dart';
+import '../Components/background_setting.dart';
 
 class Security_Settings_State extends StatefulWidget {
   Security_Settings createState() => Security_Settings();
@@ -45,11 +46,16 @@ class Security_Settings extends State<Security_Settings_State> {
             children: [
               SizedBox(height: 15),
               ShadowBoxList(
-                icon: Icon(Icons.edit),
+                icon: Icon(
+                  Icons.edit,
+                  color: kPrimaryAccentColor,
+                ),
                 widgetColumn: <Widget>[
-                  SizedBox(height: 15),
+                  SizedBox(height: 10),
                   H2(textBody: "Account Password: ********"),
-                  SizedBox(height: 15),
+                  SizedBox(height: 5),
+                  BodyText(textBody: "Tap to edit"),
+                  SizedBox(height: 10),
                 ],
                 onTapFunction: () {
                   Alert(

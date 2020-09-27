@@ -8,9 +8,8 @@ import 'package:ugao/components/body_text.dart';
 import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/h3.dart';
 import 'package:ugao/constants.dart';
-import 'package:ugao/screens/profile/settings/security_settings.dart';
+import 'package:ugao/screens/profile/about_us.dart';
 import 'package:ugao/screens/profile/settings/general_settings_screen.dart';
-
 import 'faq_page.dart';
 
 // ignore: camel_case_types
@@ -58,6 +57,7 @@ class ProfilePage extends State<Profile_Page_State> {
       );
     }
 
+    // ignore: missing_return
     Widget showDesciption() {
       if (user.usertype == FARMER) {
         return Padding(
@@ -65,26 +65,28 @@ class ProfilePage extends State<Profile_Page_State> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  H3(textBody: "CNIC:"),
-                  SizedBox(height: 5),
-                  BodyText(textBody: this.user.cnic),
-                  Divider(),
-                  H3(textBody: "Account Type:"),
-                  SizedBox(height: 5),
-                  BodyText(textBody: this.user.usertype),
-                  Divider(),
-                  H3(textBody: "Phone#:"),
-                  SizedBox(height: 5),
-                  BodyText(textBody: user.phone_no),
-                  Divider(),
-                  H3(textBody: "Address:"),
-                  SizedBox(height: 5),
-                  BodyText(textBody: this.user.farmer.fAddress),
-                ],
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    H3(textBody: "CNIC:"),
+                    SizedBox(height: 5),
+                    BodyText(textBody: this.user.cnic),
+                    Divider(),
+                    H3(textBody: "Account Type:"),
+                    SizedBox(height: 5),
+                    BodyText(textBody: this.user.usertype),
+                    Divider(),
+                    H3(textBody: "Phone#:"),
+                    SizedBox(height: 5),
+                    BodyText(textBody: user.phone_no),
+                    Divider(),
+                    H3(textBody: "Address:"),
+                    SizedBox(height: 5),
+                    BodyText(textBody: this.user.farmer.fAddress),
+                  ],
+                ),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -287,6 +289,16 @@ class ProfilePage extends State<Profile_Page_State> {
                       Icon(Icons.chevron_right, color: kPrimaryLightColor),
                   onTap: () => Navigator.of(context)
                       .push(MaterialPageRoute(builder: (_) => FaqScreen())),
+                ),
+                Divider(),
+                ListTile(
+                  title: Text('About Us'),
+                  subtitle: Text('Get to know Vectech'),
+                  leading: Icon(FontAwesomeIcons.building),
+                  trailing:
+                      Icon(Icons.chevron_right, color: kPrimaryLightColor),
+                  onTap: () => Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (_) => About())),
                 ),
                 Divider(),
               ],

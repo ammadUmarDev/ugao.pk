@@ -31,15 +31,15 @@ class DashboardSupplierScreen extends StatefulWidget {
   List<GreetCard> products = [
     GreetCard(
       'assets/images/promo2.png',
-      'increase your yeild',
+      'Increase Your Sales',
     ),
     GreetCard(
       'assets/images/promo4.png',
-      'grow with us',
+      'Work With Us',
     ),
     GreetCard(
       'assets/images/promo1.png',
-      'all under one app',
+      'Increase Your Profits',
     ),
   ];
 }

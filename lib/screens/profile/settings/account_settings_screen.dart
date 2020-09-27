@@ -7,14 +7,14 @@ import 'package:ugao/Classes/User_Model.dart';
 import 'package:ugao/Classes/firebase_functions.dart';
 import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/components/appbar.dart';
+import 'package:ugao/components/body_text.dart';
 import 'package:ugao/components/button_loading.dart';
 import 'package:ugao/components/h2.dart';
-import 'package:ugao/components/h3.dart';
 import 'package:ugao/components/rounded_alert_dialog.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/shadowBoxList.dart';
 import 'package:ugao/screens/profile/Components/Change_User_Type_Model/Follow_Up.dart';
-import 'package:ugao/screens/profile/settings/components/background_setting.dart';
+import 'file:///C:/Users/Ammad/AndroidStudioProjects/vectech/ugao.pk/lib/screens/profile/Components/background_setting.dart';
 import '../../../constants.dart';
 
 class Account_Settings_State extends StatefulWidget {
@@ -54,11 +54,13 @@ class Account_Settings extends State<Account_Settings_State> {
                 height: 10,
               ),
               ShadowBoxList(
-                icon: Icon(Icons.edit),
+                icon: Icon(Icons.edit, color: kPrimaryAccentColor),
                 widgetColumn: <Widget>[
-                  SizedBox(height: 15),
+                  SizedBox(height: 10),
                   H2(textBody: "Full Name: " + u.fullName),
-                  SizedBox(height: 15),
+                  SizedBox(height: 5),
+                  BodyText(textBody: "Tap to edit"),
+                  SizedBox(height: 10),
                 ],
                 onTapFunction: () {
                   Alert(
@@ -126,11 +128,13 @@ class Account_Settings extends State<Account_Settings_State> {
                 },
               ),
               ShadowBoxList(
-                icon: Icon(Icons.edit),
+                icon: Icon(Icons.edit, color: kPrimaryAccentColor),
                 widgetColumn: <Widget>[
-                  SizedBox(height: 15),
+                  SizedBox(height: 10),
                   H2(textBody: "Phone No: " + u.phone_no),
-                  SizedBox(height: 15),
+                  SizedBox(height: 5),
+                  BodyText(textBody: "Tap to edit"),
+                  SizedBox(height: 10),
                 ],
                 onTapFunction: () {
                   Alert(
@@ -194,11 +198,13 @@ class Account_Settings extends State<Account_Settings_State> {
                 },
               ),
               ShadowBoxList(
-                icon: Icon(Icons.edit),
+                icon: Icon(Icons.edit, color: kPrimaryAccentColor),
                 widgetColumn: <Widget>[
-                  SizedBox(height: 15),
+                  SizedBox(height: 10),
                   H2(textBody: "User Type: " + u.usertype),
-                  SizedBox(height: 15),
+                  SizedBox(height: 5),
+                  BodyText(textBody: "Tap to edit"),
+                  SizedBox(height: 10),
                 ],
                 onTapFunction: () {
                   Alert(

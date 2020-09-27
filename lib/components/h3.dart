@@ -22,6 +22,8 @@ class H3 extends StatelessWidget {
     return Text(
       textBody,
       style: H3TextStyle(color: color),
+      overflow: TextOverflow.ellipsis,
+      maxLines: 5,
     );
   }
 }
