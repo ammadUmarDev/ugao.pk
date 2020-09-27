@@ -39,7 +39,7 @@ class _CartScreenState extends State<CartScreen> {
           itemCount: Products_on_the_cart.length,
           itemBuilder: (context, index) {
             total = 0;
-            getTotalPrice(Products_on_the_cart);
+            //getTotalPrice(Products_on_the_cart);
             return Single_cart_product(
               cartIndex: index,
             );
@@ -54,7 +54,8 @@ class _CartScreenState extends State<CartScreen> {
                 "Total:",
                 style: TextStyle(fontSize: 14.0),
               ),
-              subtitle: new Text("\Rs." + total.toString()),
+              subtitle: new Text(
+                  "\Rs." + getTotalPrice(Products_on_the_cart).toString()),
             )),
             Expanded(
                 child: new MaterialButton(
