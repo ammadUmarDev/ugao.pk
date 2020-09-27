@@ -29,7 +29,7 @@ class _AboutState extends State<About> {
           ),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Expanded(
               flex: 4,
@@ -61,15 +61,6 @@ class _AboutState extends State<About> {
                             textAlign: TextAlign.center,
                           ),
                         ],
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 10.0),
-                        child: Container(
-                          child: Image.asset('assets/images/promo2.png'),
-                        ),
                       ),
                     ),
                   ],
