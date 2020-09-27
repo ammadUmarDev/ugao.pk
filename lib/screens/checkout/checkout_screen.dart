@@ -109,14 +109,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              orderConfirmed(order_address: this.new_address)),
+                              OrderConfirmedScreen(orderAddress: this.new_address)),
                     );
                   } else {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              orderConfirmed(order_address: "")),
+                              OrderConfirmedScreen(orderAddress: "")),
                     );
                   }
                 },
