@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 
 //my own imports
-import 'package:ugao/screens/dashboard/dashboard.dart';
 import 'package:ugao/components/appbar.dart';
 import 'package:ugao/screens/checkout/checkout_screen.dart';
 import '../../constants.dart';
-import 'package:flutter/material.dart';
 import 'package:ugao/Classes/Cart_Product_Model.dart';
 import 'package:ugao/Providers/general_provider.dart';
-import 'package:ugao/Providers/product_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:ugao/Classes/User_Model.dart';
-import 'package:ugao/Classes/Product_Model_Fetch.dart';
-import 'package:ugao/screens/cart/single_cart_product.dart';
 
 var total = 0;
 
@@ -24,7 +18,7 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
-    List<CartProduct> Products_on_the_cart =
+    List<CartProduct> cartProducts =
         Provider.of<General_Provider>(context, listen: false).cart;
 
     return Scaffold(
@@ -36,13 +30,123 @@ class _CartScreenState extends State<CartScreen> {
 
       body: ListView.builder(
           // =========== PRODUCTS IN CART =====================
-          itemCount: Products_on_the_cart.length,
+          itemCount: cartProducts.length,
           itemBuilder: (context, index) {
             total = 0;
-            //getTotalPrice(Products_on_the_cart);
-            return Single_cart_product(
-              cartIndex: index,
-            );
+            return (Provider.of<General_Provider>(context, listen: false)
+                        .getCartProduct(index)
+                        .quantity <=
+                    0)
+                ? Container()
+                : Card(
+                    child: ListTile(
+                      // Leading Section
+                      leading: new Image.network(
+                        Provider.of<General_Provider>(context, listen: false)
+                            .getCartProduct(index)
+                            .product
+                            .prodImage,
+                        width: 100.0,
+                        height: 100.0,
+                      ),
+                      title: new Text(
+                        Provider.of<General_Provider>(context, listen: false)
+                            .getCartProduct(index)
+                            .product
+                            .prodName,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: new Column(
+                        children: <Widget>[
+                          //Row inside Column
+                          new Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(
+                                    0.0, 8.0, 0.0, 8.0),
+                                child: new Text(Provider.of<General_Provider>(
+                                        context,
+                                        listen: false)
+                                    .getCartProduct(index)
+                                    .serviceType),
+                              ),
+                            ],
+                          ),
+                          new Row(
+                            children: <Widget>[
+                              //qty of product
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(
+                                    0.0, 8.0, 0.0, 8.0),
+                                child: new Text("Quantity:"),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(2.0),
+                                child: new Text(Provider.of<General_Provider>(
+                                        context,
+                                        listen: false)
+                                    .getCartProduct(index)
+                                    .quantity
+                                    .toString()),
+                              ),
+                            ],
+                          ),
+                          new Row(
+                            children: <Widget>[
+                              //price of product
+                              Padding(
+                                padding: const EdgeInsets.all(2.0),
+                                child: new Text(
+                                  "Rs." +
+                                      (Provider.of<General_Provider>(context,
+                                                      listen: false)
+                                                  .getCartProduct(index)
+                                                  .product
+                                                  .price *
+                                              Provider.of<General_Provider>(
+                                                      context,
+                                                      listen: false)
+                                                  .getCartProduct(index)
+                                                  .quantity)
+                                          .toString(),
+                                  style: TextStyle(
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.green[300]),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      trailing: FittedBox(
+                        fit: BoxFit.fill,
+                        child: Column(
+                          children: <Widget>[
+                            // ======== inc Quantity dec Quantity ============
+                            new IconButton(
+                                icon: Icon(Icons.arrow_drop_up),
+                                onPressed: () {
+                                  setState(() {
+                                    Provider.of<General_Provider>(context,
+                                            listen: false)
+                                        .incrementInCart(index);
+                                  });
+                                }),
+                            new IconButton(
+                                icon: Icon(Icons.arrow_drop_down),
+                                onPressed: () {
+                                  setState(() {
+                                    Provider.of<General_Provider>(context,
+                                            listen: false)
+                                        .decrementInCart(index);
+                                  });
+                                }),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
           }),
       bottomNavigationBar: new Container(
         color: Colors.white,
@@ -54,8 +158,8 @@ class _CartScreenState extends State<CartScreen> {
                 "Total:",
                 style: TextStyle(fontSize: 14.0),
               ),
-              subtitle: new Text(
-                  "\Rs." + getTotalPrice(Products_on_the_cart).toString()),
+              subtitle:
+                  new Text("\Rs." + getTotalPrice(cartProducts).toString()),
             )),
             Expanded(
                 child: new MaterialButton(
@@ -74,15 +178,6 @@ class _CartScreenState extends State<CartScreen> {
           ],
         ),
       ),
-      /*body: SafeArea(
-        child: Container(
-          child: Stack(
-            children: [
-              Text("Cart under dev"),
-            ],
-          ),
-        ),
-      ),*/
     );
   }
 
