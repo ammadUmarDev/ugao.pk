@@ -6,9 +6,11 @@ import 'package:ugao/Providers/general_provider.dart';
 
 class Single_cart_product extends StatefulWidget {
   final cartIndex;
+  var total;
 
   Single_cart_product({
     this.cartIndex,
+    this.total,
   });
   @override
   _Single_cart_productState createState() => _Single_cart_productState();
