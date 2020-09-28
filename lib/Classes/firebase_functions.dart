@@ -1,27 +1,28 @@
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:ugao/Classes/Cart_Product_Model.dart';
 import 'package:ugao/Classes/User_Model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:io';
 import '../constants.dart';
 import 'Customer_Model.dart';
 import 'Farmer_Model.dart';
+import 'Order_Model.dart';
 import 'Product_Model_Fetch.dart';
 import 'Product_Model_Upload.dart';
 import 'Supplier_Model.dart';
 
 Future<bool> checkUniquenessOfCNIC(String cnic) async {
   Firestore firestore = Firestore.instance;
-  var snapshot =
-      await firestore.collection('Users').document(cnic).get();
-  return snapshot.data==null;
+  var snapshot = await firestore.collection('Users').document(cnic).get();
+  return snapshot.data == null;
 }
 
-Future<bool> checkUniquenessOfPhone(String phone_no) async{
+Future<bool> checkUniquenessOfPhone(String phone_no) async {
   Firestore firestore = Firestore.instance;
   var snapshot = await firestore.collection('Users').getDocuments();
   if (snapshot.documents.length > 0) {
     for (var document in snapshot.documents) {
-      if( document['PhoneNo']==phone_no)return false;
+      if (document['PhoneNo'] == phone_no) return false;
     }
   }
   return true;
@@ -321,4 +322,31 @@ Future<bool> signup(User user) async {
     }
   }
   return true;
+}
+
+Future<bool> order_Store(Order obj) async {
+  Firestore firestore = Firestore.instance;
+  await firestore.collection("Orders").document(obj.orderID).setData({
+    'orderID': obj.orderID.toString(),
+    'productQuantity': obj.productQuantity,
+    'sellerID': obj.sellerID.toString(),
+    'customerID': obj.customerID.toString(),
+    'address': obj.address.toString(),
+    'paymentMethod': obj.paymentMethod.toString(),
+    'status': obj.status.toString(),
+    'service': obj.service.toString(),
+    'documentID': obj.product.documentID.toString(),
+    'prodName': obj.product.prodName.toString(),
+    'prodDesc': obj.product.prodDesc.toString(),
+    'priceType': obj.product.priceType.toString(),
+    'price': obj.product.price,
+    'quantity': obj.product.quantity,
+    'weight': obj.product.weight,
+    'weightUnits': obj.product.weightUnit.toString(),
+    'productCategory': obj.product.prodCategory.toString(),
+    'prodImage': obj.product.prodImage.toString(),
+    'serviceType': obj.product.serviceType.toString(),
+    'creator': obj.product.creator.toString(),
+    'creationTimestamp': obj.product.creationTimestamp.toString(),
+  });
 }

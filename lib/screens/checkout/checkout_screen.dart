@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
+import 'package:ugao/Classes/Cart_Product_Model.dart';
+import 'package:ugao/Classes/Order_Model.dart';
+import 'package:ugao/Providers/general_provider.dart';
+import 'package:ugao/Classes/firebase_functions.dart';
 // my own imports
 import 'package:ugao/components/appbar.dart';
 import 'package:ugao/components/rounded_button.dart';
@@ -61,6 +65,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 hintText: "Enter New Address",
                 enabled: new_add_check,
                 onChanged: (value) {
+                  this.new_address = value;
                   setState(() {
                     this.new_address = value;
                   });
@@ -85,15 +90,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     style: TextStyle(color: Colors.black, fontSize: 18.0))
               ],
             ),
-            /*Positioned(
-              //bottom: 0,
-              child: Image.asset(
-                "assets/images/bp6.png",
-                fit: BoxFit.fitWidth,
-                alignment: Alignment.bottomCenter,
-                //width: size.width,
-              ),
-            ),*/
           ],
         ),
       ),
@@ -105,6 +101,50 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               child: new MaterialButton(
                 onPressed: () {
                   if (this.new_add_check) {
+                    print("Entered");
+                    Order orderobj = new Order();
+                    var user =
+                        Provider.of<General_Provider>(context, listen: false)
+                            .get_user();
+                    String defaultaddress = "None";
+                    if (user.usertype == "Farmer") {
+                      defaultaddress = user.farmer.fAddress;
+                    }
+                    if (user.usertype == "Customer") {
+                      defaultaddress = "None";
+                    }
+                    if (user.usertype == "Supplier") {
+                      defaultaddress = user.supplier.sAddress;
+                    }
+                    //Variables Needed for firebase storage
+
+                    var size =
+                        Provider.of<General_Provider>(context, listen: false)
+                            .cart
+                            .length;
+                    if (size > 0) {
+                      print("The size is:");
+                      print(size);
+                      for (int i = 0; i < size; i++) {
+                        CartProduct obj = Provider.of<General_Provider>(context,
+                                listen: false)
+                            .getCartProduct(i);
+                        orderobj.product = obj.product;
+                        orderobj.address = new_address.toString();
+                        orderobj.paymentMethod = "Cash on Delivery";
+                        orderobj.productQuantity = obj.quantity;
+                        orderobj.status = "Placed";
+                        orderobj.service = obj.serviceType;
+                        orderobj.customerID = user.cnic.toString();
+                        orderobj.sellerID = obj.product.creator.toString();
+                        orderobj.orderID = obj.product.documentID +
+                            "-" +
+                            obj.product.creationTimestamp.millisecondsSinceEpoch
+                                .toString();
+                        order_Store(orderobj);
+                      }
+                    }
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -112,11 +152,54 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               orderAddress: this.new_address)),
                     );
                   } else {
+                    Order orderobj = new Order();
+                    var user =
+                        Provider.of<General_Provider>(context, listen: false)
+                            .get_user();
+                    String defaultaddress = "None";
+                    if (user.usertype == "Farmer") {
+                      defaultaddress = user.farmer.fAddress;
+                    }
+                    if (user.usertype == "Customer") {
+                      defaultaddress = "None";
+                    }
+                    if (user.usertype == "Supplier") {
+                      defaultaddress = user.supplier.sAddress;
+                    }
+                    //Variables Needed for firebase storage
+
+                    var size =
+                        Provider.of<General_Provider>(context, listen: false)
+                            .cart
+                            .length;
+                    if (size > 0) {
+                      print("The size is:");
+                      print(size);
+                      for (int i = 0; i < size; i++) {
+                        CartProduct obj = Provider.of<General_Provider>(context,
+                                listen: false)
+                            .getCartProduct(i);
+                        orderobj.product = obj.product;
+                        orderobj.address = defaultaddress;
+                        orderobj.paymentMethod = "Cash on Delivery";
+                        orderobj.productQuantity = obj.quantity;
+                        orderobj.status = "Placed";
+                        orderobj.service = obj.serviceType;
+                        orderobj.customerID = user.cnic.toString();
+                        orderobj.sellerID = obj.product.creator.toString();
+                        orderobj.orderID = obj.product.documentID +
+                            "-" +
+                            obj.product.creationTimestamp.millisecondsSinceEpoch
+                                .toString();
+                        order_Store(orderobj);
+                      }
+                    }
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              OrderConfirmedScreen(orderAddress: "")),
+                          builder: (context) => OrderConfirmedScreen(
+                              orderAddress: defaultaddress)),
                     );
                   }
                 },

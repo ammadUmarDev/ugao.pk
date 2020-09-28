@@ -64,4 +64,20 @@ class ProductFetch {
       this.creator = pobject.creator;
     }
   }
+
+  void printt() {
+    print(documentID);
+    print(creationTimestamp);
+    print(prodName);
+    print(prodDesc);
+    print(priceType);
+    print(price);
+    print(quantity);
+    print(weight);
+    print(weightUnit);
+    print(prodCategory);
+    print(prodImage);
+    print(serviceType);
+    print(creator);
+  }
 }

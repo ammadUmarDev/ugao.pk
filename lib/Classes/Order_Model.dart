@@ -21,4 +21,15 @@ class Order {
       this.paymentMethod,
       this.status,
       this.service});
+  void printt() {
+    print(orderID);
+    print(productQuantity);
+    print(sellerID);
+    print(customerID);
+    print(address);
+    print(paymentMethod);
+    print(status);
+    print(service);
+    product.printt();
+  }
 }
