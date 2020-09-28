@@ -16,23 +16,43 @@ class MyOrders extends StatefulWidget {
 
 class _MyOrdersState extends State<MyOrders> {
   ///=====temporary order list - remove once backend implemented========
-  var orders_test = [
+  final orders_test = [
     {
-      'orderID': 1,
-      'productName': 'Fertilizer',
-      'status': 'Shipped',
-      'service': 'Delivery',
-      'address': 'House',
-      'qty': 2,
-      'payment': 'COD',
-      'date': '9/28/2020',
+      "orderID": 1,
+      "productName": "Fertilizer",
+      "status": "Shipped",
+      "service": "Delivery",
+      "address": "House",
+      "qty": 2,
+      "payment": "COD",
+      "date": "9/28/2020"
     },
+    {
+      "orderID": 2,
+      "productName": "Apple",
+      "status": "Delivered",
+      "service": "Delivery",
+      "address": "House",
+      "qty": 5,
+      "payment": "COD",
+      "date": "9/28/2020"
+    },
+    {
+      "orderID": 3,
+      "productName": "Milk",
+      "status": "Ready",
+      "service": "Pick Up",
+      "address": "House",
+      "qty": 1,
+      "payment": "COD",
+      "date": "9/28/2020"
+    }
   ];
   @override
   Widget build(BuildContext context) {
     /*uncomment this line and fetch all orders against user 
     List<Order> orders=*/
-    Size size = MediaQuery.of(context).size;
+    //Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBarPageName(
           pageName: 'My Orders',
@@ -40,11 +60,11 @@ class _MyOrdersState extends State<MyOrders> {
 
         //============ORDERS LIST=============
         body: ListView.builder(
-          itemCount: 1,
+          itemCount: orders_test.length,
           itemBuilder: (context, index) {
             return Container(
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(1.0)),
+              /*decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(1.0)),*/
               child: Card(
                 color: kPrimaryLightColor,
                 child: InkWell(

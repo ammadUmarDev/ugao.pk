@@ -15,10 +15,12 @@ class OrderConfirmedScreen extends StatefulWidget {
 }
 
 class _OrderConfirmedScreenState extends State<OrderConfirmedScreen> {
-  Order orderObj;
+  //Order orderObj;
+  String add;
 
   _OrderConfirmedScreenState({Key key, String add}) {
-    this.orderObj.address = add;
+    //this.orderObj.address = add;
+    this.add = add;
   }
 
   @override
