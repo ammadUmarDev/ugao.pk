@@ -7,6 +7,9 @@ class Order {
   String sellerID;
   String customerID;
   String address;
+  String paymentMethod;
+  String status;
+  String service;
 
   Order(
       {this.product,
@@ -14,5 +17,8 @@ class Order {
       this.customerID,
       this.orderID,
       this.productQuantity,
-      this.sellerID});
+      this.sellerID,
+      this.paymentMethod,
+      this.status,
+      this.service});
 }

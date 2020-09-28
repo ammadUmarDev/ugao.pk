@@ -108,8 +108,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              OrderConfirmedScreen(orderAddress: this.new_address)),
+                          builder: (context) => OrderConfirmedScreen(
+                              orderAddress: this.new_address)),
                     );
                   } else {
                     Navigator.push(
