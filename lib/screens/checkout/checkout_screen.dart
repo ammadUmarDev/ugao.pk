@@ -46,6 +46,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 });
               },
             ),
+            SizedBox(height: 10),
             ButtonLoading(
               labelText: "Add New Address",
               onTap: () {

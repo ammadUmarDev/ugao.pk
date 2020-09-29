@@ -34,6 +34,7 @@ class Body extends StatelessWidget {
                 Navigator.pushNamed(context, "loginPage");
               },
             ),
+            SizedBox(height: 10,),
             ButtonLoading(
               labelText: "SIGN UP",
               onTap: () {
