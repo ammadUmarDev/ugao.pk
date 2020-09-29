@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:ugao/Classes/Cart_Product_Model.dart';
+import 'package:ugao/Classes/Firebase_Functions.dart';
 import 'package:ugao/Classes/Order_Model.dart';
 import 'package:ugao/Classes/Product_Model_Fetch.dart';
 import 'package:ugao/Classes/User_Model.dart';
@@ -89,8 +90,9 @@ class General_Provider extends ChangeNotifier {
       for (var document in snapshot.documents) {
         Order obj = new Order();
         obj.product = new ProductFetch();
-        obj.address = document["address"].toString();
         obj.customerID = document["customerID"].toString();
+        obj.customer = await getUser(obj.customerID);
+        obj.address = document["address"].toString();
         obj.orderID = document["orderID"].toString();
         obj.paymentMethod = document["paymentMethod"].toString();
         obj.productQuantity = document["productQuantity"];

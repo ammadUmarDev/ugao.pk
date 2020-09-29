@@ -3,20 +3,10 @@ import 'package:flutter/material.dart';
 
 //my imports
 import 'package:ugao/components/appbar.dart';
-import '../../constants.dart';
 import 'package:ugao/Classes/Order_Model.dart';
-import 'package:ugao/Classes/Cart_Product_Model.dart';
 import 'package:ugao/Providers/general_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:ugao/Classes/User_Model.dart';
-import 'package:ugao/components/appbar.dart';
-import '../../constants.dart';
-import 'package:ugao/Classes/Cart_Product_Model.dart';
-import 'package:ugao/Providers/general_provider.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ugao/components/body_text.dart';
-import 'package:ugao/components/h2.dart';
-import 'package:ugao/components/h3.dart';
 
 class orderDetailsSeller extends StatefulWidget {
   @override
@@ -143,7 +133,7 @@ class _orderDetailsSellerState extends State<orderDetailsSeller> {
                   new Row(
                     children: <Widget>[
                       Expanded(
-                          child: Text("Customer Contact: Fetch Phone Number")),
+                          child: Text("Customer Contact: "+selectedOrder.customer.phone_no)),
                     ],
                   ),
                   new Row(

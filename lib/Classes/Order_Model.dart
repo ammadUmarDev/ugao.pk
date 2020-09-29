@@ -1,5 +1,7 @@
 import 'package:ugao/Classes/Product_Model_Fetch.dart';
 
+import 'User_Model.dart';
+
 class Order {
   String orderID;
   ProductFetch product;
@@ -10,6 +12,7 @@ class Order {
   String paymentMethod;
   String status;
   String service;
+  User customer;
 
   Order(
       {this.product,
