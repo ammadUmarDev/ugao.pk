@@ -129,6 +129,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         CartProduct obj = Provider.of<General_Provider>(context,
                                 listen: false)
                             .getCartProduct(i);
+
                         orderobj.product = obj.product;
                         orderobj.address = new_address.toString();
                         orderobj.paymentMethod = "Cash on Delivery";
@@ -137,6 +138,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         orderobj.service = obj.serviceType;
                         orderobj.customerID = user.cnic.toString();
                         orderobj.sellerID = obj.product.creator.toString();
+                        orderobj.product.creationTimestamp = DateTime.now();
                         orderobj.orderID = obj.product.documentID +
                             "-" +
                             obj.product.creationTimestamp.millisecondsSinceEpoch
@@ -187,6 +189,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         orderobj.service = obj.serviceType;
                         orderobj.customerID = user.cnic.toString();
                         orderobj.sellerID = obj.product.creator.toString();
+                        orderobj.product.creationTimestamp = DateTime.now();
                         orderobj.orderID = obj.product.documentID +
                             "-" +
                             obj.product.creationTimestamp.millisecondsSinceEpoch
