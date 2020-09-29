@@ -117,6 +117,91 @@ class _EditProductState extends State<EditProduct> {
                               SizedBox(
                                 height: 30,
                               ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 24.0),
+                                child: ButtonLoading(
+                                    onTap: () {
+                                      Alert(
+                                          context: context,
+                                          title:
+                                              "Are you sure you want to DELETE this product?",
+                                          style: AlertStyle(
+                                            titleStyle: H2TextStyle(
+                                                color: kPrimaryAccentColor),
+                                          ),
+                                          content: Column(
+                                            children: <Widget>[
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              ButtonLoading(
+                                                onTap: () async {
+                                                  if (await deleteProduct(widget
+                                                      .productObj.documentID)) {
+                                                    Alert(
+                                                        context: context,
+                                                        title:
+                                                            "Product deleted successfully",
+                                                        style: AlertStyle(
+                                                          titleStyle: H2TextStyle(
+                                                              color:
+                                                                  kPrimaryAccentColor),
+                                                        ),
+                                                        content: Column(
+                                                          children: <Widget>[
+                                                            SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            ButtonLoading(
+                                                              onTap: () async {
+                                                                Navigator.pop(
+                                                                    context);
+                                                                Navigator.pop(
+                                                                    context);
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              labelText: 'OK',
+                                                            ),
+                                                            SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        buttons: [
+                                                          DialogButton(
+                                                            color: Colors.white,
+                                                            height: 0,
+                                                          ),
+                                                        ]).show();
+                                                  }
+                                                },
+                                                labelText: 'YES',
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              ButtonLoading(
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                labelText: 'NO',
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                            ],
+                                          ),
+                                          buttons: [
+                                            DialogButton(
+                                              color: Colors.white,
+                                              height: 0,
+                                            ),
+                                          ]).show();
+                                    },
+                                    labelText: "Delete Product"),
+                              ),
                             ],
                           ),
                         ),
@@ -198,37 +283,44 @@ class _EditProductState extends State<EditProduct> {
                               height: 10,
                             ),
                             ButtonLoading(
-                              onTap: () async {
-                                bool updateNeeded = false;
-                                if (newPName != null && newPName.isNotEmpty) {
-                                  widget.productObj.prodName = newPName;
-                                  updateNeeded = true;
-                                }
-                                if (newPDesc != null && newPDesc.isNotEmpty) {
-                                  widget.productObj.prodDesc = newPDesc;
-                                  updateNeeded = true;
-                                }
-                                if (newPQuan != null) {
-                                  widget.productObj.quantity = newPQuan;
-                                  updateNeeded = true;
-                                }
-                                if (newPServ != null && newPServ.isNotEmpty) {
-                                  widget.productObj.serviceType = newPServ;
-                                  updateNeeded = true;
-                                }
-                                if (updateNeeded == false ||
-                                    await update_product(widget.productObj)) {
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder:
-                                          (context) => /*add route to product page*/ EditProduct(
-                                        productObj: widget.productObj,
+                              onTap:
+                                  (startLoading, stopLoading, btnState) async {
+                                if (btnState == ButtonState.Idle) {
+                                  startLoading();
+                                  bool updateNeeded = false;
+                                  if (newPName != null && newPName.isNotEmpty) {
+                                    widget.productObj.prodName = newPName;
+                                    updateNeeded = true;
+                                  }
+                                  if (newPDesc != null && newPDesc.isNotEmpty) {
+                                    widget.productObj.prodDesc = newPDesc;
+                                    updateNeeded = true;
+                                  }
+                                  if (newPQuan != null) {
+                                    widget.productObj.quantity = newPQuan;
+                                    updateNeeded = true;
+                                  }
+                                  if (newPServ != null && newPServ.isNotEmpty) {
+                                    widget.productObj.serviceType = newPServ;
+                                    updateNeeded = true;
+                                  }
+                                  if (updateNeeded == false ||
+                                      await update_product(widget.productObj)) {
+                                    stopLoading();
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder:
+                                            (context) => /*add route to product page*/ EditProduct(
+                                          productObj: widget.productObj,
+                                        ),
                                       ),
-                                    ),
-                                  );
+                                    );
+                                  }
+                                } else {
+                                  stopLoading();
                                 }
                               },
                               labelText: 'SAVE',
@@ -299,31 +391,36 @@ class _EditProductState extends State<EditProduct> {
                               height: 10,
                             ),
                             ButtonLoading(
-                              onTap: () async {
-                                bool updateNeeded = false;
-                                if (newPPrice != null) {
-                                  widget.productObj.price = newPPrice;
-                                  updateNeeded = true;
-                                }
-                                if (newPpriceType != null &&
-                                    newPpriceType.isNotEmpty) {
-                                  widget.productObj.priceType = newPpriceType;
-                                  updateNeeded = true;
-                                }
-                                if (updateNeeded == false ||
-                                    await update_product(widget.productObj)) {
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder:
-                                          (context) => /*add route to product page*/ EditProduct(
-                                        productObj: widget.productObj,
+                              onTap:
+                                  (startLoading, stopLoading, btnState) async {
+                                if (btnState == ButtonState.Idle) {
+                                  startLoading();
+                                  bool updateNeeded = false;
+                                  if (newPPrice != null) {
+                                    widget.productObj.price = newPPrice;
+                                    updateNeeded = true;
+                                  }
+                                  if (newPpriceType != null &&
+                                      newPpriceType.isNotEmpty) {
+                                    widget.productObj.priceType = newPpriceType;
+                                    updateNeeded = true;
+                                  }
+                                  if (updateNeeded == false ||
+                                      await update_product(widget.productObj)) {
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder:
+                                            (context) => /*add route to product page*/ EditProduct(
+                                          productObj: widget.productObj,
+                                        ),
                                       ),
-                                    ),
-                                  );
+                                    );
+                                  }
                                 }
+                                stopLoading();
                               },
                               labelText: 'SAVE',
                             ),
@@ -393,31 +490,37 @@ class _EditProductState extends State<EditProduct> {
                               height: 10,
                             ),
                             ButtonLoading(
-                              onTap: () async {
-                                bool updateNeeded = false;
-                                if (newPWeight != null) {
-                                  widget.productObj.weight = newPWeight;
-                                  updateNeeded = true;
-                                }
-                                if (newPWeightUnit != null &&
-                                    newPWeightUnit.isNotEmpty) {
-                                  widget.productObj.weightUnit = newPWeightUnit;
-                                  updateNeeded = true;
-                                }
-                                if (updateNeeded == false ||
-                                    await update_product(widget.productObj)) {
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder:
-                                          (context) => /*add route to product page*/ EditProduct(
-                                        productObj: widget.productObj,
+                              onTap:
+                                  (startLoading, stopLoading, btnState) async {
+                                if (btnState == ButtonState.Idle) {
+                                  startLoading();
+                                  bool updateNeeded = false;
+                                  if (newPWeight != null) {
+                                    widget.productObj.weight = newPWeight;
+                                    updateNeeded = true;
+                                  }
+                                  if (newPWeightUnit != null &&
+                                      newPWeightUnit.isNotEmpty) {
+                                    widget.productObj.weightUnit =
+                                        newPWeightUnit;
+                                    updateNeeded = true;
+                                  }
+                                  if (updateNeeded == false ||
+                                      await update_product(widget.productObj)) {
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder:
+                                            (context) => /*add route to product page*/ EditProduct(
+                                          productObj: widget.productObj,
+                                        ),
                                       ),
-                                    ),
-                                  );
+                                    );
+                                  }
                                 }
+                                stopLoading();
                               },
                               labelText: 'SAVE',
                             ),

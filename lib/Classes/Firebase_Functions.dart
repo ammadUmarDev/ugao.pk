@@ -152,6 +152,11 @@ Future<String> upload_file(File file /*, BuildContext context*/) async {
   return fileURL;
 }
 
+Future<bool> deleteProduct(String productID)async {
+  await Firestore.instance.collection('Products').document(productID).delete();
+  return true;
+}
+
 Future<bool> add_a_product(Product product, User currentUser) async {
   Firestore firestore = Firestore.instance;
   String imageURL;
