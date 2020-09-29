@@ -76,9 +76,7 @@ class Security_Settings extends State<Security_Settings_State> {
                             height: 10,
                           ),
                           ButtonLoading(
-                            onTap: (startLoading, stopLoading, btnState) async {
-                              //Add code here
-
+                            onTap: () async {
                               var check = await changePassword(
                                   u, this.new_password, this.oldPassword);
                               if (check == true) {
@@ -97,10 +95,8 @@ class Security_Settings extends State<Security_Settings_State> {
                                 Navigator.pop(context);
                                 _scaffoldKey.currentState.showSnackBar(sc);
                               } else {
-                                stopLoading();
                                 Navigator.pop(context);
                                 print("Not Entered");
-                                stopLoading();
                               }
                             },
                             labelText: 'SAVE',

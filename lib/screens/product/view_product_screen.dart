@@ -163,26 +163,17 @@ class _ViewProductState extends State<ViewProduct> {
                                             height: 15,
                                           ),
                                           ButtonLoading(
-                                            onTap: (startLoading, stopLoading,
-                                                btnState) async {
-                                              if (btnState ==
-                                                  ButtonState.Idle) {
-                                                //TODO: add to cart
-                                                print(cartQuantity);
-                                                print(serviceType);
-                                                startLoading();
-                                                Provider.of<General_Provider>(
-                                                        context,
-                                                        listen: false)
-                                                    .addToCart(
-                                                        widget.productObj,
-                                                        cartQuantity,
-                                                        serviceType);
-                                                Navigator.pop(context);
-                                                stopLoading();
-                                              } else {
-                                                stopLoading();
-                                              }
+                                            onTap: () async {
+                                              print(cartQuantity);
+                                              print(serviceType);
+                                              Provider.of<General_Provider>(
+                                                      context,
+                                                      listen: false)
+                                                  .addToCart(
+                                                      widget.productObj,
+                                                      cartQuantity,
+                                                      serviceType);
+                                              Navigator.pop(context);
                                             },
                                             labelText: 'Add Product',
                                           ),

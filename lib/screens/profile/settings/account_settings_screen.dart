@@ -82,35 +82,25 @@ class Account_Settings extends State<Account_Settings_State> {
                             height: 10,
                           ),
                           ButtonLoading(
-                            onTap: (startLoading, stopLoading, btnState) async {
-                              if (btnState == ButtonState.Idle) {
-                                startLoading();
-                                //Add code here
-                                var fire = Provider.of<General_Provider>(
-                                        context,
-                                        listen: false)
-                                    .get_firebase_user();
-                                var check =
-                                    await change_User_Name(u, new_user_name);
-                                if (check == true) {
-                                  setState(() {
-                                    this.u.fullName = new_user_name;
-                                  });
-                                  SnackBar sc = new SnackBar(
-                                    content: Text(
-                                      "Full Name Changed Successfully",
-                                      style: TextStyle(
-                                          fontSize: 10,
-                                          fontStyle: FontStyle.italic),
-                                    ),
-                                  );
-                                  _scaffoldKey.currentState.showSnackBar(sc);
-                                }
-                                stopLoading();
-                                Navigator.pop(context);
-                              } else {
-                                stopLoading();
+                            onTap: () async {
+                              //var fire = Provider.of<General_Provider>(context, listen: false).get_firebase_user();
+                              var check =
+                                  await change_User_Name(u, new_user_name);
+                              if (check == true) {
+                                setState(() {
+                                  this.u.fullName = new_user_name;
+                                });
+                                SnackBar sc = new SnackBar(
+                                  content: Text(
+                                    "Full Name Changed Successfully",
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        fontStyle: FontStyle.italic),
+                                  ),
+                                );
+                                _scaffoldKey.currentState.showSnackBar(sc);
                               }
+                              Navigator.pop(context);
                             },
                             labelText: 'SAVE',
                           ),
@@ -156,31 +146,24 @@ class Account_Settings extends State<Account_Settings_State> {
                             height: 10,
                           ),
                           ButtonLoading(
-                            onTap: (startLoading, stopLoading, btnState) async {
-                              if (btnState == ButtonState.Idle) {
-                                startLoading();
-                                //Add code here
-                                var check =
-                                    await change_Phone_No(u, this.new_phone_no);
-                                if (check == true) {
-                                  setState(() {
-                                    this.u.phone_no = this.new_phone_no;
-                                  });
-                                  SnackBar sc = new SnackBar(
-                                    content: Text(
-                                      "Phone No Changed Successfully",
-                                      style: TextStyle(
-                                          fontSize: 10,
-                                          fontStyle: FontStyle.italic),
-                                    ),
-                                  );
-                                  _scaffoldKey.currentState.showSnackBar(sc);
-                                }
-                                stopLoading();
-                                Navigator.pop(context);
-                              } else {
-                                stopLoading();
+                            onTap: () async {
+                              var check =
+                                  await change_Phone_No(u, this.new_phone_no);
+                              if (check == true) {
+                                setState(() {
+                                  this.u.phone_no = this.new_phone_no;
+                                });
+                                SnackBar sc = new SnackBar(
+                                  content: Text(
+                                    "Phone No Changed Successfully",
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        fontStyle: FontStyle.italic),
+                                  ),
+                                );
+                                _scaffoldKey.currentState.showSnackBar(sc);
                               }
+                              Navigator.pop(context);
                             },
                             labelText: 'SAVE',
                           ),
@@ -253,8 +236,7 @@ class Account_Settings extends State<Account_Settings_State> {
                             height: 10,
                           ),
                           ButtonLoading(
-                            onTap: (startLoading, stopLoading, btnState) async {
-                              startLoading();
+                            onTap: () async {
                               User u = Provider.of<General_Provider>(context,
                                       listen: false)
                                   .get_user();
@@ -327,8 +309,6 @@ class Account_Settings extends State<Account_Settings_State> {
                                   );
                                 }
                               }
-
-                              stopLoading();
                             },
                             labelText: 'Update',
                           ),
