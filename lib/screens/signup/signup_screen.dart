@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ugao/components/button_loading.dart';
 import 'package:ugao/components/rounded_cnic_field.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/rounded_password_field.dart';
@@ -120,11 +121,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ],
                 ),
               ),
-              RoundedButton(
-                text: "NEXT",
-                color: kPrimaryAccentColor,
-                textColor: Colors.white,
-                press: () async {
+              ButtonLoading(
+                labelText: "NEXT",
+                onTap: () async {
                   if (phone_no.length != 13) {
                     showDialog(
                       context: context,

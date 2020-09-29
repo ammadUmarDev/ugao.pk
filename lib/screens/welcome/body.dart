@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ugao/components/button_loading.dart';
 import 'package:ugao/components/rounded_button.dart';
 
 import '../../constants.dart';
@@ -28,19 +29,14 @@ class Body extends StatelessWidget {
               ),
             ),
             SizedBox(height: size.height * 0.05),
-            RoundedButton(
-              text: "LOGIN",
-              color: kPrimaryAccentColor,
-              textColor: kPrimaryTextColor,
-              press: () {
+            ButtonLoading(labelText:  "LOGIN",
+              onTap: () {
                 Navigator.pushNamed(context, "loginPage");
               },
             ),
-            RoundedButton(
-              text: "SIGN UP",
-              color: kPrimaryLightColor,
-              textColor: kSecondaryTextColor,
-              press: () {
+            ButtonLoading(
+              labelText: "SIGN UP",
+              onTap: () {
                 Navigator.pushNamed(context, "signupPage");
               },
             ),
