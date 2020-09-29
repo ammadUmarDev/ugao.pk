@@ -79,6 +79,7 @@ class General_Provider extends ChangeNotifier {
   }
 
   Future<bool> fetch_orders() async {
+    this.orders.clear();
     Firestore firestore = Firestore.instance;
     var snapshot = await firestore
         .collection("Orders")
