@@ -122,7 +122,7 @@ class _MyOrdersState extends State<MyOrders> {
 
 bool isNotInOrders(List o, String orderId) {
   for (var j = 0; j < o.length; j++) {
-    if (orderId == o[j].orderID) return false;
+    if (orderId == o[j].order) return false;
   }
   return true;
 }
