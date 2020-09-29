@@ -68,7 +68,7 @@ class _DashboardSupplierScreenState extends State<DashboardSupplierScreen> {
             children: [
               IconButton(
                   onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => TutorialScreen())),
+                      MaterialPageRoute(builder: (_) => Tutorial_Screen())),
                   icon: Icon(
                     Icons.live_tv,
                     size: 30,
