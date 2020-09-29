@@ -11,17 +11,16 @@ import 'Supplier_Model.dart';
 
 Future<bool> checkUniquenessOfCNIC(String cnic) async {
   Firestore firestore = Firestore.instance;
-  var snapshot =
-      await firestore.collection('Users').document(cnic).get();
-  return snapshot.data==null;
+  var snapshot = await firestore.collection('Users').document(cnic).get();
+  return snapshot.data == null;
 }
 
-Future<bool> checkUniquenessOfPhone(String phone_no) async{
+Future<bool> checkUniquenessOfPhone(String phone_no) async {
   Firestore firestore = Firestore.instance;
   var snapshot = await firestore.collection('Users').getDocuments();
   if (snapshot.documents.length > 0) {
     for (var document in snapshot.documents) {
-      if( document['PhoneNo']==phone_no)return false;
+      if (document['PhoneNo'] == phone_no) return false;
     }
   }
   return true;
@@ -206,7 +205,6 @@ Future<bool> update_product(ProductFetch product) async {
 /*retrieves firebase User document*/
 Future<User> getUser(String entered_cnic) async {
   Firestore firestore = Firestore.instance;
-  print("in login_up " + entered_cnic.toString());
   var snapshot =
       await firestore.collection('Users').document(entered_cnic).get();
   if (snapshot.data != null) {

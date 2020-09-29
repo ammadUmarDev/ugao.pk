@@ -13,7 +13,7 @@ class BodyTextStyle extends TextStyle {
 class BodyText extends StatelessWidget {
   BodyText({
     this.textBody,
-    this.color = const Color(0xFF35495e),
+    this.color = Colors.black87,
     this.align,
   });
   final String textBody;

@@ -10,7 +10,7 @@ import 'package:ugao/components/already_have_an_account_acheck.dart';
 import 'package:ugao/components/rounded_button.dart';
 import 'package:ugao/constants.dart';
 import 'package:ugao/screens/signupfollowup/signup_screen_followup.dart';
-import 'package:ugao/Classes/firebase_functions.dart';
+import 'package:ugao/Classes/Firebase_Functions.dart';
 import 'package:ugao/components/rounded_alert_dialog.dart';
 
 class SignUpScreen extends StatefulWidget {

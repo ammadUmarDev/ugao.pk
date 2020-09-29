@@ -4,7 +4,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ugao/Classes/User_Model.dart';
-import 'package:ugao/Classes/greet_card.dart';
+import 'package:ugao/components/greet_card.dart';
 import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/Providers/product_provider.dart';
 import 'package:ugao/components/body_text.dart';

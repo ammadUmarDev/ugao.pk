@@ -12,7 +12,7 @@ import 'package:ugao/components/rounded_image_picker.dart';
 import 'package:ugao/constants.dart';
 
 import '../../components/rounded_input_field.dart';
-import 'package:ugao/Classes/firebase_functions.dart';
+import 'package:ugao/Classes/Firebase_Functions.dart';
 
 import 'my_products_screen.dart';
 
