@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 //my imports
 import 'package:ugao/components/appbar.dart';
+import 'package:ugao/screens/order/orders_details.dart';
 import '../../constants.dart';
 import 'package:ugao/Classes/Order_Model.dart';
 import 'package:ugao/Classes/Cart_Product_Model.dart';
@@ -47,7 +48,15 @@ class _MyOrdersState extends State<MyOrders> {
               child: Card(
                 color: kPrimaryLightColor,
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => orderDetails(
+                                orderID: orders[index].orderID,
+                              )),
+                    );
+                  },
                   highlightColor: kPrimaryColor,
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),

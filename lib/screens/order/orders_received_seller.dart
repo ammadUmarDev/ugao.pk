@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 
 //my imports
 import 'package:ugao/components/appbar.dart';
+import 'package:ugao/screens/order/orderDetails_seller.dart';
 import '../../constants.dart';
 import 'package:ugao/Classes/Order_Model.dart';
 import 'package:ugao/Classes/Cart_Product_Model.dart';
@@ -45,7 +46,14 @@ class _OrdersReceivedSellerState extends State<OrdersReceivedSeller> {
               child: Card(
                 color: kPrimaryLightColor,
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => orderDetailsSeller(
+                                  orderID: orders[index].orderID,
+                                )));
+                  },
                   highlightColor: kPrimaryColor,
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
