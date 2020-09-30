@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:ugao/Classes/Firebase_Functions.dart';
 
 //my imports
 import 'package:ugao/components/appbar.dart';
@@ -9,14 +10,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/h3.dart';
 import 'package:ugao/constants.dart';
-import'package:ugao/components/rounded_drop_down.dart';
+import 'package:ugao/components/rounded_drop_down.dart';
 
 class OrderDetailsSeller extends StatefulWidget {
   @override
   final Order order;
 
   OrderDetailsSeller({Key key, this.order}) : super(key: key);
-  _OrderDetailsSellerState createState() => _OrderDetailsSellerState();
+  _OrderDetailsSellerState createState() => _OrderDetailsSellerState(order);
 }
 
 class _OrderDetailsSellerState extends State<OrderDetailsSeller> {
@@ -26,7 +27,10 @@ class _OrderDetailsSellerState extends State<OrderDetailsSeller> {
     "Shipped/Ready",
     "Delivered/Picked Up",
   ];
+  Order order;
   String newStatus;
+
+  _OrderDetailsSellerState(this.order);
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +130,40 @@ class _OrderDetailsSellerState extends State<OrderDetailsSeller> {
                         height: 10,
                       ),
                       ButtonLoading(
-                        onTap: () async {},
+                        onTap: () async {
+                          this.order.status = newStatus;
+                          order_Store(this.order);
+                          Alert(
+                              context: context,
+                              title: "Order Status updated",
+                              style: AlertStyle(
+                                titleStyle:
+                                    H2TextStyle(color: kPrimaryAccentColor),
+                              ),
+                              content: Column(
+                                children: <Widget>[
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  ButtonLoading(
+                                    onTap: () async {
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                    },
+                                    labelText: 'OK',
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                ],
+                              ),
+                              buttons: [
+                                DialogButton(
+                                  color: Colors.white,
+                                  height: 0,
+                                ),
+                              ]).show();
+                        },
                         labelText: 'Update Status',
                       ),
                       SizedBox(
