@@ -24,11 +24,13 @@ class _MyOrdersState extends State<MyOrders> {
     User user =
         Provider.of<General_Provider>(context, listen: false).get_user();
     Provider.of<General_Provider>(context, listen: false).fetch_orders();
-    List<Order> all_orders =
+    List<Order> all_Orders =
         Provider.of<General_Provider>(context, listen: false).orders;
     List<Order> orders = [];
-    for (var i = 0; i < all_orders.length; i++) {
-      if (all_orders[i].customerID == user.cnic) orders.add(all_orders[i]);
+    for (var i = 0; i < all_Orders.length; i++) {
+      if (all_Orders[i].customerID == user.cnic &&
+          isNotInOrders(orders, all_Orders[i].orderID))
+        orders.add(all_Orders[i]);
     }
     return Scaffold(
         appBar: AppBarPageName(
@@ -107,4 +109,11 @@ class _MyOrdersState extends State<MyOrders> {
           },
         ));
   }
+}
+
+bool isNotInOrders(List o, String orderId) {
+  for (var j = 0; j < o.length; j++) {
+    if (orderId == o[j].orderID) return false;
+  }
+  return true;
 }
