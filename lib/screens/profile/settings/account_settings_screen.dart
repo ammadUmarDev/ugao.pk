@@ -9,6 +9,7 @@ import 'package:ugao/components/appbar.dart';
 import 'package:ugao/components/body_text.dart';
 import 'package:ugao/components/button_loading.dart';
 import 'package:ugao/components/h2.dart';
+import 'package:ugao/components/rounded_drop_down.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/shadowBoxList.dart';
 import 'package:ugao/screens/profile/Components/Change_User_Type_Model/Follow_Up.dart';
@@ -37,7 +38,7 @@ class Account_Settings extends State<Account_Settings_State> {
   @override
   Widget build(BuildContext context) {
     u = Provider.of<General_Provider>(context, listen: false).get_user();
-    // TODO: implement build
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Colors.white,
@@ -199,36 +200,18 @@ class Account_Settings extends State<Account_Settings_State> {
                           SizedBox(
                             height: 10,
                           ),
-                          DropdownButton<String>(
-                            isExpanded: true,
-                            isDense: false,
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                            hint: Text("Account Type",
-                                style: TextStyle(fontSize: 15.5)),
+                          RoundedDropDown(
+                            name: "Account Type",
+                            size: size,
+                            text: typeUser,
                             value: typeUser,
                             onChanged: (String value) {
                               setState(() {
                                 typeUser = value;
                               });
                             },
-                            items: users.map((String user) {
-                              return DropdownMenuItem<String>(
-                                value: user,
-                                child: Row(
-                                  children: <Widget>[
-                                    Text(
-                                      user,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 15.5,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }).toList(),
+                            items: users,
+                            icon: Icons.departure_board,
                           ),
                           SizedBox(
                             height: 10,
@@ -278,7 +261,8 @@ class Account_Settings extends State<Account_Settings_State> {
                                       context: context,
                                       title: "Please fill all fields",
                                       style: AlertStyle(
-                                        titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+                                        titleStyle: H2TextStyle(
+                                            color: kPrimaryAccentColor),
                                       ),
                                       content: Column(
                                         children: <Widget>[

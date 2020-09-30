@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ugao/components/button_loading.dart';
 import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/rounded_cnic_field.dart';
+import 'package:ugao/components/rounded_drop_down.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/rounded_password_field.dart';
 import 'package:ugao/components/rounded_phone_input_field.dart';
@@ -88,35 +89,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 child: Column(
                   children: <Widget>[
-                    DropdownButton<String>(
-                      isExpanded: true,
-                      isDense: false,
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                      hint: Text("User Type", style: TextStyle(fontSize: 15.5)),
+                    RoundedDropDown(
+                      name: "User Type",
+                      size: size,
+                      text: typeUser,
                       value: typeUser,
                       onChanged: (String value) {
                         setState(() {
                           typeUser = value;
                         });
                       },
-                      items: users.map((String user) {
-                        return DropdownMenuItem<String>(
-                          value: user,
-                          child: Row(
-                            children: <Widget>[
-                              Text(
-                                user,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 15.5,
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      }).toList(),
+                      items: users,
+                      icon: Icons.departure_board,
                     ),
                   ],
                 ),
@@ -199,7 +183,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               context: context,
                               title: "Please fill all fields",
                               style: AlertStyle(
-                                titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+                                titleStyle:
+                                    H2TextStyle(color: kPrimaryAccentColor),
                               ),
                               content: Column(
                                 children: <Widget>[
@@ -227,9 +212,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           if (password.length <= 6) {
                             Alert(
                                 context: context,
-                                title: "Password length must be greater than 6 digits",
+                                title:
+                                    "Password length must be greater than 6 digits",
                                 style: AlertStyle(
-                                  titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+                                  titleStyle:
+                                      H2TextStyle(color: kPrimaryAccentColor),
                                 ),
                                 content: Column(
                                   children: <Widget>[
@@ -273,7 +260,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             context: context,
                             title: "CNIC or Phone No is not unique",
                             style: AlertStyle(
-                              titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+                              titleStyle:
+                                  H2TextStyle(color: kPrimaryAccentColor),
                             ),
                             content: Column(
                               children: <Widget>[
@@ -336,37 +324,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
       child: Column(
         children: <Widget>[
-          DropdownButton<String>(
-            isExpanded: true,
-            isDense: false,
-            style: TextStyle(
-              color: Colors.black,
-            ),
-            hint: Text(
-              "Produce Type",
-              style: TextStyle(fontSize: 15.5),
-            ),
+          RoundedDropDown(
+            name: "Produce Type",
+            size: size,
+            text: value,
             value: value,
-            onChanged: (String value) {
+            onChanged: (String v) {
               setState(() {
-                value = value;
+                value = v;
               });
             },
-            items: valuesList.map((String user) {
-              return DropdownMenuItem<String>(
-                value: user,
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      user,
-                      style: TextStyle(
-                        fontSize: 15.5,
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }).toList(),
+            items: valuesList,
+            icon: Icons.departure_board,
           ),
         ],
       ),

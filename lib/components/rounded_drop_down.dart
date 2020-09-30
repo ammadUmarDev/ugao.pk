@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
+import 'h2.dart';
 
-class RoundedDropDown extends StatelessWidget {
+class RoundedDropDown extends StatefulWidget {
   const RoundedDropDown({
     Key key,
     this.name,
@@ -22,7 +23,15 @@ class RoundedDropDown extends StatelessWidget {
   final List<String> items;
   final IconData icon;
   @override
+  _RoundedDropDownState createState() => _RoundedDropDownState(this.text);
+}
+
+class _RoundedDropDownState extends State<RoundedDropDown> {
+  String text;
+  _RoundedDropDownState(this.text);
+  @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -34,34 +43,25 @@ class RoundedDropDown extends StatelessWidget {
       child: Column(
         children: <Widget>[
           DropdownButton<String>(
-            icon: Icon(
-              icon,
-              color: kPrimaryAccentColor,
-            ),
             isExpanded: true,
             isDense: false,
-            style: TextStyle(
-              color: Colors.black,
-            ),
+            style: H2TextStyle(),
             hint: Text(
-              text == null ? name : text,
-              style: TextStyle(fontSize: 15.5),
+              widget.name,
+              style: H2TextStyle(),
             ),
-            value: text,
-            onChanged: onChanged,
-            items: items.map((String user) {
+            value: this.text,
+            onChanged: (String value) {
+              setState(() {
+                this.text = value;
+              });
+            },
+            items: widget.items.map((String choice) {
               return DropdownMenuItem<String>(
-                value: user,
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      user,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 15,
-                      ),
-                    ),
-                  ],
+                value: choice,
+                child: H2(
+                  textBody: choice,
+                  color: kPrimaryAccentColor,
                 ),
               );
             }).toList(),

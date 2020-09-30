@@ -95,36 +95,18 @@ class _OrderDetailsSellerState extends State<OrderDetailsSeller> {
                       SizedBox(
                         height: 10,
                       ),
-                      DropdownButton<String>(
-                        isExpanded: true,
-                        isDense: false,
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                        hint: Text("Account Type",
-                            style: TextStyle(fontSize: 15.5)),
+                      RoundedDropDown(
+                        name: "Account Type",
+                        size: size,
+                        text: newStatus,
                         value: newStatus,
                         onChanged: (String value) {
                           setState(() {
                             newStatus = value;
                           });
                         },
-                        items: orderStatuses.map((String user) {
-                          return DropdownMenuItem<String>(
-                            value: user,
-                            child: Row(
-                              children: <Widget>[
-                                Text(
-                                  user,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 15.5,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }).toList(),
+                        items: orderStatuses,
+                        icon: Icons.departure_board,
                       ),
                       SizedBox(
                         height: 10,

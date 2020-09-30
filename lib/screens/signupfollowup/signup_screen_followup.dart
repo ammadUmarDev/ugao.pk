@@ -11,6 +11,7 @@ import 'package:ugao/components/button_loading.dart';
 import 'package:ugao/components/h1.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:ugao/components/h2.dart';
+import 'package:ugao/components/rounded_drop_down.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/rounded_phone_input_field.dart';
 import 'package:ugao/constants.dart';
@@ -364,37 +365,18 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
             ),
             child: Column(
               children: <Widget>[
-                DropdownButton<String>(
-                  isExpanded: true,
-                  isDense: false,
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                  hint: Text(
-                    "Service Type",
-                    style: TextStyle(fontSize: 15.5),
-                  ),
+                RoundedDropDown(
+                  name: "Service Type",
+                  size: size,
+                  text: fobject.fService,
                   value: fobject.fService,
                   onChanged: (String value) {
                     setState(() {
-                      fobject.fService = value.trim();
+                      fobject.fService = value;
                     });
                   },
-                  items: fServices.map((String user) {
-                    return DropdownMenuItem<String>(
-                      value: user,
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            user,
-                            style: TextStyle(
-                              fontSize: 15.5,
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }).toList(),
+                  items: fServices,
+                  icon: Icons.departure_board,
                 ),
               ],
             ),
@@ -409,37 +391,18 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
             ),
             child: Column(
               children: <Widget>[
-                DropdownButton<String>(
-                  isExpanded: true,
-                  isDense: false,
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                  hint: Text(
-                    "Produce Type",
-                    style: TextStyle(fontSize: 15.5),
-                  ),
+                RoundedDropDown(
+                  name: "Produce Type",
+                  size: size,
+                  text: fobject.fCategory,
                   value: fobject.fCategory,
                   onChanged: (String value) {
                     setState(() {
-                      fobject.fCategory = value.trim();
+                      fobject.fCategory = value;
                     });
                   },
-                  items: fCategories.map((String user) {
-                    return DropdownMenuItem<String>(
-                      value: user,
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            user,
-                            style: TextStyle(
-                              fontSize: 15.5,
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }).toList(),
+                  items: fCategories,
+                  icon: Icons.departure_board,
                 ),
               ],
             ),
@@ -606,37 +569,18 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
             ),
             child: Column(
               children: <Widget>[
-                DropdownButton<String>(
-                  isExpanded: true,
-                  isDense: false,
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                  hint: Text(
-                    "Account Type",
-                    style: TextStyle(fontSize: 15.5),
-                  ),
+                RoundedDropDown(
+                  name: "Account Type",
+                  size: size,
+                  text: cobject.cAccountType,
                   value: cobject.cAccountType,
                   onChanged: (String value) {
                     setState(() {
                       cobject.cAccountType = value;
                     });
                   },
-                  items: cAccountTypes.map((String user) {
-                    return DropdownMenuItem<String>(
-                      value: user,
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            user,
-                            style: TextStyle(
-                              fontSize: 15.5,
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }).toList(),
+                  items: cAccountTypes,
+                  icon: Icons.departure_board,
                 ),
               ],
             ),
