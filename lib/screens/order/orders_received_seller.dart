@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ugao/Classes/Order_Model.dart';
 import 'package:ugao/components/appbar.dart';
+import 'package:ugao/components/body_text.dart';
 import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/h3.dart';
 import 'package:ugao/screens/order/orderDetails_seller.dart';
@@ -102,7 +103,8 @@ class _OrdersReceivedSellerState extends State<OrdersReceivedSeller> {
                                   ),
                                   Divider(),
                                   SizedBox(height: 5),
-                                  H3(textBody: "Tap to view more details"),
+                                  BodyText(
+                                      textBody: "Tap to view more details"),
                                   SizedBox(height: 10),
                                 ],
                               ),
