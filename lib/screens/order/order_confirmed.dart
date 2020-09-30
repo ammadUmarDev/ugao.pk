@@ -36,37 +36,29 @@ class _OrderConfirmedScreenState extends State<OrderConfirmedScreen> {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: size.height * 0.05),
+            SizedBox(height: size.height * 0.1),
             Text(
-              "Order #<Insert Order Number> \n CONFIRMED",
+              "Order \n Placed",
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 24.0,
+                fontSize: 36.0,
               ),
             ),
-            SizedBox(height: size.height * 0.04),
+            SizedBox(height: size.height * 0.1),
             Container(
-              margin: EdgeInsets.all(20.0),
-              padding: EdgeInsets.symmetric(
-                  horizontal: size.width * 0.8, vertical: size.height * 0.2),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  border: Border.all(
-                    color: Colors.blueGrey,
-                  )),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "Order Summary",
+                    "Check My Orders for more details",
                     //textAlign: TextAlign.center,
                     //overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       //fontWeight: FontWeight.bold,
-                      fontSize: 12.0,
+                      fontSize: 24.0,
                     ),
                   ),
                 ],
