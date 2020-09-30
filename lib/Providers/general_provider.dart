@@ -83,7 +83,7 @@ class General_Provider extends ChangeNotifier {
     Firestore firestore = Firestore.instance;
     var snapshot = await firestore
         .collection("Orders")
-        //.where("customerID" + "==" + this.user.cnic)
+        //.where(idType + "==" + this.user.cnic)
         .getDocuments();
     if (snapshot.documents.length > 0) {
       for (var document in snapshot.documents) {

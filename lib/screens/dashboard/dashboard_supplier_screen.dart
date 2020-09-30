@@ -18,6 +18,7 @@ import 'package:ugao/screens/order/orders_received_seller.dart';
 import 'package:ugao/screens/product/add_product.dart';
 import 'package:ugao/screens/profile/profile_screen.dart';
 import 'package:ugao/screens/tutorial/tutorial_screen.dart';
+import 'package:ugao/screens/order/orders_received_seller.dart';
 
 import '../../constants.dart';
 import 'components/greet_list.dart';
