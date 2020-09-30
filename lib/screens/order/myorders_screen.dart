@@ -53,6 +53,9 @@ class _MyOrdersState extends State<MyOrders> {
     /*uncomment this line and fetch all orders against user 
     List<Order> orders=*/
     //Size size = MediaQuery.of(context).size;
+    Provider.of<General_Provider>(context, listen: false).fetch_orders();
+    List<Order> orders =
+        Provider.of<General_Provider>(context, listen: false).orders;
     return Scaffold(
         appBar: AppBarPageName(
           pageName: 'My Orders',
@@ -60,7 +63,7 @@ class _MyOrdersState extends State<MyOrders> {
 
         //============ORDERS LIST=============
         body: ListView.builder(
-          itemCount: orders_test.length,
+          itemCount: orders.length,
           itemBuilder: (context, index) {
             return Container(
               /*decoration:
@@ -79,8 +82,7 @@ class _MyOrdersState extends State<MyOrders> {
                           child: Row(
                             children: <Widget>[
                               Text(
-                                "Order Number: " +
-                                    orders_test[index]['orderID'].toString(),
+                                "Order Number: " + orders[index].orderID,
                                 style: TextStyle(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold),
@@ -95,7 +97,7 @@ class _MyOrdersState extends State<MyOrders> {
                           child: Row(
                             children: <Widget>[
                               Text(
-                                orders_test[index]['date'],
+                                orders[index].service,
                               ),
                             ],
                           ),
@@ -111,7 +113,7 @@ class _MyOrdersState extends State<MyOrders> {
                                 ),
                               ),
                               Text(
-                                orders_test[index]['status'],
+                                orders[index].status,
                                 style: new TextStyle(
                                     fontSize: 16.5,
                                     color: kPrimaryColor,
