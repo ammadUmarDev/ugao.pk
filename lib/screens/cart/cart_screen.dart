@@ -37,7 +37,14 @@ class _CartScreenState extends State<CartScreen> {
                             .getCartProduct(index)
                             .quantity <=
                         0)
-                    ? Container()
+                    ? Container(
+                        child: Center(
+                          child: H3(
+                            textBody: "Your cart is empty :(",
+                            color: kPrimaryAccentColor,
+                          ),
+                        ),
+                      )
                     : Card(
                         child: ListTile(
                           // Leading Section

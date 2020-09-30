@@ -11,6 +11,7 @@ import 'package:ugao/components/button_loading.dart';
 import 'package:ugao/components/h1.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:ugao/components/h2.dart';
+import 'package:ugao/components/h3.dart';
 import 'package:ugao/components/rounded_drop_down.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/rounded_phone_input_field.dart';
@@ -144,101 +145,118 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
             },
             codeSent: (String verificationID, [int b]) async {
               String code;
-              showDialog(
+
+              Alert(
                   context: context,
-                  barrierDismissible: false,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Text("Give the code?"),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          TextField(
-                            onChanged: (enteredCode) {
-                              code = enteredCode;
-                            },
-                            // controller: _codeController,
-                          ),
-                        ],
+                  title: "Enter one time password",
+                  style: AlertStyle(
+                    titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+                  ),
+                  content: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 10,
                       ),
-                      actions: <Widget>[
-                        FlatButton(
-                          child: Text("Confirm"),
-                          textColor: Colors.white,
-                          color: Colors.blue,
-                          onPressed: () async {
-                            code = code.trim();
-                            try {
-                              AuthCredential credential =
-                                  PhoneAuthProvider.getCredential(
-                                      verificationId: verificationID,
-                                      smsCode: code);
+                      Text(
+                        "We have sent an OTP to your registered mobile number",
+                        style: H3TextStyle(),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      RoundedInputField(
+                        onChanged: (enteredCode) {
+                          code = enteredCode;
+                        },
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      ButtonLoading(
+                        onTap: () async {
+                          code = code.trim();
+                          try {
+                            AuthCredential credential =
+                                PhoneAuthProvider.getCredential(
+                                    verificationId: verificationID,
+                                    smsCode: code);
 
-                              AuthResult result = await firebaseAuth
-                                  .signInWithCredential(credential);
+                            AuthResult result = await firebaseAuth
+                                .signInWithCredential(credential);
 
-                              if (result.user != null) {
-                                print("Verification successful");
-                                Navigator.of(context).pop();
-                                Provider.of<General_Provider>(context,
-                                        listen: false)
-                                    .set_user(user);
-                                Provider.of<General_Provider>(context,
-                                        listen: false)
-                                    .set_firebase_user(result.user);
-                                user.print_user();
-                                Provider.of<General_Provider>(context,
-                                        listen: false)
-                                    .get_user()
-                                    .print_user();
-                                print(Provider.of<General_Provider>(context,
-                                        listen: false)
-                                    .get_firebase_user());
-                                if (user.usertype == "Farmer") {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return DashBoard();
-                                      },
-                                    ),
-                                  );
-                                } else if (user.usertype == "Customer") {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return DashboardCustomerScreen();
-                                      },
-                                    ),
-                                  );
-                                } else if (user.usertype == "Supplier") {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return DashboardSupplierScreen();
-                                      },
-                                    ),
-                                  );
-                                }
+                            if (result.user != null) {
+                              print("Verification successful");
+                              Navigator.of(context).pop();
+                              Provider.of<General_Provider>(context,
+                                      listen: false)
+                                  .set_user(user);
+                              Provider.of<General_Provider>(context,
+                                      listen: false)
+                                  .set_firebase_user(result.user);
+                              user.print_user();
+                              Provider.of<General_Provider>(context,
+                                      listen: false)
+                                  .get_user()
+                                  .print_user();
+                              print(Provider.of<General_Provider>(context,
+                                      listen: false)
+                                  .get_firebase_user());
+                              if (user.usertype == "Farmer") {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return DashBoard();
+                                    },
+                                  ),
+                                );
+                              } else if (user.usertype == "Customer") {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return DashboardCustomerScreen();
+                                    },
+                                  ),
+                                );
+                              } else if (user.usertype == "Supplier") {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return DashboardSupplierScreen();
+                                    },
+                                  ),
+                                );
                               }
-                            } catch (PlatformException) {
-                              print("CAUGHT_PLATFORM_EXCEPTION");
-                              showDialog(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: Text("Incorrect PIN entered"),
-                                    );
-                                  });
                             }
-                          },
-                        )
-                      ],
-                    );
-                  });
+                          } catch (PlatformException) {
+                            print("CAUGHT_PLATFORM_EXCEPTION");
+                            showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text("Incorrect PIN entered"),
+                                  );
+                                });
+                          }
+                          ;
+                        },
+                        labelText: "Confirm",
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
+                  buttons: [
+                    DialogButton(
+                      color: Colors.white,
+                      height: 0,
+                    ),
+                  ]).show();
             },
             codeAutoRetrievalTimeout: (String a) {
               print("auto retrieval timeout");

@@ -15,6 +15,7 @@ import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/h3.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/screens/dashboard/components/main_background.dart';
+import 'package:ugao/screens/dashboard/dashboard.dart';
 import 'package:ugao/screens/order/order_confirmed.dart';
 
 import '../../constants.dart';
@@ -272,6 +273,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       order_Store(orderobj);
                     }
                   }
+                  Provider.of<General_Provider>(context, listen: false)
+                      .clearCart();
                   Alert(
                       context: context,
                       title: "Order Confirmed :)",
@@ -299,6 +302,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           height: 0,
                         ),
                       ]).show();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return DashBoard();
+                      },
+                    ),
+                  );
                 }
               },
               child: H2(
