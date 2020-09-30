@@ -79,31 +79,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   });
                 },
               ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5),
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                width: size.width * 0.7,
-                decoration: new BoxDecoration(
-                  color: kPrimaryLightColor,
-                  borderRadius: BorderRadius.circular(29),
-                ),
-                child: Column(
-                  children: <Widget>[
-                    RoundedDropDown(
-                      name: "User Type",
-                      size: size,
-                      text: typeUser,
-                      value: typeUser,
-                      onChanged: (String value) {
-                        setState(() {
-                          typeUser = value;
-                        });
-                      },
-                      items: users,
-                      icon: Icons.departure_board,
-                    ),
-                  ],
-                ),
+              RoundedDropDown(
+                name: "User Type",
+                size: size,
+                text: typeUser,
+                value: typeUser,
+                onChanged: (String value) {
+                  setState(() {
+                    typeUser = value.toString();
+                    print("typeUser");
+                    print(typeUser);
+                  });
+                },
+                items: users,
+                icon: Icons.departure_board,
               ),
               SizedBox(
                 height: 5,
@@ -140,11 +129,78 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             height: 0,
                           ),
                         ]).show();
-                  } else {
-                    if (cnic.length != 15) {
+                  } else if (cnic.length != 15) {
+                    Alert(
+                        context: context,
+                        title: "Invalid CNIC",
+                        style: AlertStyle(
+                          titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+                        ),
+                        content: Column(
+                          children: <Widget>[
+                            SizedBox(
+                              height: 10,
+                            ),
+                            ButtonLoading(
+                              onTap: () async {
+                                Navigator.pop(context);
+                              },
+                              labelText: 'OK',
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
+                        buttons: [
+                          DialogButton(
+                            color: Colors.white,
+                            height: 0,
+                          ),
+                        ]).show();
+                  } else if (password.length <= 6) {
+                    Alert(
+                        context: context,
+                        title: "Password length must be greater than 6 digits",
+                        style: AlertStyle(
+                          titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+                        ),
+                        content: Column(
+                          children: <Widget>[
+                            SizedBox(
+                              height: 10,
+                            ),
+                            ButtonLoading(
+                              onTap: () async {
+                                Navigator.pop(context);
+                              },
+                              labelText: 'OK',
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
+                        buttons: [
+                          DialogButton(
+                            color: Colors.white,
+                            height: 0,
+                          ),
+                        ]).show();
+                  } else if ((await checkUniquenessOfCNIC(cnic) &&
+                          await checkUniquenessOfPhone(
+                              phone_no)) //TODO: put at the specific fields
+                      ==
+                      true) {
+                    if (fullName.isEmpty ||
+                        cnic.isEmpty ||
+                        password.isEmpty ||
+                        typeUser == null ||
+                        typeUser.isEmpty ||
+                        phone_no.isEmpty) {
                       Alert(
                           context: context,
-                          title: "Invalid CNIC",
+                          title: "Please fill all fields",
                           style: AlertStyle(
                             titleStyle: H2TextStyle(color: kPrimaryAccentColor),
                           ),
@@ -171,125 +227,48 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ]).show();
                     } else {
-                      //Navigator.pushNamed(context, "signupPageFollowup");
-                      if ((await checkUniquenessOfCNIC(cnic) &&
-                              await checkUniquenessOfPhone(
-                                  phone_no)) //TODO: put at the specific fields
-                          ==
-                          true) {
-                        if (fullName.isEmpty ||
-                            cnic.isEmpty ||
-                            password.isEmpty ||
-                            typeUser.isEmpty ||
-                            phone_no.isEmpty) {
-                          Alert(
-                              context: context,
-                              title: "Please fill all fields",
-                              style: AlertStyle(
-                                titleStyle:
-                                    H2TextStyle(color: kPrimaryAccentColor),
-                              ),
-                              content: Column(
-                                children: <Widget>[
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  ButtonLoading(
-                                    onTap: () async {
-                                      Navigator.pop(context);
-                                    },
-                                    labelText: 'OK',
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                ],
-                              ),
-                              buttons: [
-                                DialogButton(
-                                  color: Colors.white,
-                                  height: 0,
-                                ),
-                              ]).show();
-                        } else {
-                          if (password.length <= 6) {
-                            Alert(
-                                context: context,
-                                title:
-                                    "Password length must be greater than 6 digits",
-                                style: AlertStyle(
-                                  titleStyle:
-                                      H2TextStyle(color: kPrimaryAccentColor),
-                                ),
-                                content: Column(
-                                  children: <Widget>[
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    ButtonLoading(
-                                      onTap: () async {
-                                        Navigator.pop(context);
-                                      },
-                                      labelText: 'OK',
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                  ],
-                                ),
-                                buttons: [
-                                  DialogButton(
-                                    color: Colors.white,
-                                    height: 0,
-                                  ),
-                                ]).show();
-                          } else {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SignUpScreenFollowup(
-                                  fullName: fullName.trim(),
-                                  cnic: cnic.trim(),
-                                  password: password.trim(),
-                                  userType: typeUser.trim(),
-                                  phone_no: phone_no.trim(),
-                                ),
-                              ),
-                            );
-                          }
-                        }
-                      } else {
-                        Alert(
-                            context: context,
-                            title: "CNIC or Phone No is not unique",
-                            style: AlertStyle(
-                              titleStyle:
-                                  H2TextStyle(color: kPrimaryAccentColor),
-                            ),
-                            content: Column(
-                              children: <Widget>[
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                ButtonLoading(
-                                  onTap: () async {
-                                    Navigator.pop(context);
-                                  },
-                                  labelText: 'OK',
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                              ],
-                            ),
-                            buttons: [
-                              DialogButton(
-                                color: Colors.white,
-                                height: 0,
-                              ),
-                            ]).show();
-                      }
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SignUpScreenFollowup(
+                            fullName: fullName.trim(),
+                            cnic: cnic.trim(),
+                            password: password.trim(),
+                            userType: typeUser.trim(),
+                            phone_no: phone_no.trim(),
+                          ),
+                        ),
+                      );
                     }
+                  } else {
+                    Alert(
+                        context: context,
+                        title: "CNIC or Phone No is not unique",
+                        style: AlertStyle(
+                          titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+                        ),
+                        content: Column(
+                          children: <Widget>[
+                            SizedBox(
+                              height: 10,
+                            ),
+                            ButtonLoading(
+                              onTap: () async {
+                                Navigator.pop(context);
+                              },
+                              labelText: 'OK',
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
+                        buttons: [
+                          DialogButton(
+                            color: Colors.white,
+                            height: 0,
+                          ),
+                        ]).show();
                   }
                 },
               ),

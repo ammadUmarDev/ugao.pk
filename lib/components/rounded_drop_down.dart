@@ -43,7 +43,7 @@ class _RoundedDropDownState extends State<RoundedDropDown> {
       child: Column(
         children: <Widget>[
           DropdownButton<String>(
-            isExpanded: true,
+                        isExpanded: true,
             isDense: false,
             style: H2TextStyle(),
             hint: Text(
@@ -53,6 +53,7 @@ class _RoundedDropDownState extends State<RoundedDropDown> {
             value: this.text,
             onChanged: (String value) {
               setState(() {
+                widget.onChanged(value);
                 this.text = value;
               });
             },
