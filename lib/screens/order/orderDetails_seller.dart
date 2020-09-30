@@ -61,7 +61,7 @@ class _OrderDetailsSellerState extends State<OrderDetailsSeller> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   //Row inside Column
-                  SizedBox(height: 5),
+                  Divider(),
                   H3(textBody: "Service: " + widget.order.service),
                   H3(textBody: "Payment: " + widget.order.paymentMethod),
                   H3(
@@ -77,89 +77,94 @@ class _OrderDetailsSellerState extends State<OrderDetailsSeller> {
                       textBody: "Customer Contact: " +
                           widget.order.customer.phone_no),
                   H3(textBody: "Status: " + widget.order.status),
+                  SizedBox(height: 10),
                 ],
               ),
             ),
           ),
-          ButtonLoading(
-            labelText: "Edit Status",
-            onTap: () {
-              Alert(
-                  context: context,
-                  title: "Select new status",
-                  style: AlertStyle(
-                    titleStyle: H2TextStyle(color: kPrimaryAccentColor),
-                  ),
-                  content: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 10,
-                      ),
-                      RoundedDropDown(
-                        name: "Account Type",
-                        size: size,
-                        text: newStatus,
-                        value: newStatus,
-                        onChanged: (String value) {
-                          setState(() {
-                            newStatus = value;
-                          });
-                        },
-                        items: orderStatuses,
-                        icon: Icons.departure_board,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      ButtonLoading(
-                        onTap: () async {
-                          this.order.status = newStatus;
-                          order_Store(this.order);
-                          Alert(
-                              context: context,
-                              title: "Order Status updated",
-                              style: AlertStyle(
-                                titleStyle:
-                                    H2TextStyle(color: kPrimaryAccentColor),
-                              ),
-                              content: Column(
-                                children: <Widget>[
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  ButtonLoading(
-                                    onTap: () async {
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
-                                    },
-                                    labelText: 'OK',
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                ],
-                              ),
-                              buttons: [
-                                DialogButton(
-                                  color: Colors.white,
-                                  height: 0,
-                                ),
-                              ]).show();
-                        },
-                        labelText: 'Update Status',
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ],
-                  ),
-                  buttons: [
-                    DialogButton(
-                      color: Colors.white,
-                      height: 0,
+          SizedBox(height: 50),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 80),
+            child: ButtonLoading(
+              labelText: "Edit Status",
+              onTap: () {
+                Alert(
+                    context: context,
+                    title: "Select new status",
+                    style: AlertStyle(
+                      titleStyle: H2TextStyle(color: kPrimaryAccentColor),
                     ),
-                  ]).show();
-            },
+                    content: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 10,
+                        ),
+                        RoundedDropDown(
+                          name: "Account Type",
+                          size: size,
+                          text: newStatus,
+                          value: newStatus,
+                          onChanged: (String value) {
+                            setState(() {
+                              newStatus = value;
+                            });
+                          },
+                          items: orderStatuses,
+                          icon: Icons.departure_board,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        ButtonLoading(
+                          onTap: () async {
+                            this.order.status = newStatus;
+                            order_Store(this.order);
+                            Alert(
+                                context: context,
+                                title: "Order Status updated",
+                                style: AlertStyle(
+                                  titleStyle:
+                                      H2TextStyle(color: kPrimaryAccentColor),
+                                ),
+                                content: Column(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    ButtonLoading(
+                                      onTap: () async {
+                                        Navigator.pop(context);
+                                        Navigator.pop(context);
+                                      },
+                                      labelText: 'OK',
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
+                                ),
+                                buttons: [
+                                  DialogButton(
+                                    color: Colors.white,
+                                    height: 0,
+                                  ),
+                                ]).show();
+                          },
+                          labelText: 'Update Status',
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
+                    buttons: [
+                      DialogButton(
+                        color: Colors.white,
+                        height: 0,
+                      ),
+                    ]).show();
+              },
+            ),
           ),
         ],
       ),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 //my own imports
 import 'package:ugao/components/appbar.dart';
+import 'package:ugao/components/h2.dart';
+import 'package:ugao/components/h3.dart';
 import 'package:ugao/screens/checkout/checkout_screen.dart';
 import '../../constants.dart';
 import 'package:ugao/Classes/Cart_Product_Model.dart';
@@ -25,156 +27,141 @@ class _CartScreenState extends State<CartScreen> {
       appBar: AppBarPageName(
         pageName: 'Cart',
       ),
-
-      // =============== Products in Cart =================
-
-      body: ListView.builder(
-          // =========== PRODUCTS IN CART =====================
-          itemCount: cartProducts.length,
-          itemBuilder: (context, index) {
-            total = 0;
-            return (Provider.of<General_Provider>(context, listen: false)
-                        .getCartProduct(index)
-                        .quantity <=
-                    0)
-                ? Container()
-                : Card(
-                    child: ListTile(
-                      // Leading Section
-                      leading: new Image.network(
-                        Provider.of<General_Provider>(context, listen: false)
+      body: SafeArea(
+        child: Container(
+          child: ListView.builder(
+              itemCount: cartProducts.length,
+              itemBuilder: (context, index) {
+                total = 0;
+                return (Provider.of<General_Provider>(context, listen: false)
                             .getCartProduct(index)
-                            .product
-                            .prodImage,
-                        width: 100.0,
-                        height: 100.0,
-                      ),
-                      title: new Text(
-                        Provider.of<General_Provider>(context, listen: false)
-                            .getCartProduct(index)
-                            .product
-                            .prodName,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: new Column(
-                        children: <Widget>[
-                          //Row inside Column
-                          new Row(
+                            .quantity <=
+                        0)
+                    ? Container()
+                    : Card(
+                        child: ListTile(
+                          // Leading Section
+                          leading: Image.network(
+                            Provider.of<General_Provider>(context,
+                                    listen: false)
+                                .getCartProduct(index)
+                                .product
+                                .prodImage,
+                            width: 100.0,
+                            height: 100.0,
+                          ),
+                          title: H2(
+                            textBody: Provider.of<General_Provider>(context,
+                                    listen: false)
+                                .getCartProduct(index)
+                                .product
+                                .prodName,
+                          ),
+                          subtitle: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    0.0, 8.0, 0.0, 8.0),
-                                child: new Text(Provider.of<General_Provider>(
-                                        context,
-                                        listen: false)
-                                    .getCartProduct(index)
-                                    .serviceType),
-                              ),
+                              //Row inside Column
+                              SizedBox(height: 5),
+                              H3(
+                                  textBody: "Service Type: " +
+                                      Provider.of<General_Provider>(context,
+                                              listen: false)
+                                          .getCartProduct(index)
+                                          .serviceType),
+                              SizedBox(height: 5),
+                              H3(
+                                  textBody: "Quantity:" +
+                                      Provider.of<General_Provider>(context,
+                                              listen: false)
+                                          .getCartProduct(index)
+                                          .quantity
+                                          .toString()),
+                              SizedBox(height: 5),
+                              H3(
+                                textBody: "Rs." +
+                                    (Provider.of<General_Provider>(context,
+                                                    listen: false)
+                                                .getCartProduct(index)
+                                                .product
+                                                .price *
+                                            Provider.of<General_Provider>(
+                                                    context,
+                                                    listen: false)
+                                                .getCartProduct(index)
+                                                .quantity)
+                                        .toString(),
+                                color: kPrimaryAccentColor,
+                              )
                             ],
                           ),
-                          new Row(
-                            children: <Widget>[
-                              //qty of product
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    0.0, 8.0, 0.0, 8.0),
-                                child: new Text("Quantity:"),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: new Text(Provider.of<General_Provider>(
-                                        context,
-                                        listen: false)
-                                    .getCartProduct(index)
-                                    .quantity
-                                    .toString()),
-                              ),
-                            ],
+                          trailing: FittedBox(
+                            fit: BoxFit.fill,
+                            child: Column(
+                              children: <Widget>[
+                                // ======== inc Quantity dec Quantity ============
+                                IconButton(
+                                    icon: Icon(Icons.arrow_drop_up),
+                                    onPressed: () {
+                                      setState(() {
+                                        Provider.of<General_Provider>(context,
+                                                listen: false)
+                                            .incrementInCart(index);
+                                      });
+                                    }),
+
+                                IconButton(
+                                    icon: Icon(Icons.arrow_drop_down),
+                                    onPressed: () {
+                                      setState(() {
+                                        Provider.of<General_Provider>(context,
+                                                listen: false)
+                                            .decrementInCart(index);
+                                      });
+                                    }),
+                              ],
+                            ),
                           ),
-                          new Row(
-                            children: <Widget>[
-                              //price of product
-                              Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: new Text(
-                                  "Rs." +
-                                      (Provider.of<General_Provider>(context,
-                                                      listen: false)
-                                                  .getCartProduct(index)
-                                                  .product
-                                                  .price *
-                                              Provider.of<General_Provider>(
-                                                      context,
-                                                      listen: false)
-                                                  .getCartProduct(index)
-                                                  .quantity)
-                                          .toString(),
-                                  style: TextStyle(
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.green[300]),
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                      trailing: FittedBox(
-                        fit: BoxFit.fill,
-                        child: Column(
-                          children: <Widget>[
-                            // ======== inc Quantity dec Quantity ============
-                            new IconButton(
-                                icon: Icon(Icons.arrow_drop_up),
-                                onPressed: () {
-                                  setState(() {
-                                    Provider.of<General_Provider>(context,
-                                            listen: false)
-                                        .incrementInCart(index);
-                                  });
-                                }),
-                            new IconButton(
-                                icon: Icon(Icons.arrow_drop_down),
-                                onPressed: () {
-                                  setState(() {
-                                    Provider.of<General_Provider>(context,
-                                            listen: false)
-                                        .decrementInCart(index);
-                                  });
-                                }),
-                          ],
                         ),
-                      ),
-                    ),
-                  );
-          }),
+                      );
+              }),
+        ),
+      ),
       bottomNavigationBar: new Container(
         color: Colors.white,
         child: Row(
           children: <Widget>[
             Expanded(
                 child: ListTile(
-              title: new Text(
-                "Total:",
-                style: TextStyle(fontSize: 14.0),
+              title: H2(
+                textBody: "Total:",
               ),
               subtitle:
-                  new Text("\Rs." + getTotalPrice(cartProducts).toString()),
+                  H3(textBody: "\Rs." + getTotalPrice(cartProducts).toString()),
             )),
             Expanded(
-                child: new MaterialButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CheckoutScreen()),
-                      );
-                    },
-                    child: new Text(
-                      "Check out",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    color: kPrimaryColor))
+                child: Container(
+              decoration: BoxDecoration(
+                  color: kPrimaryAccentColor,
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(40)),
+                  border: Border.all(
+                    width: 3,
+                    color: kPrimaryAccentColor,
+                    style: BorderStyle.solid,
+                  )),
+              child: MaterialButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CheckoutScreen()),
+                  );
+                },
+                child: H3(
+                  textBody: "Check out",
+                  color: Colors.white,
+                ),
+              ),
+            ))
           ],
         ),
       ),

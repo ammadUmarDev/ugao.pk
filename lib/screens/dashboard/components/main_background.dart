@@ -32,7 +32,7 @@ class MainBackground extends CustomPainter {
     double width = size.width;
     canvas.drawRect(
         Rect.fromLTRB(0, 0, width, height), Paint()..color = Colors.white);
-    canvas.drawRect(Rect.fromLTRB(width - (width / 3), 0, width, height),
+    canvas.drawRect(Rect.fromLTRB(width - (width / 3.2), 0, width, height),
         Paint()..color = kPrimaryLightColor);
   }
 
