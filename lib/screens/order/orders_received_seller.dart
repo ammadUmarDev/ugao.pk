@@ -28,6 +28,7 @@ class _OrdersReceivedSellerState extends State<OrdersReceivedSeller> {
         stream: Firestore.instance
             .collection("Orders")
             .where('sellerID', isEqualTo: user.cnic)
+            .orderBy("creationTimestamp",descending: true)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
