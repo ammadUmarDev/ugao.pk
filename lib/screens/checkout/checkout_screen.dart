@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ugao/Classes/Cart_Product_Model.dart';
+import 'package:ugao/Classes/Firebase_Functions.dart';
 import 'package:ugao/Classes/Order_Model.dart';
 import 'package:ugao/Providers/general_provider.dart';
-import 'package:ugao/Classes/firebase_functions.dart';
 // my own imports
 import 'package:ugao/components/appbar.dart';
 import 'package:ugao/components/button_loading.dart';
-import 'package:ugao/components/rounded_button.dart';
 import '../../constants.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/screens/order/order_confirmed.dart';
