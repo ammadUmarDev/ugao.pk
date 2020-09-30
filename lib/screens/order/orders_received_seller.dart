@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ugao/Classes/Order_Model.dart';
 import 'package:ugao/components/appbar.dart';
+import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/h3.dart';
 import 'package:ugao/screens/order/orderDetails_seller.dart';
 import '../../constants.dart';
@@ -71,61 +72,38 @@ class _OrdersReceivedSellerState extends State<OrdersReceivedSeller> {
                             },
                             highlightColor: kPrimaryColor,
                             child: Padding(
-                              padding: const EdgeInsets.all(16.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 8.0, bottom: 4.0),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: Text(
-                                            "Order Number: " +
-                                                orders[index]["orderID"]
-                                                    .toString(),
-                                            style: TextStyle(
-                                                fontSize: 18.0,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                        Spacer(),
-                                      ],
-                                    ),
+                                  SizedBox(height: 10),
+                                  H2(
+                                    textBody: "Order Number: " +
+                                        orders[index]["orderID"].toString(),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 4.0, bottom: 10.0),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Text(
-                                          orders[index]["service"].toString(),
-                                        ),
-                                      ],
-                                    ),
+                                  SizedBox(height: 5),
+                                  H3(
+                                    textBody: "Timestamp: " +
+                                        orders[index]["creationTimestamp"]
+                                            .toString()
+                                            .substring(0, 19),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 2.0),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Text(
-                                          "Receiver Address: ",
-                                          style: new TextStyle(
-                                            fontSize: 16.5,
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            orders[index]["address"].toString(),
-                                            style: new TextStyle(
-                                                fontSize: 16.5,
-                                                color: kPrimaryColor,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
+                                  SizedBox(height: 5),
+                                  H3(
+                                    textBody: "Service Type: " +
+                                        orders[index]["service"].toString(),
+                                  ),
+                                  SizedBox(height: 5),
+                                  H3(
+                                    textBody: "Customer Address: " +
+                                        orders[index]["address"].toString(),
+                                  ),
+                                  Divider(),
+                                  SizedBox(height: 5),
+                                  H3(textBody: "Tap to view more details"),
+                                  SizedBox(height: 10),
                                 ],
                               ),
                             ),
