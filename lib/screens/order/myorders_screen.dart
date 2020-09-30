@@ -1,12 +1,12 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
 //my imports
 import 'package:ugao/components/appbar.dart';
+import 'package:ugao/components/body_text.dart';
+import 'package:ugao/components/h2.dart';
+import 'package:ugao/components/h3.dart';
 import 'package:ugao/screens/order/orders_details.dart';
 import '../../constants.dart';
 import 'package:ugao/Classes/Order_Model.dart';
-import 'package:ugao/Classes/Cart_Product_Model.dart';
 import 'package:ugao/Providers/general_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:ugao/Classes/User_Model.dart';
@@ -59,56 +59,27 @@ class _MyOrdersState extends State<MyOrders> {
                   },
                   highlightColor: kPrimaryColor,
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0, bottom: 4.0),
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Text(
-                                  "Order Number: " + orders[index].orderID,
-                                  style: TextStyle(
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Spacer(),
-                            ],
-                          ),
+                        SizedBox(height: 10),
+                        H2(
+                          textBody: "Order Number: " + orders[index].orderID,
                         ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(top: 4.0, bottom: 10.0),
-                          child: Row(
-                            children: <Widget>[
-                              Text(
-                                orders[index].service,
-                              ),
-                            ],
-                          ),
+                        SizedBox(height: 5),
+                        H3(
+                          textBody: "Service Type: " + orders[index].service,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 2.0),
-                          child: Row(
-                            children: <Widget>[
-                              Text(
-                                "Status: ",
-                                style: new TextStyle(
-                                  fontSize: 16.5,
-                                ),
-                              ),
-                              Text(
-                                orders[index].status,
-                                style: new TextStyle(
-                                    fontSize: 16.5,
-                                    color: kPrimaryColor,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                        )
+                        SizedBox(height: 5),
+                        H3(
+                          textBody: "Status: " + orders[index].status,
+                        ),
+                        Divider(),
+                        SizedBox(height: 5),
+                        BodyText(textBody: "Tap to view more details"),
+                        SizedBox(height: 10),
                       ],
                     ),
                   ),

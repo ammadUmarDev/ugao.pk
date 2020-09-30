@@ -116,7 +116,7 @@ class _OrdersReceivedSellerState extends State<OrdersReceivedSeller> {
                   );
                 }
               }
-              return new Center(
+              return Center(
                   child: Column(
                 children: <Widget>[
                   Padding(
@@ -138,7 +138,7 @@ class _OrdersReceivedSellerState extends State<OrdersReceivedSeller> {
         });
     return Scaffold(
       appBar: AppBarPageName(
-        pageName: 'My Orders',
+        pageName: 'Orders Recieved',
       ),
       body: allOrders,
     );

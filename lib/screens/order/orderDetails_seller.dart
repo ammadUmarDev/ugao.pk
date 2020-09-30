@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //my imports
 import 'package:ugao/components/appbar.dart';
 import 'package:ugao/Classes/Order_Model.dart';
+import 'package:ugao/components/h3.dart';
 
 class OrderDetailsSeller extends StatefulWidget {
   @override
@@ -30,101 +31,31 @@ class _OrderDetailsSellerState extends State<OrderDetailsSeller> {
                   height: 80.0,
                 ),
           title: Expanded(
-            child: Text(
-              "OrderID: \n" + widget.order.orderID,
-              style: TextStyle(fontWeight: FontWeight.bold),
+            child: H3(
+              textBody: "OrderID: \n" + widget.order.orderID,
             ),
           ),
-          subtitle: new Column(
+          subtitle: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               //Row inside Column
-              new Row(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 8.0),
-                    child: new Text("Service:"),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(2.0, 8.0, 10.0, 8.0),
-                    child: new Text(widget.order.service,
-                        style: TextStyle(color: Colors.green[300])),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 8.0),
-                    child: new Text("Payment:"),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 2.0, top: 8.0, bottom: 8.0),
-                    child: Expanded(
-                      child: new Text(widget.order.paymentMethod,
-                          style: TextStyle(color: Colors.green[300])),
-                    ),
-                  ),
-                ],
-              ),
-              new Row(
-                children: <Widget>[
-                  //qty of product
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0.0, 2.0, 0.0, 8.0),
-                    child: new Text("Quantity:"),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(2.0, 2.0, 5.0, 8.0),
-                    child: new Text(
-                      widget.order.productQuantity.toString(),
-                      style: TextStyle(color: Colors.green[300]),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(26.5, 2.0, 0.0, 8.0),
-                    child: new Text("Total Price:"),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(2.0, 2.0, 0.0, 8.0),
-                    child: new Text(
+              SizedBox(height: 5),
+              H3(textBody: "Service: " + widget.order.service),
+              H3(textBody: "Payment: " + widget.order.paymentMethod),
+              H3(
+                  textBody:
+                      "Quantity: " + widget.order.productQuantity.toString()),
+              H3(
+                  textBody: "Total Price: PKR " +
                       (widget.order.productQuantity *
                               widget.order.product.price)
-                          .toString(),
-                      style: TextStyle(color: Colors.green[300]),
-                    ),
-                  ),
-                ],
-              ),
-              new Row(
-                children: <Widget>[
-                  Expanded(
-                      child: Text("Customer Address: " + widget.order.address)),
-                ],
-              ),
-              new Row(
-                children: <Widget>[
-                  Padding(padding: const EdgeInsets.all(4.0)),
-                ],
-              ),
-              new Row(
-                children: <Widget>[
-                  Expanded(
-                      child: Text("Customer Contact: " +
-                          widget.order.customer.phone_no)),
-                ],
-              ),
-              new Row(
-                children: <Widget>[
-                  //price of product
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(2.0, 10.0, 0.0, 2.0),
-                    child: new Text(
-                      "Status: " + widget.order.status,
-                      style: TextStyle(
-                          fontSize: 17.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green[300]),
-                    ),
-                  ),
-                ],
-              )
+                          .toString()),
+              H3(textBody: "Customer Address: " + widget.order.address),
+              H3(
+                  textBody:
+                      "Customer Contact: " + widget.order.customer.phone_no),
+              H3(textBody: "Status: " + widget.order.status),
             ],
           ),
         ),
