@@ -83,7 +83,7 @@ class _OrdersReceivedSellerState extends State<OrdersReceivedSeller> {
                           child: Row(
                             children: <Widget>[
                               Text(
-                                "Status: ",
+                                "Receiver Address: ",
                                 style: new TextStyle(
                                   fontSize: 16.5,
                                 ),
