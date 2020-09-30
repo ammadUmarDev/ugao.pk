@@ -48,20 +48,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: size.height * 0.15,
               ),
               SizedBox(height: size.height * 0.03),
+              RoundedCNICField(
+                onChanged: (value) {
+                  setState(() {
+                    cnic = value.trim();
+                    print(cnic);
+                  });
+                },
+              ),
               RoundedInputField(
                 hintText: "Full Name",
                 icon: Icons.person,
                 onChanged: (value) {
                   setState(() {
                     fullName = value.trim();
-                  });
-                },
-              ),
-              RoundedCNICField(
-                onChanged: (value) {
-                  setState(() {
-                    cnic = value.trim();
-                    print(cnic);
                   });
                 },
               ),
@@ -104,6 +104,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ],
                 ),
+              ),
+              SizedBox(
+                height: 5,
               ),
               ButtonLoading(
                 labelText: "NEXT",
@@ -304,6 +307,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   );
                 },
               ),
+              SizedBox(height: 40),
             ],
           ),
         ),
