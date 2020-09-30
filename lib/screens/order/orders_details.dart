@@ -1,168 +1,169 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:ugao/Classes/Firebase_Functions.dart';
 
 //my imports
 import 'package:ugao/components/appbar.dart';
-import '../../constants.dart';
 import 'package:ugao/Classes/Order_Model.dart';
-import 'package:ugao/Classes/Cart_Product_Model.dart';
-import 'package:ugao/Providers/general_provider.dart';
-import 'package:provider/provider.dart';
-import 'package:ugao/Classes/User_Model.dart';
-import 'package:ugao/components/appbar.dart';
-import '../../constants.dart';
-import 'package:ugao/Classes/Cart_Product_Model.dart';
-import 'package:ugao/Providers/general_provider.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ugao/components/body_text.dart';
+import 'package:ugao/components/button_loading.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/h3.dart';
+import 'package:ugao/constants.dart';
+import 'package:ugao/components/rounded_drop_down.dart';
 
-class orderDetails extends StatefulWidget {
+class OrderDetails extends StatefulWidget {
   @override
-  final String orderID;
+  final Order order;
 
-  orderDetails({Key key, this.orderID}) : super(key: key);
-  _orderDetailsState createState() => _orderDetailsState(orderID: this.orderID);
+  OrderDetails({Key key, this.order}) : super(key: key);
+  _OrderDetailsState createState() => _OrderDetailsState(order);
 }
 
-class _orderDetailsState extends State<orderDetails> {
+class _OrderDetailsState extends State<OrderDetails> {
+  List<String> orderStatuses = [
+    "Placed",
+    "Confirmed",
+    "Shipped/Ready",
+    "Delivered/Picked Up",
+  ];
+  Order order;
+  String newStatus;
+
+  _OrderDetailsState(this.order);
+
   @override
-  User user;
-  String description = "Null";
-  //String userImagePath;
-  String orderID;
-  Order selectedOrder;
-
-  _orderDetailsState({Key key, String orderID}) {
-    this.orderID = orderID;
-  }
-
   Widget build(BuildContext context) {
-    Provider.of<General_Provider>(context, listen: false).fetch_orders();
-    List<Order> all_Orders =
-        Provider.of<General_Provider>(context, listen: false).orders;
-    for (var i = 0; i < all_Orders.length; i++) {
-      if (all_Orders[i].orderID == this.orderID) {
-        selectedOrder = all_Orders[i];
-        break;
-      }
-    }
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBarPageName(
         pageName: 'Order Details',
       ),
-      body: ListView.builder(
-        // =========== ORDER DETAILS =====================
-        itemCount: 1,
-        itemBuilder: (context, index) {
-          return (Card(
+      body: ListView(
+        children: [
+          Card(
             child: ListTile(
               // Leading Section
-              leading: new Image.network(
-                selectedOrder.product.prodImage,
-                width: 80.0,
-                height: 80.0,
-              ),
+              leading: (widget.order.product.prodImage == null)
+                  ? Text("No Image Found")
+                  : new Image.network(
+                      widget.order.product.prodImage,
+                      width: 80.0,
+                      height: 80.0,
+                    ),
               title: Expanded(
-                child: Text(
-                  "OrderID: \n" + selectedOrder.orderID,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                child: H3(
+                  textBody: "OrderID: \n" + widget.order.orderID,
                 ),
               ),
-              subtitle: new Column(
+              subtitle: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   //Row inside Column
-                  new Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 8.0),
-                        child: new Text("Service:"),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(2.0, 8.0, 10.0, 8.0),
-                        child: new Text(selectedOrder.service,
-                            style: TextStyle(color: Colors.green[300])),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 8.0),
-                        child: new Text("Payment:"),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 2.0, top: 8.0, bottom: 8.0),
-                        child: Expanded(
-                          child: new Text(selectedOrder.paymentMethod,
-                              style: TextStyle(color: Colors.green[300])),
-                        ),
-                      ),
-                    ],
-                  ),
-                  new Row(
-                    children: <Widget>[
-                      //qty of product
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0.0, 2.0, 0.0, 8.0),
-                        child: new Text("Quantity:"),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(2.0, 2.0, 5.0, 8.0),
-                        child: new Text(
-                          selectedOrder.productQuantity.toString(),
-                          style: TextStyle(color: Colors.green[300]),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(26.5, 2.0, 0.0, 8.0),
-                        child: new Text("Total Price:"),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(2.0, 2.0, 0.0, 8.0),
-                        child: new Text(
-                          (selectedOrder.productQuantity *
-                                  selectedOrder.product.price)
-                              .toString(),
-                          style: TextStyle(color: Colors.green[300]),
-                        ),
-                      ),
-                    ],
-                  ),
-                  new Row(
-                    children: <Widget>[
-                      Expanded(child: Text("Seller Address: Fetch Address")),
-                    ],
-                  ),
-                  new Row(
-                    children: <Widget>[
-                      Padding(padding: const EdgeInsets.all(4.0)),
-                    ],
-                  ),
-                  new Row(
-                    children: <Widget>[
-                      Expanded(
-                          child: Text("Seller Contact: Fetch Phone Number")),
-                    ],
-                  ),
-                  new Row(
-                    children: <Widget>[
-                      //price of product
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(2.0, 10.0, 0.0, 2.0),
-                        child: new Text(
-                          "Status: " + selectedOrder.status,
-                          style: TextStyle(
-                              fontSize: 17.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.green[300]),
-                        ),
-                      ),
-                    ],
-                  )
+                  Divider(),
+                  H3(textBody: "Service: " + widget.order.service),
+                  H3(textBody: "Payment: " + widget.order.paymentMethod),
+                  H3(
+                      textBody: "Quantity: " +
+                          widget.order.productQuantity.toString()),
+                  H3(
+                      textBody: "Total Price: PKR " +
+                          (widget.order.productQuantity *
+                                  widget.order.product.price)
+                              .toString()),
+                  H3(textBody: "Customer Address: " + widget.order.address),
+                  H3(textBody: "Status: " + widget.order.status),
+                  SizedBox(height: 10),
                 ],
               ),
             ),
-          ));
-        },
+          ),
+          SizedBox(height: 50),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 80),
+            child: ButtonLoading(
+              labelText: "Edit Status",
+              onTap: () {
+                Alert(
+                    context: context,
+                    title: "Select new status",
+                    style: AlertStyle(
+                      titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+                    ),
+                    content: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 10,
+                        ),
+                        RoundedDropDown(
+                          name: "Account Type",
+                          size: size,
+                          text: newStatus,
+                          value: newStatus,
+                          onChanged: (String value) {
+                            setState(() {
+                              newStatus = value;
+                            });
+                          },
+                          items: orderStatuses,
+                          icon: Icons.departure_board,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        ButtonLoading(
+                          onTap: () async {
+                            this.order.status = newStatus;
+                            order_Store(this.order);
+                            Alert(
+                                context: context,
+                                title: "Order Status updated",
+                                style: AlertStyle(
+                                  titleStyle:
+                                      H2TextStyle(color: kPrimaryAccentColor),
+                                ),
+                                content: Column(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    ButtonLoading(
+                                      onTap: () async {
+                                        Navigator.pop(context);
+                                        Navigator.pop(context);
+                                      },
+                                      labelText: 'OK',
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
+                                ),
+                                buttons: [
+                                  DialogButton(
+                                    color: Colors.white,
+                                    height: 0,
+                                  ),
+                                ]).show();
+                          },
+                          labelText: 'Update Status',
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
+                    buttons: [
+                      DialogButton(
+                        color: Colors.white,
+                        height: 0,
+                      ),
+                    ]).show();
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
