@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/components/already_have_an_account_acheck.dart';
-import 'package:ugao/components/rounded_button.dart';
+import 'package:ugao/components/button_loading.dart';
+import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/rounded_cnic_field.dart';
 import 'package:ugao/components/rounded_password_field.dart';
 import 'package:ugao/screens/dashboard/dashboard.dart';
@@ -12,10 +14,9 @@ import 'package:ugao/screens/dashboard/dashboard_supplier_screen.dart';
 import 'package:ugao/screens/signup/signup_screen.dart';
 
 import '../../constants.dart';
-import 'package:ugao/Classes/firebase_functions.dart';
+import 'package:ugao/Classes/Firebase_Functions.dart';
 import 'background.dart';
 import 'package:ugao/Classes/User_Model.dart';
-import 'package:ugao/components/rounded_alert_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -63,25 +64,38 @@ class _LoginScreenState extends State<LoginScreen> {
                   });
                 },
               ),
-              RoundedButton(
-                text: "LOGIN",
-                color: kPrimaryAccentColor,
-                textColor: Colors.white,
-                press: () async {
+              ButtonLoading(
+                labelText: "LOGIN",
+                onTap: () async {
                   if (cnic.length != 15) {
-                    showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (context) {
-                        return RoundedAlertDialog(
-                          title: "Invalid CNIC",
-                          buttonName: "OK",
-                          onButtonPressed: () {
-                            Navigator.pop(context);
-                          },
-                        );
-                      },
-                    );
+                    Alert(
+                        context: context,
+                        title: "Invalid CNIC",
+                        style: AlertStyle(
+                          titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+                        ),
+                        content: Column(
+                          children: <Widget>[
+                            SizedBox(
+                              height: 10,
+                            ),
+                            ButtonLoading(
+                              onTap: () async {
+                                Navigator.pop(context);
+                              },
+                              labelText: 'OK',
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
+                        buttons: [
+                          DialogButton(
+                            color: Colors.white,
+                            height: 0,
+                          ),
+                        ]).show();
                   } else {
                     User userDocument = await getUser(cnic);
                     if (userDocument != null) {
@@ -245,34 +259,64 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                         );
                       } else {
-                        showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (context) {
-                            return RoundedAlertDialog(
-                              title: "Incorrect password entered",
-                              buttonName: "OK",
-                              onButtonPressed: () {
-                                Navigator.pop(context);
-                              },
-                            );
-                          },
-                        );
+                        Alert(
+                            context: context,
+                            title: "Incorrect Password entered",
+                            style: AlertStyle(
+                              titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+                            ),
+                            content: Column(
+                              children: <Widget>[
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                ButtonLoading(
+                                  onTap: () async {
+                                    Navigator.pop(context);
+                                  },
+                                  labelText: 'OK',
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                            ),
+                            buttons: [
+                              DialogButton(
+                                color: Colors.white,
+                                height: 0,
+                              ),
+                            ]).show();
                       }
                     } else {
-                      showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (context) {
-                          return RoundedAlertDialog(
-                            title: "Invalid CNIC entered",
-                            buttonName: "OK",
-                            onButtonPressed: () {
-                              Navigator.pop(context);
-                            },
-                          );
-                        },
-                      );
+                      Alert(
+                          context: context,
+                          title: "Invalid CNIC",
+                          style: AlertStyle(
+                            titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+                          ),
+                          content: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: 10,
+                              ),
+                              ButtonLoading(
+                                onTap: () async {
+                                  Navigator.pop(context);
+                                },
+                                labelText: 'OK',
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                            ],
+                          ),
+                          buttons: [
+                            DialogButton(
+                              color: Colors.white,
+                              height: 0,
+                            ),
+                          ]).show();
                     }
                   }
                 },

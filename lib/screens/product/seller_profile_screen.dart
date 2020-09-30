@@ -1,37 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:ugao/Classes/User_Model.dart';
-import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/components/appbar.dart';
 import 'package:ugao/components/body_text.dart';
 import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/h3.dart';
-import 'package:ugao/constants.dart';
-import 'package:ugao/screens/profile/about_us.dart';
-import 'package:ugao/screens/profile/settings/general_settings_screen.dart';
-import 'faq_page.dart';
-import 'package:ugao/screens/order/myorders_screen.dart';
 
-// ignore: camel_case_types
-class Profile_Page_State extends StatefulWidget {
-  ProfilePage createState() => ProfilePage();
+import '../../constants.dart';
+
+class SellerProfileScreen extends StatefulWidget {
+  User userObj;
+
+  @override
+  _SellerProfileScreenState createState() => _SellerProfileScreenState();
+  SellerProfileScreen({
+    Key key,
+    this.userObj,
+  }) : super(key: key);
 }
 
-class ProfilePage extends State<Profile_Page_State> {
-  User user;
+class _SellerProfileScreenState extends State<SellerProfileScreen> {
   String description = "Null";
   String userImagePath;
   @override
   Widget build(BuildContext context) {
-    user = Provider.of<General_Provider>(context, listen: false).get_user();
-    if (user.usertype == FARMER) {
+    if (widget.userObj.usertype == FARMER) {
       userImagePath = "assets/icons/farmIcon.png";
     }
-    if (user.usertype == SUPPLIER) {
+    if (widget.userObj.usertype == SUPPLIER) {
       userImagePath = "assets/icons/supIcon.png";
     }
-    if (user.usertype == CUSTOMER) {
+    if (widget.userObj.usertype == CUSTOMER) {
       userImagePath = "assets/icons/custIcon.png";
     }
     Widget showCustomerCommercialDescription() {
@@ -41,15 +41,15 @@ class ProfilePage extends State<Profile_Page_State> {
         children: [
           H3(textBody: "Company Name:"),
           SizedBox(height: 5),
-          BodyText(textBody: this.user.customer.ccName),
+          BodyText(textBody: this.widget.userObj.customer.ccName),
           SizedBox(height: 10),
           H3(textBody: "Company Phone No:"),
           SizedBox(height: 5),
-          BodyText(textBody: this.user.customer.ccPhoneNumber),
+          BodyText(textBody: this.widget.userObj.customer.ccPhoneNumber),
           SizedBox(height: 10),
           H3(textBody: "Company Website:"),
           SizedBox(height: 5),
-          BodyText(textBody: this.user.customer.ccWebsite),
+          BodyText(textBody: this.widget.userObj.customer.ccWebsite),
           SizedBox(height: 10),
           H3(textBody: "Account Status:"),
           SizedBox(height: 5),
@@ -60,7 +60,7 @@ class ProfilePage extends State<Profile_Page_State> {
 
     // ignore: missing_return
     Widget showDesciption() {
-      if (user.usertype == FARMER) {
+      if (widget.userObj.usertype == FARMER) {
         return Padding(
           padding: const EdgeInsets.all(20.0),
           child: Row(
@@ -73,19 +73,19 @@ class ProfilePage extends State<Profile_Page_State> {
                   children: [
                     H3(textBody: "CNIC:"),
                     SizedBox(height: 5),
-                    BodyText(textBody: this.user.cnic),
+                    BodyText(textBody: "Verified"),
                     SizedBox(height: 10),
                     H3(textBody: "Account Type:"),
                     SizedBox(height: 5),
-                    BodyText(textBody: this.user.usertype),
+                    BodyText(textBody: this.widget.userObj.usertype),
                     SizedBox(height: 10),
                     H3(textBody: "Phone#:"),
                     SizedBox(height: 5),
-                    BodyText(textBody: user.phone_no),
+                    BodyText(textBody: widget.userObj.phone_no),
                     SizedBox(height: 10),
                     H3(textBody: "Address:"),
                     SizedBox(height: 5),
-                    BodyText(textBody: this.user.farmer.fAddress),
+                    BodyText(textBody: this.widget.userObj.farmer.fAddress),
                   ],
                 ),
               ),
@@ -95,15 +95,17 @@ class ProfilePage extends State<Profile_Page_State> {
                 children: [
                   H3(textBody: "Farming Experience:"),
                   SizedBox(height: 5),
-                  BodyText(textBody: this.user.farmer.fExperience + " years"),
+                  BodyText(
+                      textBody:
+                          this.widget.userObj.farmer.fExperience + " years"),
                   SizedBox(height: 10),
                   H3(textBody: "Catagory Type:"),
                   SizedBox(height: 5),
-                  BodyText(textBody: this.user.farmer.fCategory),
+                  BodyText(textBody: this.widget.userObj.farmer.fCategory),
                   SizedBox(height: 10),
                   H3(textBody: "Service Type:"),
                   SizedBox(height: 5),
-                  BodyText(textBody: this.user.farmer.fService),
+                  BodyText(textBody: this.widget.userObj.farmer.fService),
                   SizedBox(height: 10),
                   H3(textBody: "Account Status:"),
                   SizedBox(height: 5),
@@ -114,7 +116,7 @@ class ProfilePage extends State<Profile_Page_State> {
           ),
         );
       }
-      if (user.usertype == SUPPLIER) {
+      if (widget.userObj.usertype == SUPPLIER) {
         return Padding(
           padding: const EdgeInsets.all(20.0),
           child: Row(
@@ -126,19 +128,19 @@ class ProfilePage extends State<Profile_Page_State> {
                 children: [
                   H3(textBody: "CNIC:"),
                   SizedBox(height: 5),
-                  BodyText(textBody: this.user.cnic),
+                  BodyText(textBody: "Verified"),
                   SizedBox(height: 10),
                   H3(textBody: "Account Type:"),
                   SizedBox(height: 5),
-                  BodyText(textBody: this.user.usertype),
+                  BodyText(textBody: this.widget.userObj.usertype),
                   SizedBox(height: 10),
                   H3(textBody: "Phone#:"),
                   SizedBox(height: 5),
-                  BodyText(textBody: user.phone_no),
+                  BodyText(textBody: widget.userObj.phone_no),
                   SizedBox(height: 10),
                   H3(textBody: "Address:"),
                   SizedBox(height: 5),
-                  BodyText(textBody: this.user.supplier.sAddress),
+                  BodyText(textBody: this.widget.userObj.supplier.sAddress),
                 ],
               ),
               Column(
@@ -148,20 +150,31 @@ class ProfilePage extends State<Profile_Page_State> {
                   H3(textBody: "Work Experience:"),
                   SizedBox(height: 5),
                   BodyText(
-                    textBody: this.user.supplier.scExperience + " years",
+                    textBody:
+                        this.widget.userObj.supplier.scExperience + " years",
                   ),
                   SizedBox(height: 10),
                   H3(textBody: "Catagory Type:"),
                   SizedBox(height: 5),
-                  BodyText(textBody: this.user.supplier.scExperience),
+                  BodyText(textBody: this.widget.userObj.supplier.scExperience),
                   SizedBox(height: 10),
                   H3(textBody: "Service Type:"),
                   SizedBox(height: 5),
                   BodyText(
-                      textBody:
-                          this.user.supplier.sSelectedTypes.toString() != null
-                              ? this.user.supplier.sSelectedTypes.toString()
-                              : "Not Selected"),
+                      textBody: this
+                                  .widget
+                                  .userObj
+                                  .supplier
+                                  .sSelectedTypes
+                                  .toString() !=
+                              null
+                          ? this
+                              .widget
+                              .userObj
+                              .supplier
+                              .sSelectedTypes
+                              .toString()
+                          : "Not Selected"),
                   SizedBox(height: 10),
                   H3(textBody: "Account Status:"),
                   SizedBox(height: 5),
@@ -172,7 +185,7 @@ class ProfilePage extends State<Profile_Page_State> {
           ),
         );
       }
-      if (user.usertype == CUSTOMER) {
+      if (widget.userObj.usertype == CUSTOMER) {
         return Padding(
           padding: const EdgeInsets.all(20.0),
           child: Row(
@@ -184,22 +197,22 @@ class ProfilePage extends State<Profile_Page_State> {
                 children: [
                   H3(textBody: "CNIC:"),
                   SizedBox(height: 5),
-                  BodyText(textBody: this.user.cnic),
+                  BodyText(textBody: "Verified"),
                   SizedBox(height: 10),
                   H3(textBody: "Account Type:"),
                   SizedBox(height: 5),
-                  BodyText(textBody: this.user.usertype),
+                  BodyText(textBody: this.widget.userObj.usertype),
                   SizedBox(height: 10),
                   H3(textBody: "Phone#:"),
                   SizedBox(height: 5),
-                  BodyText(textBody: user.phone_no),
+                  BodyText(textBody: widget.userObj.phone_no),
                   SizedBox(height: 10),
                   H3(textBody: "Customer type:"),
                   SizedBox(height: 5),
-                  BodyText(textBody: this.user.customer.cAccountType),
+                  BodyText(textBody: this.widget.userObj.customer.cAccountType),
                 ],
               ),
-              this.user.customer.cAccountType == "Commercial"
+              this.widget.userObj.customer.cAccountType == "Commercial"
                   ? showCustomerCommercialDescription()
                   : SizedBox(height: 0),
             ],
@@ -208,33 +221,40 @@ class ProfilePage extends State<Profile_Page_State> {
       }
     }
 
-    Widget showOrder() {
-      if (user.usertype == CUSTOMER || user.usertype == FARMER) {
-        return Container(
-          child: Column(
-            children: [
-              ListTile(
-                title: Text('Orders'),
-                subtitle: Text('Check placed order statuses'),
-                leading: Icon(FontAwesomeIcons.thList),
-                trailing: Icon(Icons.chevron_right, color: kPrimaryLightColor),
-                onTap: () => Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (_) => MyOrders())),
-              ),
-              Divider(),
-            ],
-          ),
-        );
-      } else {
-        return SizedBox(
-          height: 0,
-        );
-      }
-    }
-
     return Scaffold(
       backgroundColor: Color(0xffF9F9F9),
-      appBar: AppBarPageName(pageName: ""),
+      appBar: AppBarPageName(pageName: "Seller Profile"),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(FontAwesomeIcons.comment),
+        backgroundColor: kPrimaryAccentColor,
+        onPressed: () {
+          //Comming soon alert
+          Alert(
+              context: context,
+              title: "Coming Soon",
+              style: AlertStyle(
+                titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+              ),
+              content: Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 10,
+                  ),
+                  H3(textBody: "Stay tuned for the next update :)"),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
+              buttons: [
+                DialogButton(
+                  color: Colors.white,
+                  height: 0,
+                ),
+              ]).show();
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
         top: true,
         child: SingleChildScrollView(
@@ -249,7 +269,7 @@ class ProfilePage extends State<Profile_Page_State> {
                 ),
                 Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: H2(textBody: this.user.fullName)),
+                    child: H2(textBody: this.widget.userObj.fullName)),
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 10.0),
                   decoration: BoxDecoration(
@@ -270,37 +290,6 @@ class ProfilePage extends State<Profile_Page_State> {
                   child: Center(
                     child: showDesciption(),
                   ),
-                ),
-                SizedBox(height: 5),
-                ListTile(
-                  title: Text('General Settings'),
-                  subtitle: Text('Change account details and logout'),
-                  leading: Icon(FontAwesomeIcons.userCog),
-                  trailing:
-                      Icon(Icons.chevron_right, color: kPrimaryLightColor),
-                  onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => SettingsScreen())),
-                ),
-                Divider(),
-                showOrder(),
-                ListTile(
-                  title: Text('FAQ'),
-                  subtitle: Text('Questions and Answer'),
-                  leading: Icon(FontAwesomeIcons.solidQuestionCircle),
-                  trailing:
-                      Icon(Icons.chevron_right, color: kPrimaryLightColor),
-                  onTap: () => Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (_) => FaqScreen())),
-                ),
-                Divider(),
-                ListTile(
-                  title: Text('About Us'),
-                  subtitle: Text('Get to know Vectech'),
-                  leading: Icon(FontAwesomeIcons.building),
-                  trailing:
-                      Icon(Icons.chevron_right, color: kPrimaryLightColor),
-                  onTap: () => Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (_) => About())),
                 ),
                 Divider(),
               ],

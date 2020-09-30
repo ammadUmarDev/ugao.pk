@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:ugao/Classes/User_Model.dart';
-import 'package:ugao/Classes/firebase_functions.dart';
+import 'package:ugao/Classes/Firebase_Functions.dart';
 import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/components/appbar.dart';
 import 'package:ugao/components/body_text.dart';
@@ -76,9 +76,7 @@ class Security_Settings extends State<Security_Settings_State> {
                             height: 10,
                           ),
                           ButtonLoading(
-                            onTap: (startLoading, stopLoading, btnState) async {
-                              //Add code here
-
+                            onTap: () async {
                               var check = await changePassword(
                                   u, this.new_password, this.oldPassword);
                               if (check == true) {
@@ -97,10 +95,8 @@ class Security_Settings extends State<Security_Settings_State> {
                                 Navigator.pop(context);
                                 _scaffoldKey.currentState.showSnackBar(sc);
                               } else {
-                                stopLoading();
                                 Navigator.pop(context);
                                 print("Not Entered");
-                                stopLoading();
                               }
                             },
                             labelText: 'SAVE',

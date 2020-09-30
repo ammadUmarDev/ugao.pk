@@ -13,7 +13,7 @@ class H2TextStyle extends TextStyle {
 class H2 extends StatelessWidget {
   H2({
     this.textBody,
-    this.color,
+    this.color = kPrimaryAccentColor,
   });
   final String textBody;
   final Color color;

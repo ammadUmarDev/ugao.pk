@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ugao/components/button_loading.dart';
 import 'package:ugao/components/rounded_button.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
@@ -124,9 +125,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               bottom: bottomPadding != 20 ? 20 : bottomPadding),
                           width: width,
                           child: Center(
-                            child: RoundedButton(
-                              text: "Change Password",
-                              press: () {},
+                            child: ButtonLoading(
+                              labelText: "Change Password",
+                              onTap: () {
+                                //TODO: implement change password functionality
+                              },
                             ),
                           ),
                         ),

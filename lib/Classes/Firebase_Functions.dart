@@ -154,6 +154,11 @@ Future<String> upload_file(File file /*, BuildContext context*/) async {
   return fileURL;
 }
 
+Future<bool> deleteProduct(String productID)async {
+  await Firestore.instance.collection('Products').document(productID).delete();
+  return true;
+}
+
 Future<bool> add_a_product(Product product, User currentUser) async {
   Firestore firestore = Firestore.instance;
   String imageURL;
@@ -207,7 +212,6 @@ Future<bool> update_product(ProductFetch product) async {
 /*retrieves firebase User document*/
 Future<User> getUser(String entered_cnic) async {
   Firestore firestore = Firestore.instance;
-  print("in login_up " + entered_cnic.toString());
   var snapshot =
       await firestore.collection('Users').document(entered_cnic).get();
   if (snapshot.data != null) {

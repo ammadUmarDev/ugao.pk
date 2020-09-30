@@ -1,9 +1,11 @@
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:ugao/Classes/Product_Model_Fetch.dart';
+import 'package:ugao/Classes/User_Model.dart';
 import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/components/appbar.dart';
 import 'package:ugao/components/body_text.dart';
@@ -14,16 +16,19 @@ import 'package:ugao/components/h3.dart';
 import 'package:ugao/components/rounded_drop_down.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/constants.dart';
+import 'package:ugao/screens/product/seller_profile_screen.dart';
 
 import 'background_view_product.dart';
+import 'category_list_screen.dart';
 
 class ViewProduct extends StatefulWidget {
   ProductFetch productObj;
-  Future<dynamic> creatorUserObj;
+  User userObj;
 
   ViewProduct({
     Key key,
     this.productObj,
+    this.userObj,
   }) : super(key: key);
 
   @override
@@ -44,7 +49,8 @@ class _ViewProductState extends State<ViewProduct> {
 
   @override
   Widget build(BuildContext context) {
-    int cartQuantity = 0;String serviceType;
+    int cartQuantity = 0;
+    String serviceType;
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Colors.white,
@@ -145,7 +151,9 @@ class _ViewProductState extends State<ViewProduct> {
                                             value: serviceType,
                                             onChanged: (String value) {
                                               setState(() {
-                                                serviceType = value;if (serviceType.isEmpty)serviceType=null;
+                                                serviceType = value;
+                                                if (serviceType.isEmpty)
+                                                  serviceType = null;
                                               });
                                             },
                                             items: sTypes,
@@ -155,22 +163,17 @@ class _ViewProductState extends State<ViewProduct> {
                                             height: 15,
                                           ),
                                           ButtonLoading(
-                                            onTap: (startLoading, stopLoading,
-                                                btnState) async {
-                                              if (btnState ==
-                                                  ButtonState.Idle) {
-                                                //TODO: add to cart
-                                                print(cartQuantity);
-                                                print(serviceType);
-                                                startLoading();
-                                                Provider.of<General_Provider>(context,
-                                                    listen: false)
-                                                    .addToCart(widget.productObj,cartQuantity,serviceType);
-                                                Navigator.pop(context);
-                                                stopLoading();
-                                              } else {
-                                                stopLoading();
-                                              }
+                                            onTap: () async {
+                                              print(cartQuantity);
+                                              print(serviceType);
+                                              Provider.of<General_Provider>(
+                                                      context,
+                                                      listen: false)
+                                                  .addToCart(
+                                                      widget.productObj,
+                                                      cartQuantity,
+                                                      serviceType);
+                                              Navigator.pop(context);
                                             },
                                             labelText: 'Add Product',
                                           ),
@@ -216,29 +219,62 @@ class _ViewProductState extends State<ViewProduct> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      vertical: 15.0, horizontal: 24.0),
-                  child: H2(
-                    textBody: "Seller Information:",
+                      vertical: 10, horizontal: 20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      H2(
+                        textBody: "Seller Information:",
+                      ),
+                      InkWell(
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: kPrimaryLightColor,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(24))),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0, vertical: 8.0),
+                          child: Text(
+                            'View Seller Profile',
+                            style: TextStyle(
+                                color: kPrimaryAccentColor,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  SellerProfileScreen(userObj: widget.userObj),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      vertical: 0.0, horizontal: 24.0),
+                      vertical: 0.0, horizontal: 18.0),
                   child: BodyText(
-                    textBody:
-                        "TODO: Take creator id from product object and fetch user doc. Show seller info and pass user object to view seller info page.",
+                    textBody: "Sold by: " +
+                        widget.userObj.fullName +
+                        "\n" +
+                        "Contact: " +
+                        widget.userObj.phone_no,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      vertical: 15.0, horizontal: 24.0),
+                      vertical: 15.0, horizontal: 18.0),
                   child: H2(
                     textBody: "Product Description:",
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      vertical: 0.0, horizontal: 24.0),
+                      vertical: 0.0, horizontal: 18.0),
                   child: BodyText(
                     textBody: widget.productObj.prodDesc,
                   ),

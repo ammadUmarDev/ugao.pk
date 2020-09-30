@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:ugao/Classes/Order_Model.dart';
+import 'package:ugao/Providers/general_provider.dart';
 
 //my imports
 import 'package:ugao/components/appbar.dart';
@@ -21,6 +23,7 @@ class _OrderConfirmedScreenState extends State<OrderConfirmedScreen> {
   _OrderConfirmedScreenState({Key key, String add}) {
     //this.orderObj.address = add;
     this.add = add;
+    Provider.of<General_Provider>(context, listen: false).clearCart();
   }
 
   @override

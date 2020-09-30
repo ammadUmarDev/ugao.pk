@@ -4,14 +4,15 @@ import 'package:provider/provider.dart';
 import 'package:ugao/Classes/Product_Model_Upload.dart';
 import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/components/appbar.dart';
-import 'package:ugao/components/rounded_alert_dialog.dart';
-import 'package:ugao/components/rounded_button.dart';
+import 'package:ugao/components/button_loading.dart';
+import 'package:ugao/components/h2.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:ugao/components/rounded_drop_down.dart';
 import 'package:ugao/components/rounded_image_picker.dart';
 import 'package:ugao/constants.dart';
 
 import '../../components/rounded_input_field.dart';
-import 'package:ugao/Classes/firebase_functions.dart';
+import 'package:ugao/Classes/Firebase_Functions.dart';
 
 import 'my_products_screen.dart';
 
@@ -187,11 +188,9 @@ class _AddProductState extends State<AddProduct> {
                     icon: Icons.departure_board,
                   ),
                   //product.prodImage == null ? Container() : Image.file(product.prodImage),
-                  RoundedButton(
-                    text: "Add Product",
-                    textColor: Colors.white,
-                    color: kPrimaryAccentColor,
-                    press: () async {
+                  ButtonLoading(
+                    labelText: "Add Product",
+                    onTap: () async {
                       String nullField = product.get_null_field();
                       print("nullField");
                       print(nullField);
@@ -202,25 +201,43 @@ class _AddProductState extends State<AddProduct> {
                                     listen: false)
                                 .get_user());
                         if (check == true) {
-                          this.product.printf();
-                          showDialog(
-                            context: context,
-                            builder: (context) => RoundedAlertDialog(
+                          Alert(
+                              context: context,
                               title: "Product added successfully",
-                              buttonName: "OK",
-                              onButtonPressed: () {
-                                Navigator.pop(context);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return MyProductsSeller();
-                                    },
+                              style: AlertStyle(
+                                titleStyle:
+                                    H2TextStyle(color: kPrimaryAccentColor),
+                              ),
+                              content: Column(
+                                children: <Widget>[
+                                  SizedBox(
+                                    height: 10,
                                   ),
-                                );
-                              },
-                            ),
-                          );
+                                  ButtonLoading(
+                                    onTap: () async {
+                                      Navigator.pop(context);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) {
+                                            return MyProductsSeller();
+                                          },
+                                        ),
+                                      );
+                                    },
+                                    labelText: 'OK',
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                ],
+                              ),
+                              buttons: [
+                                DialogButton(
+                                  color: Colors.white,
+                                  height: 0,
+                                ),
+                              ]).show();
                         }
                       } else {
                         final String content =
@@ -228,17 +245,36 @@ class _AddProductState extends State<AddProduct> {
                                     nullField +
                                     ' is not set.')
                                 .toString();
-                        showDialog(
-                          context: context,
-                          builder: (context) => RoundedAlertDialog(
+                        Alert(
+                            context: context,
                             title: content,
-                            buttonName: "OK",
-                            onButtonPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        );
-                        return false; //TODO: add warning message that a field has not been set
+                            style: AlertStyle(
+                              titleStyle:
+                                  H2TextStyle(color: kPrimaryAccentColor),
+                            ),
+                            content: Column(
+                              children: <Widget>[
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                ButtonLoading(
+                                  onTap: () async {
+                                    Navigator.pop(context);
+                                  },
+                                  labelText: 'OK',
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                            ),
+                            buttons: [
+                              DialogButton(
+                                color: Colors.white,
+                                height: 0,
+                              ),
+                            ]).show();
+                        return false;
                       }
                     },
                   ),

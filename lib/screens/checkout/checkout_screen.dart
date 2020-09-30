@@ -6,20 +6,18 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:ugao/Classes/Cart_Product_Model.dart';
+import 'package:ugao/Classes/Firebase_Functions.dart';
 import 'package:ugao/Classes/Order_Model.dart';
 import 'package:ugao/Providers/general_provider.dart';
-import 'package:ugao/Classes/firebase_functions.dart';
-// my own imports
 import 'package:ugao/components/appbar.dart';
 import 'package:ugao/components/body_text.dart';
-import 'package:ugao/components/h1.dart';
 import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/h3.dart';
-import 'package:ugao/components/rounded_button.dart';
-import 'package:ugao/screens/dashboard/components/main_background.dart';
-import '../../constants.dart';
 import 'package:ugao/components/rounded_input_field.dart';
+import 'package:ugao/screens/dashboard/components/main_background.dart';
 import 'package:ugao/screens/order/order_confirmed.dart';
+
+import '../../constants.dart';
 
 class CheckoutScreen extends StatefulWidget {
   @override
@@ -230,13 +228,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       order_Store(orderobj);
                     }
                   }
-
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => OrderConfirmedScreen(
-                            orderAddress: this.new_address)),
-                  );
                 } else {
                   Order orderobj = Order();
                   var user =

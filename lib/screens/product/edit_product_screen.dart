@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:ugao/Classes/Product_Model_Fetch.dart';
-import 'package:ugao/Classes/firebase_functions.dart';
+import 'package:ugao/Classes/Firebase_Functions.dart';
 import 'package:ugao/components/appbar.dart';
 import 'package:ugao/components/body_text.dart';
 import 'package:ugao/components/button_loading.dart';
@@ -116,6 +116,91 @@ class _EditProductState extends State<EditProduct> {
                               ),
                               SizedBox(
                                 height: 30,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 24.0),
+                                child: ButtonLoading(
+                                    onTap: () {
+                                      Alert(
+                                          context: context,
+                                          title:
+                                              "Are you sure you want to DELETE this product?",
+                                          style: AlertStyle(
+                                            titleStyle: H2TextStyle(
+                                                color: kPrimaryAccentColor),
+                                          ),
+                                          content: Column(
+                                            children: <Widget>[
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              ButtonLoading(
+                                                onTap: () async {
+                                                  if (await deleteProduct(widget
+                                                      .productObj.documentID)) {
+                                                    Alert(
+                                                        context: context,
+                                                        title:
+                                                            "Product deleted successfully",
+                                                        style: AlertStyle(
+                                                          titleStyle: H2TextStyle(
+                                                              color:
+                                                                  kPrimaryAccentColor),
+                                                        ),
+                                                        content: Column(
+                                                          children: <Widget>[
+                                                            SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            ButtonLoading(
+                                                              onTap: () async {
+                                                                Navigator.pop(
+                                                                    context);
+                                                                Navigator.pop(
+                                                                    context);
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              labelText: 'OK',
+                                                            ),
+                                                            SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        buttons: [
+                                                          DialogButton(
+                                                            color: Colors.white,
+                                                            height: 0,
+                                                          ),
+                                                        ]).show();
+                                                  }
+                                                },
+                                                labelText: 'YES',
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              ButtonLoading(
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                labelText: 'NO',
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                            ],
+                                          ),
+                                          buttons: [
+                                            DialogButton(
+                                              color: Colors.white,
+                                              height: 0,
+                                            ),
+                                          ]).show();
+                                    },
+                                    labelText: "Delete Product"),
                               ),
                             ],
                           ),

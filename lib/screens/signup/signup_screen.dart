@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ugao/components/button_loading.dart';
+import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/rounded_cnic_field.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/rounded_password_field.dart';
@@ -6,11 +8,10 @@ import 'package:ugao/components/rounded_phone_input_field.dart';
 import 'background.dart';
 import 'package:ugao/Screens/Login/login_screen.dart';
 import 'package:ugao/components/already_have_an_account_acheck.dart';
-import 'package:ugao/components/rounded_button.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:ugao/constants.dart';
 import 'package:ugao/screens/signupfollowup/signup_screen_followup.dart';
-import 'package:ugao/Classes/firebase_functions.dart';
-import 'package:ugao/components/rounded_alert_dialog.dart';
+import 'package:ugao/Classes/Firebase_Functions.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -120,40 +121,68 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ],
                 ),
               ),
-              RoundedButton(
-                text: "NEXT",
-                color: kPrimaryAccentColor,
-                textColor: Colors.white,
-                press: () async {
+              ButtonLoading(
+                labelText: "NEXT",
+                onTap: () async {
                   if (phone_no.length != 13) {
-                    showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (context) {
-                        return RoundedAlertDialog(
-                          title: "Invalid Phone No",
-                          buttonName: "OK",
-                          onButtonPressed: () {
-                            Navigator.pop(context);
-                          },
-                        );
-                      },
-                    );
+                    Alert(
+                        context: context,
+                        title: "Invalid Phone No",
+                        style: AlertStyle(
+                          titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+                        ),
+                        content: Column(
+                          children: <Widget>[
+                            SizedBox(
+                              height: 10,
+                            ),
+                            ButtonLoading(
+                              onTap: () async {
+                                Navigator.pop(context);
+                              },
+                              labelText: 'OK',
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
+                        buttons: [
+                          DialogButton(
+                            color: Colors.white,
+                            height: 0,
+                          ),
+                        ]).show();
                   } else {
                     if (cnic.length != 15) {
-                      showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (context) {
-                          return RoundedAlertDialog(
-                            title: "Invalid CNIC",
-                            buttonName: "OK",
-                            onButtonPressed: () {
-                              Navigator.pop(context);
-                            },
-                          );
-                        },
-                      );
+                      Alert(
+                          context: context,
+                          title: "Invalid CNIC",
+                          style: AlertStyle(
+                            titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+                          ),
+                          content: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: 10,
+                              ),
+                              ButtonLoading(
+                                onTap: () async {
+                                  Navigator.pop(context);
+                                },
+                                labelText: 'OK',
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                            ],
+                          ),
+                          buttons: [
+                            DialogButton(
+                              color: Colors.white,
+                              height: 0,
+                            ),
+                          ]).show();
                     } else {
                       //Navigator.pushNamed(context, "signupPageFollowup");
                       if ((await checkUniquenessOfCNIC(cnic) &&
@@ -166,34 +195,64 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             password.isEmpty ||
                             typeUser.isEmpty ||
                             phone_no.isEmpty) {
-                          showDialog(
-                            context: context,
-                            barrierDismissible: false,
-                            builder: (context) {
-                              return RoundedAlertDialog(
-                                title: "Please fill all fields",
-                                onButtonPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              );
-                            },
-                          );
+                          Alert(
+                              context: context,
+                              title: "Please fill all fields",
+                              style: AlertStyle(
+                                titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+                              ),
+                              content: Column(
+                                children: <Widget>[
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  ButtonLoading(
+                                    onTap: () async {
+                                      Navigator.pop(context);
+                                    },
+                                    labelText: 'OK',
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                ],
+                              ),
+                              buttons: [
+                                DialogButton(
+                                  color: Colors.white,
+                                  height: 0,
+                                ),
+                              ]).show();
                         } else {
                           if (password.length <= 6) {
-                            showDialog(
-                              context: context,
-                              barrierDismissible: false,
-                              builder: (context) {
-                                return RoundedAlertDialog(
-                                  title:
-                                      "Password length must be greater than 6 digits",
-                                  buttonName: "OK",
-                                  onButtonPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                );
-                              },
-                            );
+                            Alert(
+                                context: context,
+                                title: "Password length must be greater than 6 digits",
+                                style: AlertStyle(
+                                  titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+                                ),
+                                content: Column(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    ButtonLoading(
+                                      onTap: () async {
+                                        Navigator.pop(context);
+                                      },
+                                      labelText: 'OK',
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
+                                ),
+                                buttons: [
+                                  DialogButton(
+                                    color: Colors.white,
+                                    height: 0,
+                                  ),
+                                ]).show();
                           } else {
                             Navigator.push(
                               context,
@@ -210,19 +269,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           }
                         }
                       } else {
-                        showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (context) {
-                            return RoundedAlertDialog(
-                              title: "CNIC or Phone No is not unique",
-                              buttonName: "OK",
-                              onButtonPressed: () {
-                                Navigator.pop(context);
-                              },
-                            );
-                          },
-                        );
+                        Alert(
+                            context: context,
+                            title: "CNIC or Phone No is not unique",
+                            style: AlertStyle(
+                              titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+                            ),
+                            content: Column(
+                              children: <Widget>[
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                ButtonLoading(
+                                  onTap: () async {
+                                    Navigator.pop(context);
+                                  },
+                                  labelText: 'OK',
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                            ),
+                            buttons: [
+                              DialogButton(
+                                color: Colors.white,
+                                height: 0,
+                              ),
+                            ]).show();
                       }
                     }
                   }
