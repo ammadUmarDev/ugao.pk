@@ -13,32 +13,7 @@ class General_Provider extends ChangeNotifier {
   User user;
   FirebaseUser firebaseUser;
   List<Order> orders = [];
-  List<CartProduct> cart = [
-    /*CartProduct(
-        product: ProductFetch(
-            prodName: "Green Up Lawn Fertilizer",
-            prodImage:
-                "https://firebasestorage.googleapis.com/v0/b/ugao-58f32.appspot.com/o/data%2Fuser%2F0%2Fcom.vectech.ugao%2Fcache%2Fimage_picker2573009106067769771.jpg?alt=media&token=06f7a0c2-7cfb-4855-9b3b-3246e710331d",
-            price: 4000),
-        quantity: 5,
-        serviceType: "Delivery"),
-    CartProduct(
-        product: ProductFetch(
-            prodName: "Green Up Lawn Fertilizer",
-            prodImage:
-                "https://firebasestorage.googleapis.com/v0/b/ugao-58f32.appspot.com/o/data%2Fuser%2F0%2Fcom.vectech.ugao%2Fcache%2Fimage_picker2573009106067769771.jpg?alt=media&token=06f7a0c2-7cfb-4855-9b3b-3246e710331d",
-            price: 4000),
-        quantity: 2,
-        serviceType: "Pickup"),
-    CartProduct(
-        product: ProductFetch(
-            prodName: "Green Up Lawn Fertilizer",
-            prodImage:
-                "https://firebasestorage.googleapis.com/v0/b/ugao-58f32.appspot.com/o/data%2Fuser%2F0%2Fcom.vectech.ugao%2Fcache%2Fimage_picker2573009106067769771.jpg?alt=media&token=06f7a0c2-7cfb-4855-9b3b-3246e710331d",
-            price: 4000),
-        quantity: 5,
-        serviceType: "Delivery"),*/
-  ];
+  List<CartProduct> cart = [];
 
   CartProduct getCartProduct(int index) {
     return cart[index];
@@ -62,6 +37,10 @@ class General_Provider extends ChangeNotifier {
   void addToCart(ProductFetch product, int quantity, String serviceType) {
     this.cart.add(CartProduct(
         product: product, quantity: quantity, serviceType: serviceType));
+  }
+
+  void clearCart() {
+    this.cart.clear();
   }
 
   void set_user(User u) {
