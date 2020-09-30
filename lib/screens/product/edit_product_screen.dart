@@ -11,6 +11,7 @@ import 'package:ugao/components/h1.dart';
 import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/h3.dart';
 import 'package:ugao/components/rounded_drop_down.dart';
+import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/shadowBoxList.dart';
 import 'package:ugao/constants.dart';
 
@@ -241,29 +242,27 @@ class _EditProductState extends State<EditProduct> {
                             SizedBox(
                               height: 10,
                             ),
-                            TextField(
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: "Enter new Product Name"),
-                              onChanged: (value) => {newPName = value},
+                            RoundedInputField(
+                              hintText: "Enter new Product Name",
+                              onChanged: (value) {
+                                newPName = value;
+                              },
                             ),
-                            TextField(
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: "Enter new Product Description"),
-                              onChanged: (value) => {newPDesc = value},
+                            RoundedInputField(
+                              hintText: "Enter new Product Description",
+                              onChanged: (value) {
+                                newPDesc = value;
+                              },
                             ),
-                            TextField(
+                            RoundedInputField(
+                              hintText: "Enter new Product Quantity",
                               keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: "Enter new Product Quantity"),
-                              onChanged: (value) => {
+                              onChanged: (value) {
                                 newPQuan = (value == null || value.isEmpty)
                                     ? widget.productObj.quantity
                                     : int.parse(
                                         value //TODO: add onError for robustness
-                                        )
+                                        );
                               },
                             ),
                             RoundedDropDown(
@@ -374,17 +373,15 @@ class _EditProductState extends State<EditProduct> {
                               },
                               items: pTypes,
                             ),
-                            TextField(
+                            RoundedInputField(
+                              hintText: "Enter new Product Price",
                               keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: "Enter new Product Price"),
-                              onChanged: (value) => {
+                              onChanged: (value) {
                                 newPPrice = (value == null || value.isEmpty)
                                     ? widget.productObj.price
                                     : int.parse(
                                         value //TODO: add onError for robustness
-                                        )
+                                        );
                               },
                             ),
                             SizedBox(
@@ -473,17 +470,15 @@ class _EditProductState extends State<EditProduct> {
                               },
                               items: wUnits,
                             ),
-                            TextField(
+                            RoundedInputField(
+                              hintText: "Enter new Product Weight",
                               keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: "Enter new Product Weight"),
-                              onChanged: (value) => {
+                              onChanged: (value) {
                                 newPWeight = (value == null || value.isEmpty)
                                     ? widget.productObj.weight
                                     : int.parse(
                                         value //TODO: add onError for robustness
-                                        )
+                                        );
                               },
                             ),
                             SizedBox(
