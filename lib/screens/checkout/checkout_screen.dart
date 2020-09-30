@@ -6,6 +6,7 @@ import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/Classes/firebase_functions.dart';
 // my own imports
 import 'package:ugao/components/appbar.dart';
+import 'package:ugao/components/button_loading.dart';
 import 'package:ugao/components/rounded_button.dart';
 import '../../constants.dart';
 import 'package:ugao/components/rounded_input_field.dart';
@@ -41,21 +42,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               ),
             ),
             SizedBox(height: size.height * 0.11),
-            RoundedButton(
-              color: kPrimaryLightColor,
-              text: "Default Address",
-              textColor: Colors.white,
-              press: () {
+            ButtonLoading(
+              labelText: "Default Address",
+              onTap: () {
                 setState(() {
                   this.new_add_check = false;
                 });
               },
             ),
-            RoundedButton(
-              color: kPrimaryLightColor,
-              text: "Add New Address",
-              textColor: Colors.white,
-              press: () {
+            SizedBox(height: 10),
+            ButtonLoading(
+              labelText: "Add New Address",
+              onTap: () {
                 setState(() {
                   this.new_add_check = true;
                 });

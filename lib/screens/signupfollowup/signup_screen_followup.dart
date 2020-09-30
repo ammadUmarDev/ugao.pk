@@ -7,6 +7,7 @@ import 'package:ugao/Classes/Supplier_Model.dart';
 import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/Screens/Login/login_screen.dart';
 import 'package:ugao/components/already_have_an_account_acheck.dart';
+import 'package:ugao/components/button_loading.dart';
 import 'package:ugao/components/h1.dart';
 import 'package:ugao/components/rounded_button.dart';
 import 'package:ugao/components/rounded_input_field.dart';
@@ -17,7 +18,7 @@ import 'package:ugao/screens/dashboard/dashboard_supplier_screen.dart';
 
 import 'background.dart';
 import 'package:ugao/Classes/User_Model.dart';
-import 'package:ugao/Classes/firebase_functions.dart';
+import 'package:ugao/Classes/Firebase_Functions.dart';
 import 'package:ugao/components/rounded_alert_dialog.dart';
 import 'package:ugao/screens/dashboard/dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -76,11 +77,9 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    Widget signupButton = RoundedButton(
-      text: "SIGNUP",
-      color: kPrimaryAccentColor,
-      textColor: Colors.white,
-      press: () async {
+    Widget signupButton = ButtonLoading(
+      labelText: "SIGNUP",
+      onTap: () async {
         User user = User(
           cnic: widget.cnic,
           pass: widget.password,

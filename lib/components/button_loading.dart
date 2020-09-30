@@ -5,12 +5,11 @@ import 'package:ugao/constants.dart';
 
 import 'h3.dart';
 
-// ignore: must_be_immutable
 class ButtonLoading extends StatefulWidget {
   ButtonLoading({@required this.onTap, @required this.labelText});
 
-  dynamic Function(Function, Function, ButtonState) onTap;
-  String labelText;
+  final Function onTap;
+  final String labelText;
 
   @override
   _ButtonLoadingState createState() => _ButtonLoadingState();
@@ -23,7 +22,13 @@ class _ButtonLoadingState extends State<ButtonLoading> {
       height: 45,
       roundLoadingShape: true,
       width: MediaQuery.of(context).size.width * 0.45,
-      onTap: widget.onTap,
+      onTap: (startLoading, stopLoading, btnState) async {
+        if (btnState == ButtonState.Idle) {
+          startLoading();
+          widget.onTap();
+          stopLoading();
+        }
+      },
       child: Text(widget.labelText,
           style: H3TextStyle(color: kPrimaryAccentColor)),
       loader: Container(

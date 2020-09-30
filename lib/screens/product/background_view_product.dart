@@ -20,7 +20,7 @@ class Background_VP extends StatelessWidget {
           Positioned(
             bottom: 0,
             child: Image.asset(
-              "assets/images/bp9.png",
+              "assets/images/bp6.png",
               width: size.width,
             ),
           ),

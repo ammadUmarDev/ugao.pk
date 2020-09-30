@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ugao/components/button_loading.dart';
 import 'package:ugao/components/rounded_cnic_field.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/rounded_password_field.dart';
@@ -9,7 +10,7 @@ import 'package:ugao/components/already_have_an_account_acheck.dart';
 import 'package:ugao/components/rounded_button.dart';
 import 'package:ugao/constants.dart';
 import 'package:ugao/screens/signupfollowup/signup_screen_followup.dart';
-import 'package:ugao/Classes/firebase_functions.dart';
+import 'package:ugao/Classes/Firebase_Functions.dart';
 import 'package:ugao/components/rounded_alert_dialog.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -120,11 +121,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ],
                 ),
               ),
-              RoundedButton(
-                text: "NEXT",
-                color: kPrimaryAccentColor,
-                textColor: Colors.white,
-                press: () async {
+              ButtonLoading(
+                labelText: "NEXT",
+                onTap: () async {
                   if (phone_no.length != 13) {
                     showDialog(
                       context: context,

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:ugao/Classes/Product_Model_Upload.dart';
 import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/components/appbar.dart';
+import 'package:ugao/components/button_loading.dart';
 import 'package:ugao/components/rounded_alert_dialog.dart';
 import 'package:ugao/components/rounded_button.dart';
 import 'package:ugao/components/rounded_drop_down.dart';
@@ -11,7 +12,7 @@ import 'package:ugao/components/rounded_image_picker.dart';
 import 'package:ugao/constants.dart';
 
 import '../../components/rounded_input_field.dart';
-import 'package:ugao/Classes/firebase_functions.dart';
+import 'package:ugao/Classes/Firebase_Functions.dart';
 
 import 'my_products_screen.dart';
 
@@ -187,11 +188,9 @@ class _AddProductState extends State<AddProduct> {
                     icon: Icons.departure_board,
                   ),
                   //product.prodImage == null ? Container() : Image.file(product.prodImage),
-                  RoundedButton(
-                    text: "Add Product",
-                    textColor: Colors.white,
-                    color: kPrimaryAccentColor,
-                    press: () async {
+                  ButtonLoading(
+                    labelText: "Add Product",
+                    onTap: () async {
                       String nullField = product.get_null_field();
                       print("nullField");
                       print(nullField);

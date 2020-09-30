@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
-import 'package:ugao/Classes/greet_card.dart';
+import 'package:ugao/components/greet_card.dart';
 import 'package:ugao/Providers/product_provider.dart';
 import 'package:ugao/components/category_display.dart';
 import 'package:ugao/components/grid_tile_product.dart';
@@ -191,8 +191,34 @@ class _DashboardCustomerScreenState extends State<DashboardCustomerScreen> {
           Row(
             children: [
               IconButton(
-                  onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => TutorialScreen())),
+                  onPressed: () {
+                    //Comming soon alert
+//                    Alert(
+//                        context: context,
+//                        title: "Coming Soon",
+//                        style: AlertStyle(
+//                          titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+//                        ),
+//                        content: Column(
+//                          children: <Widget>[
+//                            SizedBox(
+//                              height: 10,
+//                            ),
+//                            H3(textBody: "Stay tuned for the next update :)"),
+//                            SizedBox(
+//                              height: 10,
+//                            ),
+//                          ],
+//                        ),
+//                        buttons: [
+//                          DialogButton(
+//                            color: Colors.white,
+//                            height: 0,
+//                          ),
+//                        ]).show();
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => Tutorial_Screen()));
+                  },
                   icon: Icon(
                     Icons.live_tv,
                     size: 30,

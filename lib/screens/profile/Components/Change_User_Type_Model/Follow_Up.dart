@@ -7,8 +7,9 @@ import 'package:ugao/Classes/Customer_Model.dart';
 import 'package:ugao/Classes/Farmer_Model.dart';
 import 'package:ugao/Classes/Supplier_Model.dart';
 import 'package:ugao/Classes/User_Model.dart';
-import 'package:ugao/Classes/firebase_functions.dart';
+import 'package:ugao/Classes/Firebase_Functions.dart';
 import 'package:ugao/Providers/general_provider.dart';
+import 'package:ugao/components/button_loading.dart';
 import 'package:ugao/components/h1.dart';
 import 'package:ugao/components/rounded_alert_dialog.dart';
 import 'package:ugao/components/rounded_button.dart';
@@ -70,9 +71,9 @@ class Change_User_Type_FollowUp extends State<Change_User_Type_FollowUp_State> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    Widget signupButton = RoundedButton(
-      text: "Update",
-      press: () async {
+    Widget signupButton = ButtonLoading(
+      labelText: "Update",
+      onTap: () async {
         User user = User(
           cnic: widget.cnic,
           pass: widget.password,

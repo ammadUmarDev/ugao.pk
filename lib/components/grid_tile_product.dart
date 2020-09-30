@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:ugao/Classes/Firebase_Functions.dart';
 import 'package:ugao/Classes/Product_Model_Fetch.dart';
 import 'package:ugao/components/body_text.dart';
 import 'package:ugao/components/h3.dart';
@@ -20,16 +22,19 @@ class GridTileProduct extends StatelessWidget {
     double cardHeight = MediaQuery.of(context).size.height / 7;
     double cardWidth = MediaQuery.of(context).size.width / 7;
     return InkWell(
-      onTap: () {
+      onTap: () async {
         if (type == "buy") {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => /*add route to product page*/ ViewProduct(
-                productObj: product,
+          var userObj = await getUser(product.creator).then((result) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => /*add route to product page*/ ViewProduct(
+                  productObj: product,
+                  userObj: result,
+                ),
               ),
-            ),
-          );
+            );
+          });
         }
         if (type == "view") {
           Navigator.push(

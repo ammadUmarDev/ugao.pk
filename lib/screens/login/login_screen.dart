@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/components/already_have_an_account_acheck.dart';
+import 'package:ugao/components/button_loading.dart';
 import 'package:ugao/components/rounded_button.dart';
 import 'package:ugao/components/rounded_cnic_field.dart';
 import 'package:ugao/components/rounded_password_field.dart';
@@ -12,7 +13,7 @@ import 'package:ugao/screens/dashboard/dashboard_supplier_screen.dart';
 import 'package:ugao/screens/signup/signup_screen.dart';
 
 import '../../constants.dart';
-import 'package:ugao/Classes/firebase_functions.dart';
+import 'package:ugao/Classes/Firebase_Functions.dart';
 import 'background.dart';
 import 'package:ugao/Classes/User_Model.dart';
 import 'package:ugao/components/rounded_alert_dialog.dart';
@@ -63,11 +64,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   });
                 },
               ),
-              RoundedButton(
-                text: "LOGIN",
-                color: kPrimaryAccentColor,
-                textColor: Colors.white,
-                press: () async {
+              ButtonLoading(
+                labelText: "LOGIN",
+                onTap: () async {
                   if (cnic.length != 15) {
                     showDialog(
                       context: context,
