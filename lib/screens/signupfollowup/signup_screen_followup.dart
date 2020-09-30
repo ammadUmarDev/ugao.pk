@@ -9,7 +9,8 @@ import 'package:ugao/Screens/Login/login_screen.dart';
 import 'package:ugao/components/already_have_an_account_acheck.dart';
 import 'package:ugao/components/button_loading.dart';
 import 'package:ugao/components/h1.dart';
-import 'package:ugao/components/rounded_button.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/rounded_phone_input_field.dart';
 import 'package:ugao/constants.dart';
@@ -19,7 +20,6 @@ import 'package:ugao/screens/dashboard/dashboard_supplier_screen.dart';
 import 'background.dart';
 import 'package:ugao/Classes/User_Model.dart';
 import 'package:ugao/Classes/Firebase_Functions.dart';
-import 'package:ugao/components/rounded_alert_dialog.dart';
 import 'package:ugao/screens/dashboard/dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -244,19 +244,34 @@ class _SignUpScreenFollowupState extends State<SignUpScreenFollowup> {
             },
           );
         } else {
-          showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (context) {
-              return RoundedAlertDialog(
-                title: "Check your internet connection",
-                buttonName: "OK",
-                onButtonPressed: () {
-                  Navigator.pop(context);
-                },
-              );
-            },
-          );
+          Alert(
+              context: context,
+              title: "Check your internet connection",
+              style: AlertStyle(
+                titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+              ),
+              content: Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ButtonLoading(
+                    onTap: () async {
+                      Navigator.pop(context);
+                    },
+                    labelText: 'OK',
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
+              buttons: [
+                DialogButton(
+                  color: Colors.white,
+                  height: 0,
+                ),
+              ]).show();
         }
       },
     );

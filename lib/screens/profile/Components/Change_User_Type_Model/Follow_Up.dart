@@ -11,14 +11,14 @@ import 'package:ugao/Classes/Firebase_Functions.dart';
 import 'package:ugao/Providers/general_provider.dart';
 import 'package:ugao/components/button_loading.dart';
 import 'package:ugao/components/h1.dart';
-import 'package:ugao/components/rounded_alert_dialog.dart';
-import 'package:ugao/components/rounded_button.dart';
+import 'package:ugao/components/h2.dart';
 import 'package:ugao/components/rounded_input_field.dart';
 import 'package:ugao/components/rounded_phone_input_field.dart';
 import 'package:ugao/screens/login/login_screen.dart';
 
 import '../../../../constants.dart';
 import 'background.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class Change_User_Type_FollowUp_State extends StatefulWidget {
   final String fullName;
@@ -86,19 +86,34 @@ class Change_User_Type_FollowUp extends State<Change_User_Type_FollowUp_State> {
         );
         var check = await internetCheck();
         if (check == false) {
-          showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (context) {
-              return RoundedAlertDialog(
-                title: "Check your internet connection",
-                buttonName: "OK",
-                onButtonPressed: () {
-                  Navigator.pop(context);
-                },
-              );
-            },
-          );
+          Alert(
+              context: context,
+              title: "Check your internet connection",
+              style: AlertStyle(
+                titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+              ),
+              content: Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ButtonLoading(
+                    onTap: () async {
+                      Navigator.pop(context);
+                    },
+                    labelText: 'OK',
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
+              buttons: [
+                DialogButton(
+                  color: Colors.white,
+                  height: 0,
+                ),
+              ]).show();
         } else {
           if (user.usertype == FARMER) {
             print("Entered in farmer");
