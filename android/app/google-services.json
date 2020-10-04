@@ -8,18 +8,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:526013074428:android:3dd16683357a10f2398079",
+        "mobilesdk_app_id": "1:526013074428:android:55fad765e5627a74398079",
         "android_client_info": {
           "package_name": "com.vectech.ugao"
         }
       },
       "oauth_client": [
         {
-          "client_id": "526013074428-emcf8rtvues0sf1mdisqnsinsnqaq1fn.apps.googleusercontent.com",
+          "client_id": "526013074428-hqslr0lkt9qrin08hcukql0h8g77bdej.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.vectech.ugao",
-            "certificate_hash": "b4c107c3477e87bbe82bd0aab9080212b83724f7"
+            "certificate_hash": "4efbdbf8ca54329ab1c9718179e2a5c9c092871d"
           }
         },
         {
