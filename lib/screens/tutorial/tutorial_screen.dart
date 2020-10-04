@@ -13,7 +13,10 @@ class Tutorial_Screen extends StatefulWidget {
 
 class _TutorialScreenState extends State<Tutorial_Screen> {
   List<MediaInfo> mediaList = [];
-  List<String> urlList = ["https://youtu.be/3qftaXO1nzc"];
+  List<String> urlList = [
+    "https://youtu.be/3qftaXO1nzc",
+    "https://youtu.be/nv_TsIGVU1M"
+  ];
 
   void openAddLinkDialog() async {
     // Open  thumbnail dialog to add link

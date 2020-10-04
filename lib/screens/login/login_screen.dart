@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:ugao/Providers/general_provider.dart';
@@ -40,9 +41,49 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(height: size.height * 0.05),
-              Text(
-                "LOGIN",
-                style: TextStyle(fontWeight: FontWeight.bold),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "LOGIN",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  FlatButton.icon(
+                    onPressed: () {
+                      Alert(
+                          context: context,
+                          title: "Help",
+                          style: AlertStyle(
+                            titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+                          ),
+                          content: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                "Trouble with login?\nLogin as a farmer using dummy account\nCnic: 23456-7890123-4\nPassword: abcdefgh\nOtp: 123456",
+                                style: H3TextStyle(),
+                                textAlign: TextAlign.center,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                            ],
+                          ),
+                          buttons: [
+                            DialogButton(
+                              color: Colors.white,
+                              height: 0,
+                            ),
+                          ]).show();
+                    },
+                    icon: Icon(FontAwesomeIcons.infoCircle),
+                    label: H3(
+                      textBody: "Help",
+                    ),
+                  )
+                ],
               ),
               SizedBox(height: size.height * 0.05),
               Image.asset(

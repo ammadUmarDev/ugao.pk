@@ -13,28 +13,40 @@ class FaqScreen extends StatefulWidget {
 class _FaqScreenState extends State<FaqScreen> {
   List<Panel> panels = [
     Panel(
-        'HOW CAN I CHANGE MY SHIPPING ADDRESS?',
-        'By default, the last used shipping address will be saved intoto your Sample Store account. When you are checkingout your order, the default shipping address will be displayedand you have the option to amend it if you need to.',
+        'Q: How many accounts can I own?',
+        'A: Corresponding to one phone number, or one CNIC number, you can create only one account.',
+        false),
+    Panel('Q: How long does delivery take?',
+        'A: Delivery usually takes 5-7 business days.', false),
+    Panel('Q: Can I change my order?',
+        'A: You can track your order by going to Profile->My Orders.', false),
+    Panel(
+        'Q: Can I edit my profile?',
+        'A: Yes, you can edit your profile by going to Profile->General Settings->User Settings.',
         false),
     Panel(
-        'HOW MANY FREE SAMPLES CAN I REDEEM?',
-        'Due to the limited quantity, each member`s account is only entitled to 1 unique free sample. You can check out up to 4 free samples in each checkout.',
+        'Q: If I have an account already as a Customer but want to start selling can I change my account?',
+        'A: Yes, you can change your account type in settings. You may have to provide additional information.',
         false),
     Panel(
-        'HOW CAN I TRACK MY ORDERS & PAYMENT?',
-        'By default, the last used shipping address will be saved intoto your Sample Store account. When you are checkingout your order, the default shipping address will be displayedand you have the option to amend it if you need to.',
+        'Q: Can I edit my existing products?',
+        'A: Yes, you can edit your existing products under ‘My Products’.',
         false),
     Panel(
-        'HOW LONG WILL IT TAKE FOR MY ORDER TO ARRIVE AFTER I MAKE PAYMENT?',
-        'By default, the last used shipping address will be saved intoto your Sample Store account. When you are checkingout your order, the default shipping address will be displayedand you have the option to amend it if you need to.',
+        'Q: Can I change my password?',
+        'A: Yes, you can do this by going into Profile->Security Settings.',
         false),
     Panel(
-        'HOW DO YOU SHIP MY ORDERS?',
-        'By default, the last used shipping address will be saved intoto your Sample Store account. When you are checkingout your order, the default shipping address will be displayedand you have the option to amend it if you need to.',
+        'Q: How can I pay for my order?',
+        'A: Currently, you can only pay by cash on delivery or cash on pickup. We will be adding more options in future.',
         false),
     Panel(
-        'HOW DO I MAKE PAYMENTS USING PAYPAL? HOW DOES IT WORK?',
-        'By default, the last used shipping address will be saved intoto your Sample Store account. When you are checkingout your order, the default shipping address will be displayedand you have the option to amend it if you need to.',
+        'Q: Do I always have to confirm a customer’s order?',
+        'A: No, you can choose to not confirm a customer’s order, or cancel it.',
+        false),
+    Panel(
+        'Q: Can customers contact me?',
+        'A: Yes, the customers can contact you on your given contact details (phone number, email address). ',
         false)
   ];
 

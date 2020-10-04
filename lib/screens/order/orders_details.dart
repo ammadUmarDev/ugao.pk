@@ -97,7 +97,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                           height: 10,
                         ),
                         RoundedDropDown(
-                          name: "Account Type",
+                          name: "Select new status",
                           size: size,
                           text: newStatus,
                           value: newStatus,
